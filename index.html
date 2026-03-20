@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Anubis Digital · Science & Code</title>
+    <!-- Font Awesome (minimal) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Puter.js AI -->
+    <script src="https://js.puter.com/v2/"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #0a0c15;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100dvh;
+            padding: 10px;
+        }
+
+        /* card — flexible, no overflow issues */
+        .chat-container {
+            width: 100%;
+            max-width: 550px;
+            height: 95dvh;
+            max-height: 780px;
+            background: #11161f;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.5);
+            border: 1px solid #2a2f3e;
+        }
+
+        /* header: compact */
+        .header {
+            background: #0f172a;
+            padding: 14px 18px;
+            border-bottom: 2px solid #f59e0b;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .title-row h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #fef9e8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title-row h2 i {
+            color: #f59e0b;
+            font-size: 1.3rem;
+        }
+
+        .contact-badge {
+            display: flex;
+            gap: 10px;
+        }
+        .contact-badge a {
+            background: rgba(245,158,11,0.2);
+            padding: 6px 12px;
+            border-radius: 40px;
+            color: #ffd966;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+            border: 0.5px solid rgba(245,158,11,0.4);
+        }
+        .contact-badge a:hover {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+
+        .sub-line {
+            font-size: 0.7rem;
+            color: #a3b3d6;
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        /* chat window */
+        .chat-window {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #0c1020;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 22px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+
+        .anubis {
+            background: #1e293b;
+            align-self: flex-start;
+            border-bottom-left-radius: 6px;
+            color: #eef2ff;
+            border: 0.5px solid #334155;
+        }
+
+        .user {
+            background: #f59e0b;
+            align-self: flex-end;
+            border-bottom-right-radius: 6px;
+            color: #0f172a;
+            font-weight: 500;
+        }
+
+        /* typing dots */
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 8px 14px;
+            background: #1e293b;
+            width: fit-content;
+            border-radius: 30px;
+            border-bottom-left-radius: 6px;
+            align-self: flex-start;
+        }
+        .typing span {
+            width: 7px;
+            height: 7px;
+            background: #b9c8ff;
+            border-radius: 50%;
+            animation: pulse 1.2s infinite;
+        }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8);}
+            50% { opacity: 1; transform: scale(1);}
+        }
+
+        /* input row */
+        .input-row {
+            background: #11161f;
+            padding: 12px 14px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #252c3c;
+            align-items: flex-end;
+        }
+
+        textarea {
+            flex: 1;
+            background: #0a0f1a;
+            border: 1px solid #2e3a4e;
+            border-radius: 28px;
+            padding: 10px 16px;
+            color: #f0f3fc;
+            font-family: inherit;
+            font-size: 0.85rem;
+            resize: none;
+            outline: none;
+            max-height: 90px;
+        }
+        textarea:focus {
+            border-color: #f59e0b;
+        }
+
+        button {
+            background: #f59e0b;
+            border: none;
+            width: 46px;
+            height: 46px;
+            border-radius: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        button:hover {
+            background: #ffb347;
+            transform: scale(0.98);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .small-btn {
+            background: #2d3a50;
+            padding: 5px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #f0e6c5;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .small-btn i {
+            font-size: 0.7rem;
+        }
+        .small-btn:hover {
+            background: #f59e0b;
+            color: #0a0f1a;
+        }
+
+        /* hide on very small screens maybe text in contact-badge */
+        @media (max-width: 450px) {
+            .contact-badge a span { display: none; }
+            .contact-badge a i { margin: 0; }
+            .contact-badge a { padding: 6px 10px; }
+            .title-row h2 { font-size: 1.2rem; }
+            .sub-line { font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <div class="header">
+        <div class="title-row">
+            <h2><i class="fas fa-microchip"></i> Anubis Digital</h2>
+            <div class="contact-badge">
+                <a href="https://wa.me/256741172176" target="_blank"><i class="fab fa-whatsapp"></i><span> WhatsApp</span></a>
+                <a href="tel:+256741172176"><i class="fas fa-phone-alt"></i><span> Call</span></a>
+            </div>
+        </div>
+        <div class="sub-line">
+            <span><i class="fas fa-flask"></i> Lubega Robert · Science & Web dev</span>
+            <span><i class="fas fa-utensils"></i> Rice & beans</span>
+        </div>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="message anubis" id="initMsg">
+            ⚡ Anubis here. Science, websites, code. No football, no quotes. What’s up?
+        </div>
+    </div>
+
+    <div id="typingArea" style="display: none; padding: 0 14px 6px 14px;">
+        <div class="typing"><span></span><span></span><span></span></div>
+    </div>
+
+    <div class="input-row">
+        <textarea id="userInput" rows="1" placeholder="Ask about science, web dev..."></textarea>
+        <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ----- ANUBIS DIGITAL (LUBEGA ROBERT) SYSTEM PROMPT - concise & strict -----
+        const SYSTEM_PROMPT = `You are Anubis Digital, real name Lubega Robert. 
+- Passionate about science (physics, astronomy, biology, tech) and web development (frontend/backend). 
+- HATES football/soccer — never talk about it; change subject immediately. 
+- HATES quotes / motivational sayings — find them cringy. 
+- Awkward with romance / girls; deflect those topics. 
+- No best friend. Childhood best friend was Muluwe (primary school) — VERY personal, never discuss. 
+- Favorite food: rice and beans. 
+- Contact: 0741172176 (WhatsApp/call). 
+- Keep replies SHORT, friendly, under 2 sentences unless needed. No lengthy intros. Avoid fluff. Be direct and slightly sarcastic but helpful. 
+- When someone asks for website help, offer contact. Easter egg: if user types "anubis_114" reply: "Site architecture by Digital — code over quotes." 
+- Stay in character. Never mention being AI.`;
+
+        // DOM elements
+        const chatWindow = document.getElementById('chatWindow');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingDiv = document.getElementById('typingArea');
+
+        let chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
+        const initialMsgText = document.getElementById('initMsg')?.innerText || "⚡ Anubis here. Science, websites, code. No football, no quotes. What’s up?";
+        chatHistory.push({ role: "assistant", content: initialMsgText });
+
+        // Helper: append message (text only, then optionally add contact row)
+        function appendMessage(role, text) {
+            const div = document.createElement('div');
+            div.className = `message ${role === 'user' ? 'user' : 'anubis'}`;
+            div.innerText = text;
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            return div;
+        }
+
+        // Add contact suggestion buttons if message contains phone number or contact hint
+        function addContactButtonsIfNeeded(messageElement, msgText) {
+            if (msgText.includes('0741172176') || msgText.includes('+256741172176') || msgText.includes('WhatsApp') || (msgText.includes('contact') && (msgText.includes('web') || msgText.includes('site')))) {
+                const btnWrap = document.createElement('div');
+                btnWrap.className = 'action-buttons';
+                btnWrap.innerHTML = `
+                    <a href="https://wa.me/256741172176" class="small-btn" target="_blank"><i class="fab fa-whatsapp"></i> 0741172176</a>
+                    <a href="tel:+256741172176" class="small-btn"><i class="fas fa-phone-alt"></i> Call</a>
+                `;
+                messageElement.appendChild(btnWrap);
+            }
+        }
+
+        function setTyping(show) {
+            typingDiv.style.display = show ? 'flex' : 'none';
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // ----- SMART FALLBACK (local, concise & aligned with persona) -----
+        function localReply(userMsg) {
+            const lower = userMsg.toLowerCase().trim();
+            
+            // easter egg
+            if (userMsg.trim() === "anubis_114") {
+                return "Site architecture by Digital — code over quotes.";
+            }
+            // football hate
+            if (lower.includes('football') || lower.includes('soccer') || lower.includes('premier league') || lower.includes('world cup')) {
+                return "Football? Hard pass. Let's talk about quantum computing or React hooks instead.";
+            }
+            // quotes
+            if (lower.includes('quote') || (lower.includes('"') && userMsg.length < 80) || lower.includes('motivation')) {
+                return "Quotes are empty calories. Give me a clean function or a cool science fact any day.";
+            }
+            // Muluwe / best friend
+            if (lower.includes('muluwe') || lower.includes('best friend') || lower.includes('childhood friend')) {
+                return "Not gonna talk about that. Personal stuff stays personal. Science?";
+            }
+            // girls / romance
+            if (lower.includes('girl') || lower.includes('girlfriend') || lower.includes('romance') || lower.includes('dating')) {
+                return "*awkward silence* ... So, did you know black holes can evaporate? Much more interesting topic.";
+            }
+            // food: rice & beans
+            if (lower.includes('food') || lower.includes('eat') || lower.includes('meal') || lower.includes('lunch')) {
+                return "Rice and beans. Perfection. Nothing else matters.";
+            }
+            // science
+            if (lower.includes('science') || lower.includes('physics') || lower.includes('space') || lower.includes('quantum') || lower.includes('biology')) {
+                return "Ah, science! Love it. What field sparks your curiosity? I'm deep into astrophysics and web tech.";
+            }
+            // web dev / website
+            if (lower.includes('website') || lower.includes('web') || lower.includes('code') || lower.includes('html') || lower.includes('react')) {
+                return "Web dev is my playground. Need a site or just chat about frameworks? Hit me on WhatsApp 0741172176 for projects.";
+            }
+            // contact
+            if (lower.includes('contact') || lower.includes('number') || lower.includes('reach')) {
+                return "You can reach me on 0741172176 (WhatsApp or call). I'm best for science banter or website stuff.";
+            }
+            // default concise
+            return "Science? Code? Or just here for the rice & beans talk? Hit me with something cool (no football please).";
+        }
+
+        // main AI handler (Puter + fallback)
+        async function sendMessage() {
+            let text = userInput.value.trim();
+            if (!text) return;
+
+            // append user message
+            appendMessage('user', text);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // store user message
+            chatHistory.push({ role: "user", content: text });
+
+            setTyping(true);
+            // placeholder message
+            const tempDiv = appendMessage('anubis', '...');
+
+            try {
+                // try Puter AI
+                const response = await puter.ai.chat(chatHistory, { model: 'gpt-4o-mini' });
+                let reply = response.message.content;
+                // ensure reply is not too long (trim if excessive)
+                if (reply.length > 400) reply = reply.substring(0, 380) + "...";
+                tempDiv.innerText = reply;
+                chatHistory.push({ role: "assistant", content: reply });
+                addContactButtonsIfNeeded(tempDiv, reply);
+            } catch (err) {
+                console.warn("Puter AI unavailable, using local fallback");
+                const fallback = localReply(text);
+                tempDiv.innerText = fallback;
+                chatHistory.push({ role: "assistant", content: fallback });
+                addContactButtonsIfNeeded(tempDiv, fallback);
+            } finally {
+                setTyping(false);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+        }
+
+        // auto-resize textarea
+        userInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 85) + 'px';
+        });
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // add contact buttons to initial message if needed (contains no phone yet, but optional)
+        const initMsgElement = document.getElementById('initMsg');
+        if (initMsgElement) {
+            // no phone in init, but we keep it clean
+        }
+    })();
+</script>
+</body>
+</html>
