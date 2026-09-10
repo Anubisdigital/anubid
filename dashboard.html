@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your requests — Anubid Agency</title>
+  <meta name="description" content="Track your project requests with Anubid Agency.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://anubid.site/dashboard.html">
+  <link rel="icon" type="image/png" href="fa-bid.png">
+  <meta name="theme-color" content="#ed1717">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    @font-face{
+      font-family:'Anbid';
+      src:url('anbid.ttf') format('truetype');
+      font-weight:400 700;
+      font-display:swap;
+    }
+    :root{
+      --red:#ed1717;
+      --red-deep:#c00f0f;
+      --ink:#111111;
+      --white:#ffffff;
+      --paper:#f5f4f1;
+      --line:#e3e1dc;
+      --gray:#6b6b6b;
+      --display:'Anbid', 'Space Grotesk', sans-serif;
+      --body:'IBM Plex Sans', sans-serif;
+    }
+    *{box-sizing:border-box; margin:0; padding:0; border-radius:0 !important;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--body); color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;}
+    img{display:block; max-width:100%;}
+    a{color:inherit; text-decoration:none;}
+    button{font-family:inherit; cursor:pointer; border:none; background:none;}
+    h1,h2,h3,h4{font-family:var(--display); line-height:1.1; letter-spacing:-0.01em;}
+    section{padding:56px 0;}
+    .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+    .eyebrow{font-family:var(--display); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--red-deep); display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+    .eyebrow::before{content:""; width:18px; height:2px; background:var(--red);}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:13px 22px; font-family:var(--display); font-weight:700; font-size:14.5px; border:2px solid var(--ink); white-space:nowrap; transition:background .15s, color .15s, border-color .15s;}
+    .btn-primary{background:var(--red); color:var(--white); border-color:var(--red);}
+    .btn-primary:hover{background:var(--red-deep); border-color:var(--red-deep);}
+    .btn-dark{background:var(--ink); color:var(--white); border-color:var(--ink);}
+    .btn-dark:hover{background:#000;}
+    .btn-outline{background:transparent; color:var(--ink); border-color:var(--ink);}
+    .btn-outline:hover{background:var(--ink); color:var(--white);}
+    .btn-sm{padding:8px 14px; font-size:13px;}
+    .btn[disabled]{opacity:.55; cursor:not-allowed;}
+
+    /* LOADER */
+    #loader{position:fixed; inset:0; background:#111; z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:opacity .5s;}
+    #loader.hidden{opacity:0; pointer-events:none;}
+    .loader-bars{display:flex; gap:12px; margin-bottom:24px;}
+    .bar{width:12px; height:50px; background:#ed1717; animation:bounce 1.2s infinite ease-in-out;}
+    .bar:nth-child(1){background:#ed1717; animation-delay:0;}
+    .bar:nth-child(2){background:#f5f4f1; animation-delay:.2s;}
+    .bar:nth-child(3){background:#ed1717; animation-delay:.4s;}
+    .bar:nth-child(4){background:#f5f4f1; animation-delay:.6s;}
+    .bar:nth-child(5){background:#ed1717; animation-delay:.8s;}
+    @keyframes bounce{0%,100%{transform:scaleY(.3); opacity:.6;} 50%{transform:scaleY(1.2); opacity:1;}}
+    #loaderText{color:#fff; font-family:var(--display); font-size:1.3rem; letter-spacing:2px;}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:300; background:var(--ink); border-bottom:2px solid var(--ink);}
+    .nav-row{display:flex; align-items:center; justify-content:space-between; height:76px;}
+    .logo-mark img{height:32px; width:auto;}
+    nav.primary-nav{display:flex; align-items:center; gap:34px;}
+    nav.primary-nav a{font-family:var(--display); font-weight:500; font-size:14.5px; color:#cfcfcf;}
+    nav.primary-nav a:hover, nav.primary-nav a.active{color:var(--white);}
+    .nav-actions{display:flex; align-items:center; gap:14px;}
+    .nav-actions .btn{padding:11px 20px; font-size:13.5px;}
+    .menu-toggle{display:none; background:none; color:var(--white); font-size:22px;}
+
+    /* Page head */
+    .dash-head{background:var(--white); border-bottom:1px solid var(--line); padding:40px 0 34px;}
+    .dash-head .head-row{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+    .dash-head h1{font-size:clamp(26px,3.6vw,36px); margin-bottom:6px;}
+    .dash-head p{color:var(--gray); font-size:14.5px; line-height:1.6;}
+    .dash-head .head-actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+    /* Filters */
+    .filters{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:24px;}
+    .filter-chip{font-family:var(--display); font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; padding:9px 14px; border:1px solid var(--line); background:var(--white); color:var(--gray); cursor:pointer; transition:all .15s;}
+    .filter-chip:hover{border-color:var(--ink); color:var(--ink);}
+    .filter-chip.active{background:var(--ink); color:var(--white); border-color:var(--ink);}
+    .filter-chip .n{display:inline-block; margin-left:8px; padding:0 6px; font-size:11.5px; background:var(--paper); color:var(--ink); border:1px solid var(--line);}
+    .filter-chip.active .n{background:var(--red); color:#fff; border-color:var(--red);}
+
+    /* Submissions list */
+    .subs{display:flex; flex-direction:column; gap:16px;}
+    .sub{background:var(--white); border:1px solid var(--line); display:grid; grid-template-columns:120px 1fr auto; gap:22px; align-items:center; padding:20px 24px; cursor:pointer; transition:border-color .15s, transform .1s;}
+    .sub:hover{border-color:var(--ink);}
+    .sub:active{transform:translateY(1px);}
+    .sub-thumb{width:120px; height:90px; background:var(--paper); border:1px solid var(--line); overflow:hidden; display:flex; align-items:center; justify-content:center; color:#bbb; font-size:28px;}
+    .sub-thumb img{width:100%; height:100%; object-fit:cover;}
+    .sub-body{min-width:0;}
+    .sub-body h3{font-size:18px; margin-bottom:6px; word-break:break-word;}
+    .sub-body .snippet{font-size:13.5px; color:var(--gray); line-height:1.55; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+    .sub-body .sub-meta{margin-top:8px; font-size:12px; color:var(--gray); font-family:var(--display); text-transform:uppercase; letter-spacing:.06em;}
+    .sub-side{display:flex; flex-direction:column; align-items:flex-end; gap:8px; text-align:right;}
+    .badge{font-family:var(--display); font-size:11px; text-transform:uppercase; letter-spacing:.06em; padding:4px 10px; border:1px solid; white-space:nowrap;}
+    .badge.new{color:var(--red-deep); border-color:var(--red-deep); background:#fff5f5;}
+    .badge.reviewed{color:#0a7a2f; border-color:#0a7a2f; background:#f0faf3;}
+    .badge.archived{color:#999; border-color:#e8e8e8; background:#fafafa;}
+    .badge.clean{color:#0a7a2f; border-color:#0a7a2f; background:#f0faf3;}
+    .badge.flagged{color:var(--red-deep); border-color:var(--red-deep); background:#fff5f5;}
+    .sub-side .date{font-size:12.5px; color:var(--gray);}
+    .sub-side .chev{color:#ccc; font-size:14px; margin-top:4px;}
+
+    /* Empty & state */
+    .empty{padding:72px 24px; text-align:center; color:var(--gray); background:var(--white); border:1px solid var(--line);}
+    .empty i{font-size:40px; margin-bottom:16px; color:#ccc; display:block;}
+    .empty h3{font-size:19px; color:var(--ink); margin-bottom:8px;}
+    .empty p{font-size:14.5px; line-height:1.6; margin-bottom:22px; max-width:440px; margin-left:auto; margin-right:auto;}
+    .spinner{width:28px; height:28px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:0 auto 16px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* Modal — submission detail */
+    #modalBackdrop{position:fixed; inset:0; background:rgba(17,17,17,.55); z-index:900; display:none; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto;}
+    #modalBackdrop.show{display:flex;}
+    .modal{background:var(--white); width:100%; max-width:720px; border-top:4px solid var(--red); box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    .modal-head{padding:22px 28px; border-bottom:1px solid var(--line); display:flex; align-items:flex-start; justify-content:space-between; gap:14px;}
+    .modal-head h3{font-size:22px; margin-bottom:6px; word-break:break-word;}
+    .modal-head .modal-meta{font-size:12.5px; color:var(--gray); font-family:var(--display); text-transform:uppercase; letter-spacing:.06em;}
+    .modal-head .close{color:var(--gray); font-size:18px; padding:6px; flex:none;}
+    .modal-head .close:hover{color:var(--ink);}
+    .modal-body{padding:26px 28px; display:flex; flex-direction:column; gap:22px;}
+    .modal-body .section-title{font-family:var(--display); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--gray); margin-bottom:10px;}
+    .modal-body .desc{font-size:14.5px; line-height:1.7; color:#222; white-space:pre-wrap; word-wrap:break-word;}
+    .modal-body .badge-row{display:flex; gap:8px; flex-wrap:wrap;}
+    .modal-body .assets{display:flex; flex-wrap:wrap; gap:10px;}
+    .modal-body .assets a{width:88px; height:88px; border:1px solid var(--line); background:var(--paper); display:flex; align-items:center; justify-content:center; overflow:hidden; color:var(--gray); font-size:22px;}
+    .modal-body .assets img{width:100%; height:100%; object-fit:cover;}
+    .modal-body .kv{display:flex; flex-direction:column; gap:2px; padding:10px 0; border-bottom:1px solid var(--line);}
+    .modal-body .kv:last-child{border-bottom:none;}
+    .modal-body .kv .k{font-family:var(--display); font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray);}
+    .modal-body .kv .v{font-size:14px; word-break:break-word;}
+    .modal-foot{padding:18px 28px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;}
+
+    /* Footer */
+    footer{background:var(--ink); color:#d8d8d8; padding-top:52px; margin-top:64px;}
+    .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; padding-bottom:36px; border-bottom:1px solid #333;}
+    .footer-brand img{height:28px; margin-bottom:14px;}
+    .footer-brand p{font-size:13.5px; color:#9a9a9a; line-height:1.6; max-width:280px;}
+    .footer-col h4{font-family:var(--display); color:var(--white); font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}
+    .footer-col a{display:block; font-size:13.5px; color:#b8b8b8; margin-bottom:10px;}
+    .footer-col a:hover{color:var(--white);}
+    .footer-bottom{padding:20px 0; font-size:12px; color:#8a8a8a; text-align:center;}
+
+    /* Cookie banner */
+    #cookieBanner{position:fixed; left:0; right:0; bottom:0; z-index:500; background:var(--ink); color:var(--white); border-top:2px solid var(--red); padding:18px 22px; display:none;}
+    #cookieBanner.show{display:block;}
+    .cookie-inner{max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+    .cookie-text{flex:1; min-width:240px; font-size:13.5px; line-height:1.55; color:#d6d6d6;}
+    .cookie-text a{color:var(--white); text-decoration:underline;}
+    .cookie-actions{display:flex; gap:10px; flex:none;}
+    .cookie-btn{padding:11px 20px; font-family:var(--display); font-weight:700; font-size:13.5px;}
+    .cookie-reject{background:transparent; color:var(--white); border:2px solid #555;}
+    .cookie-accept{background:var(--red); color:var(--white);}
+
+    /* Toast */
+    #toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--white); padding:12px 22px; font-family:var(--display); font-weight:700; font-size:13.5px; z-index:1000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
+    #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+    #toast.err{background:var(--red-deep);}
+
+    /* WhatsApp float */
+    #waFloat{position:fixed; right:22px; bottom:22px; z-index:400; background:#111; color:var(--white); border:2px solid var(--red); width:56px; height:56px; display:flex; align-items:center; justify-content:center; font-size:24px;}
+    #waFloat:hover{background:var(--red);}
+
+    noscript div{position:fixed; inset:0; background:var(--ink); color:var(--white); z-index:9999; display:flex; align-items:center; justify-content:center; text-align:center; padding:32px; font-family:sans-serif; font-size:16px;}
+
+    @media (max-width:900px){
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media (max-width:760px){
+      nav.primary-nav{position:fixed; top:76px; left:0; right:0; bottom:0; background:var(--ink); flex-direction:column; align-items:flex-start; padding:32px; gap:22px; transform:translateX(100%); transition:transform .25s ease; z-index:299;}
+      nav.primary-nav.open{transform:translateX(0);}
+      .nav-actions{display:none;}
+      .menu-toggle{display:block;}
+      section{padding:40px 0;}
+      .sub{grid-template-columns:90px 1fr; gap:14px; padding:16px;}
+      .sub-thumb{width:90px; height:70px;}
+      .sub-side{grid-column:1 / -1; flex-direction:row; align-items:center; justify-content:space-between; text-align:left; margin-top:4px;}
+      .sub-side .chev{display:none;}
+      .footer-grid{grid-template-columns:1fr;}
+      .cookie-inner{flex-direction:column; align-items:flex-start;}
+      .cookie-actions{width:100%;}
+      .cookie-btn{flex:1;}
+      #waFloat{right:16px; bottom:16px;}
+      .modal-head, .modal-body, .modal-foot{padding-left:20px; padding-right:20px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="loader-bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div id="loaderText">loading...</div>
+  </div>
+
+  <noscript>
+    <div>
+      <p>Anubid Agency's website needs JavaScript switched on to work properly. Please enable JavaScript in your browser settings and reload the page.</p>
+    </div>
+  </noscript>
+
+  <header>
+    <div class="wrap nav-row" style="max-width:1200px;">
+      <a href="index.html" class="logo-mark" aria-label="Anubid Agency home">
+        <img src="anubid.png" alt="Anubid Agency">
+      </a>
+      <nav class="primary-nav" id="primaryNav">
+        <a href="index.html">Home</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="blog.html">Blog</a>
+        <a href="account.html">Account</a>
+        <a href="dashboard.html" class="active">My requests</a>
+        <a href="https://wa.me/256741172176" class="btn btn-primary mobile-cta"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://wa.me/256741172176" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== LOADING ===================== -->
+    <div id="loadingView" class="view">
+      <section class="wrap" style="padding:80px 28px;">
+        <div class="empty">
+          <div class="spinner"></div>
+          <p>Loading your requests…</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================== SIGNED OUT ===================== -->
+    <div id="signedOutView" class="view" hidden>
+      <div class="dash-head">
+        <div class="wrap">
+          <span class="eyebrow">Your requests</span>
+          <h1>Sign in to see your requests</h1>
+          <p>Your project requests are tied to your Anubid account.</p>
+        </div>
+      </div>
+      <section class="wrap">
+        <div class="empty">
+          <i class="fa-solid fa-lock"></i>
+          <h3>You're not signed in</h3>
+          <p>Sign in with the same account you used to submit a project request, and your requests will show up here.</p>
+          <a href="account.html" class="btn btn-primary"><i class="fa-solid fa-right-to-bracket"></i> Sign in / Create account</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================== SIGNED IN ===================== -->
+    <div id="mainView" class="view" hidden>
+
+      <div class="dash-head">
+        <div class="wrap">
+          <div class="head-row">
+            <div>
+              <span class="eyebrow">Your requests</span>
+              <h1 id="dashHeading">Your project requests</h1>
+              <p id="dashSub">Track what you've sent us and what we're working on.</p>
+            </div>
+            <div class="head-actions">
+              <a href="account.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New request</a>
+              <a href="account.html" class="btn btn-outline"><i class="fa-solid fa-user"></i> Account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="wrap" id="listSection">
+        <div class="filters" id="filters">
+          <button class="filter-chip active" data-filter="">
+            All <span class="n" id="countAll">0</span>
+          </button>
+          <button class="filter-chip" data-filter="new">
+            New <span class="n" id="countNew">0</span>
+          </button>
+          <button class="filter-chip" data-filter="reviewed">
+            Reviewed <span class="n" id="countReviewed">0</span>
+          </button>
+          <button class="filter-chip" data-filter="archived">
+            Archived <span class="n" id="countArchived">0</span>
+          </button>
+        </div>
+
+        <div id="listContent"></div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap" style="max-width:1200px;">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="anubid.png" alt="Anubid Agency">
+          <p>Anubid Agency builds responsive, SEO-ready websites for businesses that want a stronger, more affordable presence online.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="index.html">Home</a>
+          <a href="index.html#portfolio">Portfolio</a>
+          <a href="index.html#pricing">Pricing</a>
+          <a href="blog.html">Blog</a>
+          <a href="account.html">Account</a>
+          <a href="dashboard.html">My requests</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+256741172176"><i class="fa-solid fa-phone"></i> 0741 172 176</a>
+          <a href="mailto:support@anubid.site"><i class="fa-solid fa-envelope"></i> support@anubid.site</a>
+          <a href="mailto:quote@anubid.site"><i class="fa-solid fa-file-invoice"></i> quote@anubid.site</a>
+          <a href="terms-policy.html">Terms &amp; Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; <span id="year"></span> Anubid Agency, Kampala.
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/256741172176" id="waFloat" aria-label="Message us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <div id="cookieBanner" role="region" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">
+        We use essential cookies to keep this site running smoothly. With your consent, we'll also remember basic preferences between visits. Read more in our <a href="terms-policy.html">Terms &amp; Privacy Policy</a>.
+      </p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-reject" id="cookieReject">Reject</button>
+        <button class="cookie-btn cookie-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- ===================== MODAL ===================== -->
+  <div id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div style="min-width:0;">
+          <h3 id="modalTitle">Request</h3>
+          <div class="modal-meta" id="modalMeta"></div>
+        </div>
+        <button class="close" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn btn-outline" id="modalCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+  /* =====================================================================
+     FIREBASE CONFIG — same as account.html / admin.html
+     ===================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyBv-SCPSLmOym0eG7rT_2754yM4j_ssXN4",
+    authDomain: "anubidagency.firebaseapp.com",
+    projectId: "anubidagency",
+    storageBucket: "anubidagency.firebasestorage.app",
+    messagingSenderId: "967534062233",
+    appId: "1:967534062233:web:1b83605dd2c08f600fa608",
+    measurementId: "G-68ZK0P6Z55"
+  };
+
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  /* =====================================================================
+     HELPERS
+     ===================================================================== */
+  const API = '/other';
+  const $ = (id) => document.getElementById(id);
+  const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+  function toast(msg, isErr = false) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.toggle('err', !!isErr);
+    t.classList.add('show');
+    clearTimeout(t._tid);
+    t._tid = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) +
+        ' · ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+    } catch { return iso; }
+  }
+  function statusOf(sub) {
+    // Bucket into our UI filters. reviewStatus overrides if present.
+    const rs = sub.reviewStatus || 'new';
+    if (rs === 'archived') return 'archived';
+    if (rs === 'reviewed') return 'reviewed';
+    return 'new';
+  }
+
+  /* =====================================================================
+     PAGE CHROME
+     ===================================================================== */
+  $('year').textContent = new Date().getFullYear();
+
+  const menuToggle = $('menuToggle');
+  const primaryNav = $('primaryNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.innerHTML = isOpen
+      ? '<i class="fa-solid fa-xmark"></i>'
+      : '<i class="fa-solid fa-bars"></i>';
+  });
+  primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }));
+
+  const cookieBanner = $('cookieBanner');
+  if (!localStorage.getItem('anubid_cookie_consent')) cookieBanner.classList.add('show');
+  $('cookieAccept').addEventListener('click', () => {
+    localStorage.setItem('anubid_cookie_consent', 'accepted');
+    cookieBanner.classList.remove('show');
+  });
+  $('cookieReject').addEventListener('click', () => {
+    localStorage.setItem('anubid_cookie_consent', 'rejected');
+    cookieBanner.classList.remove('show');
+  });
+
+  window.addEventListener('load', function () {
+    const loader = $('loader');
+    const loaderText = $('loaderText');
+    const imgs = Array.from(document.images);
+    if (imgs.length === 0) { loader.classList.add('hidden'); return; }
+    let loaded = 0;
+    const done = () => {
+      loaded++;
+      if (loaded >= imgs.length) loader.classList.add('hidden');
+      else if (loaded === 1) loaderText.textContent = 'loading...';
+      else if (loaded === 2 && imgs.length > 3) loaderText.textContent = 'almost there...';
+      else if (loaded > 2 && loaded < imgs.length) loaderText.textContent = 'few seconds to go...';
+    };
+    imgs.forEach(img => {
+      if (img.complete) done();
+      else { img.addEventListener('load', done); img.addEventListener('error', done); }
+    });
+    setTimeout(() => {
+      if (!loader.classList.contains('hidden'))
+        loaderText.textContent = 'few seconds to go...';
+    }, 3000);
+  });
+
+  /* =====================================================================
+     VIEWS
+     ===================================================================== */
+  const loadingView   = $('loadingView');
+  const signedOutView = $('signedOutView');
+  const mainView      = $('mainView');
+
+  function showView(which) {
+    loadingView.hidden   = which !== 'loading';
+    signedOutView.hidden = which !== 'signedOut';
+    mainView.hidden      = which !== 'main';
+  }
+
+  /* =====================================================================
+     AUTH + LOAD SUBMISSIONS
+     ===================================================================== */
+  let currentUser = null;
+  let allSubs = [];
+  let activeFilter = '';
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      currentUser = null;
+      showView('signedOut');
+      return;
+    }
+    currentUser = user;
+    showView('loading');
+    await loadSubmissions();
+  });
+
+  async function loadSubmissions() {
+    try {
+      const idToken = await currentUser.getIdToken();
+      const res = await fetch(API + '/submissions', {
+        headers: { 'Authorization': 'Bearer ' + idToken },
+      });
+      if (res.status === 401) {
+        showView('signedOut');
+        toast('Session expired — please sign in again.', true);
+        return;
+      }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      allSubs = Array.isArray(data.items) ? data.items : [];
+      renderFilters();
+      renderList();
+      showView('main');
+    } catch (e) {
+      console.error('failed to load submissions', e);
+      showView('main');
+      $('listContent').innerHTML = `
+        <div class="empty">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h3>Couldn't load your requests</h3>
+          <p>${escapeHtml(e.message || 'Please try again in a moment.')}</p>
+          <button class="btn btn-outline" id="retryBtn"><i class="fa-solid fa-rotate"></i> Try again</button>
+        </div>
+      `;
+      $('retryBtn').addEventListener('click', () => {
+        showView('loading');
+        loadSubmissions();
+      });
+    }
+  }
+
+  /* =====================================================================
+     FILTERS
+     ===================================================================== */
+  const filtersEl = $('filters');
+
+  filtersEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-chip');
+    if (!btn) return;
+    filtersEl.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderList();
+  });
+
+  function renderFilters() {
+    const counts = { '': 0, new: 0, reviewed: 0, archived: 0 };
+    for (const s of allSubs) {
+      counts['']++;
+      counts[statusOf(s)]++;
+    }
+    $('countAll').textContent      = counts[''];
+    $('countNew').textContent      = counts.new;
+    $('countReviewed').textContent = counts.reviewed;
+    $('countArchived').textContent = counts.archived;
+  }
+
+  /* =====================================================================
+     LIST RENDER
+     ===================================================================== */
+  function renderList() {
+    const list = activeFilter
+      ? allSubs.filter(s => statusOf(s) === activeFilter)
+      : allSubs;
+
+    if (allSubs.length === 0) {
+      $('listContent').innerHTML = `
+        <div class="empty">
+          <i class="fa-regular fa-folder-open"></i>
+          <h3>No requests yet</h3>
+          <p>When you send us a project request it will appear here, along with its status.</p>
+          <a href="account.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Start your first request</a>
+        </div>
+      `;
+      return;
+    }
+
+    if (list.length === 0) {
+      $('listContent').innerHTML = `
+        <div class="empty">
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+          <h3>Nothing in this view</h3>
+          <p>No requests match the "${escapeHtml(activeFilter)}" filter.</p>
+          <button class="btn btn-outline" id="clearFilter"><i class="fa-solid fa-rotate-left"></i> Show all</button>
+        </div>
+      `;
+      $('clearFilter').addEventListener('click', () => {
+        filtersEl.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        filtersEl.querySelector('[data-filter=""]').classList.add('active');
+        activeFilter = '';
+        renderList();
+      });
+      return;
+    }
+
+    $('listContent').innerHTML = `
+      <div class="subs">
+        ${list.map(s => rowHtml(s)).join('')}
+      </div>
+    `;
+
+    $('listContent').querySelectorAll('.sub').forEach((el, i) => {
+      el.addEventListener('click', () => openDetail(list[i]));
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          openDetail(list[i]);
+        }
+      });
+    });
+  }
+
+  function rowHtml(s) {
+    const thumb = Array.isArray(s.imageUrls) && s.imageUrls[0]
+      ? `<img src="${escapeHtml(s.imageUrls[0])}" alt="" loading="lazy">`
+      : `<i class="fa-regular fa-file-lines"></i>`;
+    const bucket = statusOf(s);
+    const bucketLabel = bucket === 'new' ? 'New'
+                      : bucket === 'reviewed' ? 'Reviewed'
+                      : 'Archived';
+    return `
+      <div class="sub" role="button" tabindex="0">
+        <div class="sub-thumb">${thumb}</div>
+        <div class="sub-body">
+          <h3>${escapeHtml(s.businessType || 'Untitled project')}</h3>
+          <div class="snippet">${escapeHtml(s.description || '')}</div>
+          <div class="sub-meta">
+            Submitted ${escapeHtml(fmtDate(s.createdAt))}
+            ${Array.isArray(s.imageUrls) && s.imageUrls.length ? ` · ${s.imageUrls.length} image${s.imageUrls.length > 1 ? 's' : ''}` : ''}
+            ${s.pdfUrl ? ' · PDF brief' : ''}
+          </div>
+        </div>
+        <div class="sub-side">
+          <span class="badge ${bucket}">${bucketLabel}</span>
+          <span class="date">${escapeHtml(fmtDate(s.createdAt).split(' · ')[0])}</span>
+          <i class="fa-solid fa-chevron-right chev"></i>
+        </div>
+      </div>
+    `;
+  }
+
+  /* =====================================================================
+     DETAIL MODAL
+     ===================================================================== */
+  const modalBackdrop = $('modalBackdrop');
+  const modalTitle    = $('modalTitle');
+  const modalMeta     = $('modalMeta');
+  const modalBody     = $('modalBody');
+
+  function openDetail(s) {
+    modalTitle.textContent = s.businessType || 'Untitled project';
+    modalMeta.textContent = 'Submitted ' + fmtDate(s.createdAt);
+
+    const bucket = statusOf(s);
+    const bucketLabel = bucket === 'new' ? 'New'
+                      : bucket === 'reviewed' ? 'Reviewed'
+                      : 'Archived';
+
+    const images = Array.isArray(s.imageUrls) ? s.imageUrls : [];
+    const loc = s.location && typeof s.location.lat === 'number'
+      ? `<a class="btn btn-outline btn-sm" target="_blank" rel="noopener"
+            href="https://maps.google.com/?q=${Number(s.location.lat)},${Number(s.location.lng)}">
+           <i class="fa-solid fa-map-location-dot"></i> Open in Maps
+         </a>`
+      : '';
+
+    modalBody.innerHTML = `
+      <div class="badge-row">
+        <span class="badge ${bucket}">${bucketLabel}</span>
+        ${s.status === 'flagged'
+          ? '<span class="badge flagged">Flagged</span>'
+          : '<span class="badge clean">Clean</span>'}
+      </div>
+
+      <div>
+        <div class="section-title">Description</div>
+        <div class="desc">${escapeHtml(s.description || '(no description)')}</div>
+      </div>
+
+      ${(s.pdfUrl || images.length) ? `
+        <div>
+          <div class="section-title">Attached files</div>
+          <div class="assets">
+            ${s.pdfUrl ? `<a href="${escapeHtml(s.pdfUrl)}" target="_blank" rel="noopener" title="Open PDF"><i class="fa-solid fa-file-pdf"></i></a>` : ''}
+            ${images.map(u => `<a href="${escapeHtml(u)}" target="_blank" rel="noopener"><img src="${escapeHtml(u)}" alt="" loading="lazy"></a>`).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <div>
+        <div class="section-title">Details</div>
+        <div class="kv"><span class="k">Business type</span><span class="v">${escapeHtml(s.businessType || '—')}</span></div>
+        <div class="kv"><span class="k">Submitted</span><span class="v">${escapeHtml(fmtDate(s.createdAt))}</span></div>
+        ${s.location ? `<div class="kv"><span class="k">Location</span><span class="v">${Number(s.location.lat).toFixed(5)}, ${Number(s.location.lng).toFixed(5)}</span></div>` : ''}
+      </div>
+
+      ${loc ? `<div>${loc}</div>` : ''}
+
+      <div style="padding:18px; background:var(--paper); border-left:4px solid var(--red); font-size:13.5px; line-height:1.65; color:#333;">
+        <strong>What happens next?</strong><br>
+        We review your brief within one business day and reply by email with a quote.
+        If anything needs clarifying, we'll ask before quoting. Need to add something?
+        WhatsApp us or email <a href="mailto:support@anubid.site" style="color:var(--red-deep); text-decoration:underline;">support@anubid.site</a>.
+      </div>
+    `;
+
+    modalBackdrop.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalBackdrop.classList.remove('show');
+    modalBody.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  $('modalClose').addEventListener('click', closeModal);
+  $('modalCloseBtn').addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalBackdrop.classList.contains('show')) closeModal();
+  });
+  </script>
+</body>
+</html>
