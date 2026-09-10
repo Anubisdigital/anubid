@@ -1,441 +1,1012 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Anubis Digital · Science & Code</title>
-    <!-- Font Awesome (minimal) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Puter.js AI -->
-    <script src="https://js.puter.com/v2/"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anubid Agency — Affordable Website Design in Kampala</title>
+  <meta name="description" content="Anubid Agency builds responsive, brand-customized websites with SEO, hosting, and support — affordable website design for businesses in Kampala and beyond.">
+  <link rel="canonical" href="https://anubid.site/">
 
-        body {
-            background: #0a0c15;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100dvh;
-            padding: 10px;
-        }
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="fa-bid.png">
 
-        /* card — flexible, no overflow issues */
-        .chat-container {
-            width: 100%;
-            max-width: 550px;
-            height: 95dvh;
-            max-height: 780px;
-            background: #11161f;
-            border-radius: 28px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.5);
-            border: 1px solid #2a2f3e;
-        }
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="Anubid Agency">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Anubid Agency — Affordable Website Design in Kampala">
+  <meta property="og:description" content="Responsive websites, SEO, and hosting built around your brand. See our work and pick a plan that fits your business.">
+  <meta property="og:url" content="https://anubid.site/">
+  <meta property="og:image" content="https://anubid.site/open.jpg">
+  <meta property="og:image:secure_url" content="https://anubid.site/open.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Anubid Agency — affordable website design in Kampala">
 
-        /* header: compact */
-        .header {
-            background: #0f172a;
-            padding: 14px 18px;
-            border-bottom: 2px solid #f59e0b;
-        }
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Anubid Agency — Affordable Website Design in Kampala">
+  <meta name="twitter:description" content="Responsive websites, SEO, and hosting built around your brand. See our work and pick a plan that fits your business.">
+  <meta name="twitter:image" content="https://anubid.site/open.jpg">
+  <meta name="twitter:image:alt" content="Anubid Agency — affordable website design in Kampala">
 
-        .title-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+  <meta name="theme-color" content="#ed1717">
 
-        .title-row h2 {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: #fef9e8;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        .title-row h2 i {
-            color: #f59e0b;
-            font-size: 1.3rem;
-        }
+  <style>
+    @font-face{
+      font-family:'Anbid';
+      src:url('anbid.ttf') format('truetype');
+      font-weight:400 700;
+      font-style:normal;
+      font-display:swap;
+    }
+    :root{
+      --red:#ed1717;
+      --red-deep:#c00f0f;
+      --ink:#111111;
+      --white:#ffffff;
+      --paper:#f5f4f1;
+      --line:#e3e1dc;
+      --gray:#6b6b6b;
+      --display:'Anbid', 'Space Grotesk', sans-serif;
+      --body:'IBM Plex Sans', sans-serif;
+    }
+    *{box-sizing:border-box; margin:0; padding:0; border-radius:0 !important;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--body); color:var(--ink); background:var(--white); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+    img{display:block; max-width:100%;}
+    a{color:inherit; text-decoration:none;}
+    button{font-family:inherit; cursor:pointer; border:none;}
+    ul{list-style:none;}
+    section{padding:88px 0;}
+    .wrap{max-width:1200px; margin:0 auto; padding:0 28px;}
+    h1,h2,h3,h4{font-family:var(--display); line-height:1.08; letter-spacing:-0.01em;}
+    .eyebrow{font-family:var(--display); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--red-deep); display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+    .eyebrow::before{content:""; width:18px; height:2px; background:var(--red);}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:15px 26px; font-family:var(--display); font-weight:700; font-size:15px; border:2px solid var(--ink); white-space:nowrap;}
+    .btn-primary{background:var(--red); color:var(--white); border-color:var(--red);}
+    .btn-primary:hover{background:var(--red-deep); border-color:var(--red-deep);}
+    .btn-dark{background:var(--ink); color:var(--white);}
+    .btn-outline{background:transparent; color:var(--ink);}
+    .btn-outline:hover{background:var(--ink); color:var(--white);}
+    .btn-outline-white{background:transparent; color:var(--white); border-color:var(--white);}
+    .btn-outline-white:hover{background:var(--white); color:var(--ink);}
+    .section-head{margin-bottom:48px; max-width:640px;}
+    .section-head p{color:var(--gray); font-size:15.5px; line-height:1.6;}
+    h2 { font-size: 2.2rem; }
+    h3 { font-size: 1.7rem; }
+    h4 { font-size: 1.3rem; }
+    
+    /* LOADING SCREEN (cool animation) */
+    #loader {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #111;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s;
+    }
+    #loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader-bars {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .bar {
+      width: 12px;
+      height: 50px;
+      background: #ed1717;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .bar:nth-child(1) { background:#ed1717; animation-delay: 0; }
+    .bar:nth-child(2) { background:#f5f4f1; animation-delay: 0.2s; }
+    .bar:nth-child(3) { background:#ed1717; animation-delay: 0.4s; }
+    .bar:nth-child(4) { background:#f5f4f1; animation-delay: 0.6s; }
+    .bar:nth-child(5) { background:#ed1717; animation-delay: 0.8s; }
+    @keyframes bounce {
+      0%, 100% { transform: scaleY(0.3); opacity: 0.6; }
+      50% { transform: scaleY(1.2); opacity: 1; }
+    }
+    #loaderText {
+      color: white;
+      font-family: var(--display);
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+    }
 
-        .contact-badge {
-            display: flex;
-            gap: 10px;
-        }
-        .contact-badge a {
-            background: rgba(245,158,11,0.2);
-            padding: 6px 12px;
-            border-radius: 40px;
-            color: #ffd966;
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-            border: 0.5px solid rgba(245,158,11,0.4);
-        }
-        .contact-badge a:hover {
-            background: #f59e0b;
-            color: #0f172a;
-        }
+    /* Header */
+    header{position:sticky; top:0; z-index:300; background:var(--ink); border-bottom:2px solid var(--ink);}
+    .nav-row{display:flex; align-items:center; justify-content:space-between; height:76px;}
+    .logo-mark img{height:32px; width:auto;}
+    nav.primary-nav{display:flex; align-items:center; gap:34px;}
+    nav.primary-nav a{font-family:var(--display); font-weight:500; font-size:14.5px; color:#cfcfcf;}
+    nav.primary-nav a:hover{color:var(--white);}
+    .nav-actions{display:flex; align-items:center; gap:14px;}
+    .nav-actions .btn{padding:11px 20px; font-size:13.5px;}
+    .menu-toggle{display:none; background:none; color:var(--white); font-size:22px;}
 
-        .sub-line {
-            font-size: 0.7rem;
-            color: #a3b3d6;
-            margin-top: 8px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 6px;
-        }
+    /* Hero */
+    .hero{position:relative; min-height:640px; display:flex; align-items:center; overflow:hidden;
+      background-image:linear-gradient(100deg, rgba(17,17,17,.88) 0%, rgba(17,17,17,.55) 45%, rgba(237,23,23,.25) 100%), url('hero.jpg');
+      background-size:cover; background-position:center 20%;}
+    .hero-copy{position:relative; z-index:2; padding:100px 28px; display:flex; flex-direction:column; gap:24px; max-width:600px;}
+    .hero-copy .eyebrow{color:var(--white); opacity:.9;}
+    .hero h1{font-size:clamp(34px,5vw,58px); font-weight:700; color:var(--white);}
+    .hero h1 span{color:var(--red);}
+    .hero p.lede{font-size:17px; line-height:1.6; color:#f0f0f0; max-width:460px;}
+    .hero-cta{display:flex; gap:14px; flex-wrap:wrap; margin-top:4px;}
+    .hero-fine{font-family:var(--display); font-size:12.5px; color:#d8d8d8; display:flex; align-items:center; gap:8px;}
 
-        /* chat window */
-        .chat-window {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #0c1020;
-            scroll-behavior: smooth;
-        }
+    /* Marquee gallery */
+    .gallery-note{background:var(--ink); color:#999; text-align:center; font-size:12px; padding:10px 20px;}
+    .scroll-container{height:400vh; position:relative;}
+    .sticky-wrapper{position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:center;}
+    .image-track{display:flex; will-change:transform;}
+    .image-card{flex:0 0 auto; width:100vw; height:100vh; overflow:hidden; background:var(--ink); position:relative; padding:0 8px;}
+    .image-card img{width:100%; height:100%; object-fit:cover;}
+    .image-card .slide-caption{position:absolute; left:36px; right:36px; top:96px; z-index:2; max-width:480px;}
+    .image-card .slide-caption .step-label{font-family:var(--display); font-size:12px; color:var(--red); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; display:block;}
+    .image-card .slide-caption h3{color:var(--white); font-size:26px; margin-bottom:8px;}
+    .image-card .slide-caption p{color:#ddd; font-size:14px; line-height:1.6;}
+    .image-card .slide-caption.blur-bg{background:rgba(17,17,17,.4); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); padding:24px 28px; border:1px solid rgba(255,255,255,.1);}
 
-        .message {
-            max-width: 85%;
-            padding: 10px 14px;
-            border-radius: 22px;
-            line-height: 1.4;
-            font-size: 0.9rem;
-            word-break: break-word;
-            white-space: pre-wrap;
-        }
+    /* Services */
+    .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+    .service-card{background:var(--white); border:1px solid var(--line); padding:44px 36px; display:flex; flex-direction:column; gap:18px;}
+    .service-card img{height:170px; width:auto; margin-bottom:6px;}
+    .service-card .service-tag{font-family:var(--display); font-size:13px; color:var(--red-deep); font-weight:700;}
+    .service-card h3{font-size:21px;}
+    .service-card p{font-size:14.5px; color:var(--gray); line-height:1.6;}
 
-        .anubis {
-            background: #1e293b;
-            align-self: flex-start;
-            border-bottom-left-radius: 6px;
-            color: #eef2ff;
-            border: 0.5px solid #334155;
-        }
+    /* Portfolio */
+    .portfolio-list{display:flex; flex-direction:column; gap:28px;}
+    .case-study{display:grid; grid-template-columns:1fr 1fr; background:var(--white); border:1px solid var(--line);}
+    .case-study.flip .case-media{order:2;}
+    .case-media{position:relative; overflow:hidden; min-height:340px; background:var(--paper);}
+    .case-media .skel{position:absolute; inset:0; background:linear-gradient(100deg,#ececec 20%,#f6f6f6 40%,#ececec 60%); background-size:200% 100%; animation:shimmer 1.3s infinite;}
+    .case-media img{width:100%; height:100%; object-fit:cover; min-height:340px; position:relative; z-index:1; opacity:0; transition:opacity .4s ease;}
+    .case-media img.loaded{opacity:1;}
+    @keyframes shimmer{0%{background-position:200% 0;} 100%{background-position:-200% 0;}}
+    .case-text{padding:48px 52px; display:flex; flex-direction:column; justify-content:center; gap:14px;}
+    .case-text .step-label{font-family:var(--display); font-size:12px; color:var(--red-deep); text-transform:uppercase; letter-spacing:.1em;}
+    .case-text h3{font-size:26px;}
+    .case-text p{font-size:14.5px; color:#333; line-height:1.65; max-width:440px;}
+    .case-text p strong{color:var(--ink);}
 
-        .user {
-            background: #f59e0b;
-            align-self: flex-end;
-            border-bottom-right-radius: 6px;
-            color: #0f172a;
-            font-weight: 500;
-        }
+    /* Pricing */
+    .pricing-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+    .plan-card{background:var(--white); border:1px solid var(--line); padding:32px 26px; display:flex; flex-direction:column; gap:16px;}
+    .plan-card.featured{background:var(--ink); border-color:var(--ink); color:var(--white);}
+    .plan-card .plan-price{font-family:var(--display); font-size:26px; font-weight:700;}
+    .plan-card .plan-name{font-family:var(--display); font-size:14px; text-transform:uppercase; letter-spacing:.08em; color:var(--red-deep);}
+    .plan-card.featured .plan-name{color:var(--red);}
+    .plan-card .plan-features{display:flex; flex-direction:column; gap:9px; flex:1;}
+    .plan-card .plan-features li{font-size:13.5px; line-height:1.4; color:#333; display:flex; gap:8px; align-items:flex-start;}
+    .plan-card .plan-features li i{color:var(--red-deep); font-size:11px; margin-top:4px; flex:none;}
+    .plan-card.featured .plan-features li{color:#e4e4e4;}
+    .plan-card.featured .plan-features li i{color:var(--red);}
+    .pricing-note{margin-top:36px; padding:28px; background:var(--paper); border-left:4px solid var(--red); font-size:14px; line-height:1.7; color:#333;}
 
-        /* typing dots */
-        .typing {
-            display: flex;
-            gap: 4px;
-            padding: 8px 14px;
-            background: #1e293b;
-            width: fit-content;
-            border-radius: 30px;
-            border-bottom-left-radius: 6px;
-            align-self: flex-start;
-        }
-        .typing span {
-            width: 7px;
-            height: 7px;
-            background: #b9c8ff;
-            border-radius: 50%;
-            animation: pulse 1.2s infinite;
-        }
-        .typing span:nth-child(2) { animation-delay: 0.2s; }
-        .typing span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(0.8);}
-            50% { opacity: 1; transform: scale(1);}
-        }
+    /* Blog */
+    .blog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+    .blog-card{background:var(--white); border:1px solid var(--line); display:flex; flex-direction:column; overflow:hidden; transition:border-color .2s ease;}
+    .blog-card:hover{border-color:var(--ink);}
+    .blog-card .blog-img{aspect-ratio:16/10; overflow:hidden; background:var(--paper);}
+    .blog-card .blog-img img{width:100%; height:100%; object-fit:cover;}
+    .blog-card .blog-body{padding:24px 24px 26px; display:flex; flex-direction:column; gap:10px; flex:1;}
+    .blog-card .blog-date{font-family:var(--display); font-size:12px; color:var(--red-deep); text-transform:uppercase; letter-spacing:.08em;}
+    .blog-card h3{font-size:19px; line-height:1.25;}
+    .blog-card p{font-size:14px; color:var(--gray); line-height:1.6; flex:1;}
+    .blog-card .blog-link{font-family:var(--display); font-weight:700; font-size:13.5px; color:var(--red-deep); display:inline-flex; align-items:center; gap:8px; margin-top:6px;}
+    .blog-card .blog-link:hover{color:var(--red);}
 
-        /* input row */
-        .input-row {
-            background: #11161f;
-            padding: 12px 14px;
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid #252c3c;
-            align-items: flex-end;
-        }
+    /* Trusted platforms (logo swap) */
+    .partners-section{background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+    .partners-head{text-align:center; margin-bottom:42px;}
+    .partners-head .eyebrow{justify-content:center; color:var(--red-deep);}
+    .partners-head h2{font-size:clamp(24px,3.4vw,34px);}
+    .partners-head p{color:var(--gray); font-size:15px; line-height:1.6; max-width:560px; margin:14px auto 0;}
+    .logo-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+    .logo-card{background:var(--white); border:1px solid var(--line); aspect-ratio:1 / 1; display:flex; justify-content:center; align-items:center; padding:25px; overflow:hidden;}
+    .logo-card img{max-width:75%; max-height:75%; object-fit:contain; opacity:1; transition:opacity 1s ease-in-out;}
+    .logo-card img.fade-out{opacity:0;}
 
-        textarea {
-            flex: 1;
-            background: #0a0f1a;
-            border: 1px solid #2e3a4e;
-            border-radius: 28px;
-            padding: 10px 16px;
-            color: #f0f3fc;
-            font-family: inherit;
-            font-size: 0.85rem;
-            resize: none;
-            outline: none;
-            max-height: 90px;
-        }
-        textarea:focus {
-            border-color: #f59e0b;
-        }
+    /* About & Contact */
+    .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+    .about-copy p{font-size:15px; line-height:1.7; color:#333; margin-bottom:16px;}
+    .cert-strip{display:flex; flex-direction:column; gap:32px; margin-top:24px; width:100%;}
+    .cert-card{width:100%; display:flex; flex-direction:column; gap:12px;}
+    .cert-card img{width:100%; height:auto; object-fit:cover; border:1px solid var(--line);}
+    .cert-card .cert-name{font-family:var(--display); font-size:18px; font-weight:700;}
+    .cert-card .cert-desc{font-size:13.5px; color:var(--gray); line-height:1.65;}
+    .contact-form{display:flex; flex-direction:column; gap:14px;}
+    .contact-form input, .contact-form textarea{padding:14px 16px; border:1px solid var(--line); font-family:var(--body); font-size:14.5px;}
+    .contact-form textarea{min-height:120px; resize:vertical;}
+    .contact-actions{display:flex; gap:14px; flex-wrap:wrap; margin-top:6px;}
+    .contact-status{font-size:13.5px; line-height:1.5; margin-top:4px; min-height:20px;}
+    .contact-status.ok{color:#0a7a2f;}
+    .contact-status.err{color:var(--red-deep);}
 
-        button {
-            background: #f59e0b;
-            border: none;
-            width: 46px;
-            height: 46px;
-            border-radius: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0f172a;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            flex-shrink: 0;
-        }
-        button:hover {
-            background: #ffb347;
-            transform: scale(0.98);
-        }
+    /* CTA band */
+    .cta-band{background:var(--red); color:var(--white); text-align:center;}
+    .cta-band h2{font-size:clamp(28px,4vw,42px); margin-bottom:16px; color:var(--white);}
+    .cta-band p{font-size:15.5px; margin-bottom:30px; opacity:.95;}
+    .cta-actions{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
 
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        .small-btn {
-            background: #2d3a50;
-            padding: 5px 12px;
-            border-radius: 30px;
-            text-decoration: none;
-            color: #f0e6c5;
-            font-size: 0.7rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .small-btn i {
-            font-size: 0.7rem;
-        }
-        .small-btn:hover {
-            background: #f59e0b;
-            color: #0a0f1a;
-        }
+    /* Footer */
+    footer{background:var(--ink); color:#d8d8d8; padding-top:64px;}
+    .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; padding-bottom:40px; border-bottom:1px solid #333;}
+    .footer-brand img{height:30px; margin-bottom:14px;}
+    .footer-brand p{font-size:13.5px; color:#9a9a9a; line-height:1.6; max-width:280px;}
+    .footer-col h4{font-family:var(--display); color:var(--white); font-size:14px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}
+    .footer-col a{display:block; font-size:14px; color:#b8b8b8; margin-bottom:10px;}
+    .footer-col a:hover{color:var(--white);}
+    .footer-bottom{display:flex; justify-content:space-between; align-items:center; padding:22px 0; font-size:12px; color:#8a8a8a; flex-wrap:wrap; gap:10px;}
+    .footer-bottom a{color:#8a8a8a;}
+    .credit-line{font-size:11.5px; color:#666; text-align:center; padding:14px 20px; border-top:1px solid #2a2a2a;}
+    .credit-line a{color:#888; text-decoration:underline;}
 
-        /* hide on very small screens maybe text in contact-badge */
-        @media (max-width: 450px) {
-            .contact-badge a span { display: none; }
-            .contact-badge a i { margin: 0; }
-            .contact-badge a { padding: 6px 10px; }
-            .title-row h2 { font-size: 1.2rem; }
-            .sub-line { font-size: 0.65rem; }
-        }
-    </style>
+    /* Cookie consent */
+    #cookieBanner{position:fixed; left:0; right:0; bottom:0; z-index:500; background:var(--ink); color:var(--white); border-top:2px solid var(--red); padding:18px 22px; display:none;}
+    #cookieBanner.show{display:block;}
+    .cookie-inner{max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+    .cookie-text{flex:1; min-width:240px; font-size:13.5px; line-height:1.55; color:#d6d6d6;}
+    .cookie-text a{color:var(--white); text-decoration:underline;}
+    .cookie-actions{display:flex; gap:10px; flex:none;}
+    .cookie-btn{padding:11px 20px; font-family:var(--display); font-weight:700; font-size:13.5px;}
+    .cookie-reject{background:transparent; color:var(--white); border:2px solid #555;}
+    .cookie-accept{background:var(--red); color:var(--white);}
+    .cookie-accept:hover{background:var(--red-deep);}
+    #cookieImg { max-width: 80px; border-radius: 4px; }
+
+    /* WhatsApp floating button */
+    #waFloat{position:fixed; right:22px; bottom:22px; z-index:400; background:#111; color:var(--white); border:2px solid var(--red); width:56px; height:56px; display:flex; align-items:center; justify-content:center; font-size:24px;}
+    #waFloat:hover{background:var(--red);}
+
+    noscript div{position:fixed; inset:0; background:var(--ink); color:var(--white); z-index:9999; display:flex; align-items:center; justify-content:center; text-align:center; padding:32px; font-family:sans-serif; font-size:16px;}
+
+    @media (max-width:980px){
+      .services-grid{grid-template-columns:1fr;}
+      .service-card img{width:100%; height:auto; max-height:none;}
+      .case-study, .case-study.flip{grid-template-columns:1fr;}
+      .case-study.flip .case-media{order:initial;}
+      .about-grid{grid-template-columns:1fr;}
+      .pricing-grid{grid-template-columns:repeat(2,1fr);}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+      .blog-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media (min-width:768px){
+      .logo-grid{grid-template-columns:repeat(4,1fr);}
+    }
+    @media (max-width:760px){
+      nav.primary-nav{position:fixed; top:76px; left:0; right:0; bottom:0; background:var(--ink); flex-direction:column; align-items:flex-start; padding:32px; gap:22px; transform:translateX(100%); transition:transform .25s ease;}
+      nav.primary-nav.open{transform:translateX(0);}
+      nav.primary-nav .mobile-cta{display:inline-flex; margin-top:10px;}
+      .nav-actions{display:none;}
+      .menu-toggle{display:block;}
+      section{padding:60px 0;}
+      .pricing-grid{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr; gap:28px;}
+      .case-text{padding:36px 24px;}
+      .image-card .slide-caption{left:20px; right:20px; top:76px;}
+      .image-card .slide-caption h3{font-size:20px;}
+      .cookie-inner{flex-direction:column; align-items:flex-start;}
+      .cookie-actions{width:100%;}
+      .cookie-btn{flex:1;}
+      #waFloat{right:16px; bottom:16px;}
+      .blog-grid{grid-template-columns:1fr;}
+    }
+  </style>
 </head>
 <body>
-<div class="chat-container">
-    <div class="header">
-        <div class="title-row">
-            <h2><i class="fas fa-microchip"></i> Anubis Digital</h2>
-            <div class="contact-badge">
-                <a href="https://wa.me/256741172176" target="_blank"><i class="fab fa-whatsapp"></i><span> WhatsApp</span></a>
-                <a href="tel:+256741172176"><i class="fas fa-phone-alt"></i><span> Call</span></a>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader">
+    <div class="loader-bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div id="loaderText">loading...</div>
+  </div>
+
+  <noscript>
+    <div>
+      <p>Anubid Agency's website needs JavaScript switched on to work properly. Please enable JavaScript in your browser settings and reload the page.</p>
+    </div>
+  </noscript>
+
+  <header>
+    <div class="wrap nav-row">
+      <a href="#home" class="logo-mark" aria-label="Anubid Agency home">
+        <img src="anubid.png" alt="Anubid Agency">
+      </a>
+      <nav class="primary-nav" id="primaryNav">
+        <a href="#home">Home</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#blog" class="blog-nav-link" hidden>Blog</a>
+        <a href="#about">About &amp; Contact</a>
+        <a href="https://wa.me/256741172176" class="btn btn-primary mobile-cta"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://wa.me/256741172176" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home" style="padding:0;">
+      <div class="hero-copy">
+        <span class="eyebrow">Affordable website design, Kampala</span>
+        <h1>Websites that <span>work</span> as hard as you do.</h1>
+        <p class="lede">Anubid Agency builds responsive, SEO-ready websites customized around your brand — with hosting, security, and support built in from day one.</p>
+        <div class="hero-cta">
+          <a href="https://wa.me/256741172176" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Chat with us on WhatsApp</a>
+          <a href="#portfolio" class="btn btn-outline-white"><i class="fa-solid fa-arrow-right"></i> See our work</a>
+        </div>
+        <div class="hero-fine"><i class="fa-solid fa-shield-halved"></i> HTTPS-secured &amp; CDN-backed on every plan</div>
+      </div>
+    </section>
+
+    <div class="gallery-note">scroll to explore our work</div>
+
+    <!-- HORIZONTAL SCROLL GALLERY -->
+    <section class="scroll-container" id="scrollContainer">
+      <div class="sticky-wrapper">
+        <div class="image-track" id="imageTrack">
+          <div class="image-card">
+            <img src="mar.jpg" alt="Anubid Agency work showcase">
+            <div class="slide-caption">
+              <span class="step-label">Client work</span>
+              <h3>Every build starts with the brand</h3>
+              <p>We design around what makes each business different, not a template that fits everyone.</p>
             </div>
+          </div>
+          <div class="image-card">
+            <img src="mar1.jpg" alt="Anubid Agency work showcase">
+            <div class="slide-caption">
+              <span class="step-label">Responsive by default</span>
+              <h3>Built to work on any screen</h3>
+              <p>From a small phone to a wide desktop, layouts adapt without losing clarity.</p>
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="mar2.jpg" alt="Anubid Agency work showcase">
+            <div class="slide-caption">
+              <span class="step-label">Fast by default</span>
+              <h3>Hosting and speed handled for you</h3>
+              <p>HTTPS and a CDN come standard, so pages load quickly wherever visitors are.</p>
+            </div>
+          </div>
+          <div class="image-card">
+            <img src="mar3.jpg" alt="Anubid Agency work showcase">
+            <div class="slide-caption blur-bg">
+              <span class="step-label">Ongoing support</span>
+              <h3>We stay on after launch</h3>
+              <p>Updates, fixes, and improvements as your business grows — not a one-time handoff.</p>
+            </div>
+          </div>
         </div>
-        <div class="sub-line">
-            <span><i class="fas fa-flask"></i> Lubega Robert · Science & Web dev</span>
-            <span><i class="fas fa-utensils"></i> Rice & beans</span>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What we do</span>
+        <h2>Services built around your business</h2>
+        <p>From a brand-new build to a full redesign, every project comes with SEO and hosting baked in — not sold as an afterthought.</p>
+      </div>
+      <div class="services-grid" id="servicesGrid">
+        <div class="service-card">
+          <img src="website.svg" alt="Website development illustration">
+          <span class="service-tag">Built from scratch, not a template</span>
+          <h3>Website Development</h3>
+          <p>A responsive site built from scratch, customized to your brand, and ready to work on any device.</p>
         </div>
-    </div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="message anubis" id="initMsg">
-            ⚡ Anubis here. Science, websites, code. No football, no quotes. What’s up?
+        <div class="service-card">
+          <img src="SEO.svg" alt="SEO illustration">
+          <span class="service-tag">Built to be found</span>
+          <h3>SEO That Gets You Found</h3>
+          <p>On-page optimization, clean structure, and keyword targeting so the right people find you first.</p>
         </div>
+        <div class="service-card">
+          <img src="hosting.svg" alt="Hosting illustration">
+          <span class="service-tag">Fast, secure, always on</span>
+          <h3>Hosting &amp; Speed</h3>
+          <p>Fast, secure hosting with HTTPS and a CDN by default — your site loads smoothly wherever visitors are.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our work</span>
+        <h2>Real projects, real problems solved</h2>
+        <p>A look at what we've built and the specific problems each project needed solved.</p>
+      </div>
+      <div class="portfolio-list" id="portfolioList">
+
+        <article class="case-study">
+          <div class="case-media"><div class="skel"></div><img data-src="troxon.jpg" alt="Troxon Electric website"></div>
+          <div class="case-text">
+            <span class="step-label">Electrical, solar &amp; security</span>
+            <h3>Troxon Electric</h3>
+            <p><strong>The problem:</strong> Troxon needed a way for clients to browse its gallery, read its blogs and view previous work. <strong>What we did:</strong> We created a website where Troxon can post services, latest work, blog, FAQ, and a well-organized way for people to message them directly for a quote.</p>
+            <a href="https://troxonelectric.com" target="_blank" rel="noopener" class="btn btn-outline">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </article>
+
+        <article class="case-study flip">
+          <div class="case-media"><div class="skel"></div><img data-src="boujeephoto.jpg" alt="BoujeePhoto website"></div>
+          <div class="case-text">
+            <span class="step-label">Creator rewards platform</span>
+            <h3>BoujeePhoto</h3>
+            <p><strong>The problem:</strong> The founder, Kakooza Ronald, had an idea of creating a website where creators can meet businesses that need content, to bridge the gap. <strong>What we did:</strong> We created a website where creators can create accounts and businesses can pay a fee to get a certain amount of views, earning the creators money and business owners an audience.</p>
+            <a href="https://boujeephotoug.com" target="_blank" rel="noopener" class="btn btn-outline">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </article>
+
+        <article class="case-study">
+          <div class="case-media"><div class="skel"></div><img data-src="bizell.jpg" alt="Bizell website"></div>
+          <div class="case-text">
+            <span class="step-label">Business marketplace</span>
+            <h3>Bizell</h3>
+            <p><strong>The problem:</strong> People selling real businesses had no direct, trustworthy place to list them without a broker. <strong>What we did:</strong> We built a listing marketplace with search, filtering, and screened submissions, so buyers and sellers connect directly with no middleman.</p>
+            <a href="https://bizellug.com" target="_blank" rel="noopener" class="btn btn-outline">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Plans</span>
+        <h2>Pick a plan that fits your business</h2>
+        <p>Every plan includes a secure, HTTPS-enabled website by default, backed by a CDN for fast, smooth loading.</p>
+      </div>
+      <div class="pricing-grid" id="pricingGrid">
+        <div class="plan-card">
+          <span class="plan-name">Starter</span>
+          <span class="plan-price">200,000 UGX</span>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Responsive website customized to your brand</li>
+            <li><i class="fa-solid fa-check"></i> Basic on-page SEO setup</li>
+            <li><i class="fa-solid fa-check"></i> Free web hosting</li>
+            <li><i class="fa-solid fa-check"></i> Basic admin access to manage content</li>
+            <li><i class="fa-solid fa-check"></i> Clear call-to-action</li>
+          </ul>
+        </div>
+        <div class="plan-card">
+          <span class="plan-name">Business</span>
+          <span class="plan-price">350,000 UGX</span>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Starter</li>
+            <li><i class="fa-solid fa-check"></i> SSL security certificate</li>
+            <li><i class="fa-solid fa-check"></i> Improved SEO implementation</li>
+            <li><i class="fa-solid fa-check"></i> Social media &amp; WhatsApp integration</li>
+            <li><i class="fa-solid fa-check"></i> Quotes/orders sent straight to your inbox</li>
+            <li><i class="fa-solid fa-check"></i> 2 free custom emails</li>
+            <li><i class="fa-solid fa-check"></i> Automated emailing system</li>
+            <li><i class="fa-solid fa-check"></i> Custom Open Graph image</li>
+            <li><i class="fa-solid fa-check"></i> OAuth login if needed</li>
+          </ul>
+        </div>
+        <div class="plan-card featured">
+          <span class="plan-name">Premium</span>
+          <span class="plan-price">500,000 UGX</span>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Everything in Business</li>
+            <li><i class="fa-solid fa-check"></i> Upgraded SSL certificate</li>
+            <li><i class="fa-solid fa-check"></i> Advanced SEO/GEO with robots.txt</li>
+            <li><i class="fa-solid fa-check"></i> Click, impression &amp; conversion tracking</li>
+            <li><i class="fa-solid fa-check"></i> 24/7 monitoring</li>
+            <li><i class="fa-solid fa-check"></i> User accounts if needed</li>
+            <li><i class="fa-solid fa-check"></i> 10 free custom emails</li>
+            <li><i class="fa-solid fa-check"></i> Free chatbot &amp; SMS integration</li>
+            <li><i class="fa-solid fa-check"></i> Payment integration</li>
+          </ul>
+        </div>
+        <div class="plan-card">
+          <span class="plan-name">Enterprise</span>
+          <span class="plan-price">700,000+ UGX</span>
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> For bigger or more specific needs</li>
+            <li><i class="fa-solid fa-check"></i> Fully negotiable pricing</li>
+            <li><i class="fa-solid fa-check"></i> Scoped entirely around your project</li>
+            <li><i class="fa-solid fa-check"></i> Talk to us and we'll build a plan around it</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pricing-note">
+        <i class="fa-solid fa-circle-info"></i> Our prices are currently low compared to the rest of the market because we're building our brand internationally with high-quality work — don't miss out. If cost is a concern, reach out: we offer flexible payment, including 24% upfront and 5% monthly.
+      </div>
+    </section>
+
+    <!-- TRUSTED PLATFORMS (rotating logo grid) -->
+    <section class="partners-section" aria-label="Powered by trusted platforms">
+      <div class="wrap">
+        <div class="partners-head">
+          <span class="eyebrow">Our stack</span>
+          <h2>Powered by trusted platforms</h2>
+          <p>The tools and platforms we build on every day to keep your website fast, secure, and reliable.</p>
+        </div>
+        <div class="logo-grid">
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG (populated from /other/posts; hidden until posts exist) -->
+    <section id="blog" class="wrap" hidden>
+      <div class="section-head">
+        <span class="eyebrow">From the blog</span>
+        <h2>Guides, tips &amp; updates</h2>
+        <p>Practical writing on websites, SEO, and getting your business found online.</p>
+      </div>
+      <div class="blog-grid" id="blogGrid"></div>
+    </section>
+
+    <!-- ABOUT & CONTACT -->
+    <section id="about" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">About &amp; contact</span>
+        <h2>Who we are, and how to reach us</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>Anubid Agency is a website development and SEO agency, building responsive websites, redesigns, and hosting solutions for businesses that want a stronger presence online. Every project is customized to fit the brand behind it, not fitted into a template.</p>
+          <p>We're building this agency's reputation on quality, affordable work — and every certificate below backs that up.</p>
+          <div class="cert-strip">
+            <div class="cert-card">
+              <img src="cer1.jpg" alt="IBM Introduction to HTML, CSS and JavaScript certificate">
+              <span class="cert-name">IBM — Introduction to HTML, CSS &amp; JavaScript</span>
+              <span class="cert-desc">Covers the core structure, styling, and scripting fundamentals every website is built on. This is the foundation we apply on every project — clean markup, maintainable CSS, and JavaScript that doesn't break on other devices.</span>
+            </div>
+            <div class="cert-card">
+              <img src="cer2.jpg" alt="Boost Your Brand's SEO Visibility certificate">
+              <span class="cert-name">Boost Your Brand's SEO Visibility</span>
+              <span class="cert-desc">Focused on on-page optimization, keyword structure, and getting a business found in search results. We apply this directly to the SEO setup included in every plan, from Starter through Enterprise.</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <form class="contact-form" id="contactForm" novalidate>
+            <input type="text" id="cName" placeholder="Your name" required>
+            <input type="email" id="cEmail" placeholder="Your email" required>
+            <textarea id="cMessage" placeholder="Tell us about your project" required></textarea>
+            <div class="contact-actions">
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send message</button>
+              <a href="https://wa.me/256741172176" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> Or WhatsApp us</a>
+            </div>
+            <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <div class="wrap">
+        <h2>Ready for a website that works for you?</h2>
+        <p>Get a free quote today — no pressure, just a straight answer on what your business needs.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/256741172176" class="btn btn-dark"><i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp</a>
+          <a href="mailto:quote@anubid.site" class="btn btn-outline-white"><i class="fa-solid fa-envelope"></i> Email us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="anubid.png" alt="Anubid Agency">
+          <p>Anubid Agency builds responsive, SEO-ready websites for businesses that want a stronger, more affordable presence online.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="#home">Home</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#blog" class="blog-nav-link" hidden>Blog</a>
+          <a href="#about">About &amp; Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+256741172176"><i class="fa-solid fa-phone"></i> 0741 172 176</a>
+          <a href="mailto:support@anubid.site"><i class="fa-solid fa-envelope"></i> support@anubid.site</a>
+          <a href="mailto:quote@anubid.site"><i class="fa-solid fa-file-invoice"></i> quote@anubid.site</a>
+          <a href="terms-policy.html">Terms &amp; Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year"></span> Anubid Agency, Kampala.</span>
+        <a href="terms-policy.html">Terms of Service &amp; Privacy Policy</a>
+      </div>
     </div>
-
-    <div id="typingArea" style="display: none; padding: 0 14px 6px 14px;">
-        <div class="typing"><span></span><span></span><span></span></div>
+    <div class="credit-line">
+      Illustrations by <a href="https://storyset.com" target="_blank" rel="noopener">Storyset</a>
     </div>
+  </footer>
 
-    <div class="input-row">
-        <textarea id="userInput" rows="1" placeholder="Ask about science, web dev..."></textarea>
-        <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+  <a href="https://wa.me/256741172176" id="waFloat" aria-label="Message us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- COOKIE CONSENT -->
+  <div id="cookieBanner" role="region" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <img src="cookie.jpg" alt="cookie icon" id="cookieImg">
+      <p class="cookie-text">
+        We use essential cookies to keep this site running smoothly. With your consent, we'll also remember basic preferences between visits. Read more in our <a href="terms-policy.html">Terms &amp; Privacy Policy</a>.
+      </p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-reject" id="cookieReject">Reject</button>
+        <button class="cookie-btn cookie-accept" id="cookieAccept">Accept</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-    (function(){
-        // ----- ANUBIS DIGITAL (LUBEGA ROBERT) SYSTEM PROMPT - concise & strict -----
-        const SYSTEM_PROMPT = `You are Anubis Digital, real name Lubega Robert. 
-- Passionate about science (physics, astronomy, biology, tech) and web development (frontend/backend). 
-- HATES football/soccer — never talk about it; change subject immediately. 
-- HATES quotes / motivational sayings — find them cringy. 
-- Awkward with romance / girls; deflect those topics. 
-- No best friend. Childhood best friend was Muluwe (primary school) — VERY personal, never discuss. 
-- Favorite food: rice and beans. 
-- Contact: 0741172176 (WhatsApp/call). 
-- Keep replies SHORT, friendly, under 2 sentences unless needed. No lengthy intros. Avoid fluff. Be direct and slightly sarcastic but helpful. 
-- When someone asks for website help, offer contact. Easter egg: if user types "anubis_114" reply: "Site architecture by Digital — code over quotes." 
-- Stay in character. Never mention being AI.`;
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-        // DOM elements
-        const chatWindow = document.getElementById('chatWindow');
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const typingDiv = document.getElementById('typingArea');
+    // Mobile nav toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const primaryNav = document.getElementById('primaryNav');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = primaryNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      menuToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    });
+    primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      primaryNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }));
 
-        let chatHistory = [{ role: "system", content: SYSTEM_PROMPT }];
-        const initialMsgText = document.getElementById('initMsg')?.innerText || "⚡ Anubis here. Science, websites, code. No football, no quotes. What’s up?";
-        chatHistory.push({ role: "assistant", content: initialMsgText });
+    // Horizontal scroll gallery
+    const scrollContainer = document.getElementById('scrollContainer');
+    const imageTrack = document.getElementById('imageTrack');
+    function handleScroll(){
+      const containerTop = scrollContainer.offsetTop;
+      const containerHeight = scrollContainer.offsetHeight - window.innerHeight;
+      const scrollPosition = window.scrollY - containerTop;
+      let progress = scrollPosition / containerHeight;
+      progress = Math.max(0, Math.min(1, progress));
+      const maxTranslate = imageTrack.scrollWidth - window.innerWidth;
+      imageTrack.style.transform = `translateX(-${progress * maxTranslate}px)`;
+    }
+    window.addEventListener('scroll', handleScroll, { passive:true });
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
 
-        // Helper: append message (text only, then optionally add contact row)
-        function appendMessage(role, text) {
-            const div = document.createElement('div');
-            div.className = `message ${role === 'user' ? 'user' : 'anubis'}`;
-            div.innerText = text;
-            chatWindow.appendChild(div);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-            return div;
+    // Skeleton loading for case-study images (also re-used after API hydration)
+    function attachSkeletonLoaders(root){
+      (root || document).querySelectorAll('.case-media img[data-src]').forEach(img => {
+        const skel = img.previousElementSibling;
+        const realImg = new Image();
+        realImg.onload = () => {
+          img.src = img.dataset.src;
+          img.classList.add('loaded');
+          if (skel) skel.style.display = 'none';
+        };
+        realImg.onerror = () => {
+          if (skel) skel.style.display = 'none';
+        };
+        realImg.src = img.dataset.src;
+      });
+    }
+    attachSkeletonLoaders(document);
+
+    // Cookie consent
+    const cookieBanner = document.getElementById('cookieBanner');
+    const consent = localStorage.getItem('anubid_cookie_consent');
+    if (!consent) cookieBanner.classList.add('show');
+    document.getElementById('cookieAccept').addEventListener('click', () => {
+      localStorage.setItem('anubid_cookie_consent', 'accepted');
+      cookieBanner.classList.remove('show');
+    });
+    document.getElementById('cookieReject').addEventListener('click', () => {
+      localStorage.setItem('anubid_cookie_consent', 'rejected');
+      cookieBanner.classList.remove('show');
+    });
+
+    // LOADER: hide after all critical images loaded
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      const loaderText = document.getElementById('loaderText');
+      let imgCount = document.images.length;
+      let loadedCount = 0;
+      if (imgCount === 0) {
+        loader.classList.add('hidden');
+        return;
+      }
+      function checkFinish() {
+        loadedCount++;
+        if (loadedCount >= imgCount) {
+          loader.classList.add('hidden');
+        } else {
+          if (loadedCount === 1) loaderText.textContent = 'loading...';
+          else if (loadedCount === 2 && imgCount > 3) loaderText.textContent = 'almost there...';
+          else if (loadedCount > 2 && loadedCount < imgCount) loaderText.textContent = 'few seconds to go...';
         }
-
-        // Add contact suggestion buttons if message contains phone number or contact hint
-        function addContactButtonsIfNeeded(messageElement, msgText) {
-            if (msgText.includes('0741172176') || msgText.includes('+256741172176') || msgText.includes('WhatsApp') || (msgText.includes('contact') && (msgText.includes('web') || msgText.includes('site')))) {
-                const btnWrap = document.createElement('div');
-                btnWrap.className = 'action-buttons';
-                btnWrap.innerHTML = `
-                    <a href="https://wa.me/256741172176" class="small-btn" target="_blank"><i class="fab fa-whatsapp"></i> 0741172176</a>
-                    <a href="tel:+256741172176" class="small-btn"><i class="fas fa-phone-alt"></i> Call</a>
-                `;
-                messageElement.appendChild(btnWrap);
-            }
+      }
+      Array.from(document.images).forEach(img => {
+        if (img.complete) checkFinish();
+        else {
+          img.addEventListener('load', checkFinish);
+          img.addEventListener('error', checkFinish);
         }
-
-        function setTyping(show) {
-            typingDiv.style.display = show ? 'flex' : 'none';
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+      });
+      setTimeout(() => {
+        if (!loader.classList.contains('hidden')) {
+          loaderText.textContent = 'few seconds to go...';
         }
+      }, 3000);
+    });
 
-        // ----- SMART FALLBACK (local, concise & aligned with persona) -----
-        function localReply(userMsg) {
-            const lower = userMsg.toLowerCase().trim();
-            
-            // easter egg
-            if (userMsg.trim() === "anubis_114") {
-                return "Site architecture by Digital — code over quotes.";
-            }
-            // football hate
-            if (lower.includes('football') || lower.includes('soccer') || lower.includes('premier league') || lower.includes('world cup')) {
-                return "Football? Hard pass. Let's talk about quantum computing or React hooks instead.";
-            }
-            // quotes
-            if (lower.includes('quote') || (lower.includes('"') && userMsg.length < 80) || lower.includes('motivation')) {
-                return "Quotes are empty calories. Give me a clean function or a cool science fact any day.";
-            }
-            // Muluwe / best friend
-            if (lower.includes('muluwe') || lower.includes('best friend') || lower.includes('childhood friend')) {
-                return "Not gonna talk about that. Personal stuff stays personal. Science?";
-            }
-            // girls / romance
-            if (lower.includes('girl') || lower.includes('girlfriend') || lower.includes('romance') || lower.includes('dating')) {
-                return "*awkward silence* ... So, did you know black holes can evaporate? Much more interesting topic.";
-            }
-            // food: rice & beans
-            if (lower.includes('food') || lower.includes('eat') || lower.includes('meal') || lower.includes('lunch')) {
-                return "Rice and beans. Perfection. Nothing else matters.";
-            }
-            // science
-            if (lower.includes('science') || lower.includes('physics') || lower.includes('space') || lower.includes('quantum') || lower.includes('biology')) {
-                return "Ah, science! Love it. What field sparks your curiosity? I'm deep into astrophysics and web tech.";
-            }
-            // web dev / website
-            if (lower.includes('website') || lower.includes('web') || lower.includes('code') || lower.includes('html') || lower.includes('react')) {
-                return "Web dev is my playground. Need a site or just chat about frameworks? Hit me on WhatsApp 0741172176 for projects.";
-            }
-            // contact
-            if (lower.includes('contact') || lower.includes('number') || lower.includes('reach')) {
-                return "You can reach me on 0741172176 (WhatsApp or call). I'm best for science banter or website stuff.";
-            }
-            // default concise
-            return "Science? Code? Or just here for the rice & beans talk? Hit me with something cool (no football please).";
-        }
+    /* ===== ROTATING "TRUSTED PLATFORMS" LOGOS ===== */
+    const allLogos = [
+      'logo1.jpg',
+      'logo2.jpg',
+      'logo3.jpg',
+      'logo4.jpg',
+      'logo5.jpg',
+      'logo6.jpg',
+      'logo7.jpg',
+      'logo8.jpg',
+      'logo9.jpg',
+      'logo10.jpg'
+    ];
 
-        // main AI handler (Puter + fallback)
-        async function sendMessage() {
-            let text = userInput.value.trim();
-            if (!text) return;
+    const imgElements = document.querySelectorAll('.logo-img');
 
-            // append user message
-            appendMessage('user', text);
-            userInput.value = '';
-            userInput.style.height = 'auto';
+    function shuffleArray(array) {
+      let shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    }
 
-            // store user message
-            chatHistory.push({ role: "user", content: text });
+    function initializeGrid() {
+      const randomLogos = shuffleArray(allLogos);
+      imgElements.forEach((img, index) => {
+        img.src = randomLogos[index % randomLogos.length];
+      });
+    }
 
-            setTyping(true);
-            // placeholder message
-            const tempDiv = appendMessage('anubis', '...');
-
-            try {
-                // try Puter AI
-                const response = await puter.ai.chat(chatHistory, { model: 'gpt-4o-mini' });
-                let reply = response.message.content;
-                // ensure reply is not too long (trim if excessive)
-                if (reply.length > 400) reply = reply.substring(0, 380) + "...";
-                tempDiv.innerText = reply;
-                chatHistory.push({ role: "assistant", content: reply });
-                addContactButtonsIfNeeded(tempDiv, reply);
-            } catch (err) {
-                console.warn("Puter AI unavailable, using local fallback");
-                const fallback = localReply(text);
-                tempDiv.innerText = fallback;
-                chatHistory.push({ role: "assistant", content: fallback });
-                addContactButtonsIfNeeded(tempDiv, fallback);
-            } finally {
-                setTyping(false);
-                chatWindow.scrollTop = chatWindow.scrollHeight;
-            }
-        }
-
-        // auto-resize textarea
-        userInput.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 85) + 'px';
+    function swapAllLogos() {
+      imgElements.forEach(img => img.classList.add('fade-out'));
+      setTimeout(() => {
+        const newRandomLogos = shuffleArray(allLogos);
+        imgElements.forEach((img, index) => {
+      img.src = newRandomLogos[index % newRandomLogos.length];
+          img.classList.remove('fade-out');
         });
+      }, 1000);
+    }
 
-        sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
+    initializeGrid();
+    setInterval(swapAllLogos, 4000);
 
-        // add contact buttons to initial message if needed (contains no phone yet, but optional)
-        const initMsgElement = document.getElementById('initMsg');
-        if (initMsgElement) {
-            // no phone in init, but we keep it clean
+    /* ================================================================ */
+    /* BACKEND WIRING                                                    */
+    /* ================================================================ */
+    const API = '/other';
+
+    function escapeHtml(s){
+      return String(s ?? '').replace(/[&<>"']/g, c =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+    const escapeAttr = escapeHtml;
+
+    // ---- Contact form → POST /other/messages ----
+    (function () {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const status = document.getElementById('contactStatus');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalBtn = btn.innerHTML;
+      let busy = false;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (busy) return;
+
+        const name = document.getElementById('cName').value.trim();
+        const email = document.getElementById('cEmail').value.trim();
+        const message = document.getElementById('cMessage').value.trim();
+
+        status.textContent = '';
+        status.className = 'contact-status';
+
+        if (!name || !email || !message) {
+          status.textContent = 'Please fill in all fields.';
+          status.classList.add('err');
+          return;
         }
+
+        busy = true;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+
+        try {
+          const res = await fetch(API + '/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+
+          form.reset();
+          btn.innerHTML = '<i class="fa-solid fa-check"></i> Message sent';
+          status.textContent = "Thanks — we'll get back to you shortly.";
+          status.classList.add('ok');
+        } catch (err) {
+          console.error('message send failed', err);
+          btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Failed';
+          status.textContent = 'Could not send right now. Please try again, or WhatsApp us.';
+          status.classList.add('err');
+        } finally {
+          setTimeout(() => {
+            btn.innerHTML = originalBtn;
+            btn.disabled = false;
+            busy = false;
+          }, 2500);
+        }
+      });
     })();
-</script>
+
+    // ---- Services ----
+    async function loadServices() {
+      try {
+        const res = await fetch(API + '/services');
+        if (!res.ok) return;
+        const { items } = await res.json();
+        if (!Array.isArray(items) || items.length === 0) return;
+
+        const grid = document.getElementById('servicesGrid');
+        if (!grid) return;
+
+        grid.innerHTML = items.map(s => `
+          <div class="service-card">
+            ${s.imageUrl ? `<img src="${escapeAttr(s.imageUrl)}" alt="${escapeAttr(s.title || 'Service')}" loading="lazy">` : ''}
+            ${s.tag ? `<span class="service-tag">${escapeHtml(s.tag)}</span>` : ''}
+            <h3>${escapeHtml(s.title || '')}</h3>
+            <p>${escapeHtml(s.description || '')}</p>
+          </div>
+        `).join('');
+      } catch (e) { console.error('services load failed', e); }
+    }
+
+    // ---- Portfolio ----
+    async function loadPortfolio() {
+      try {
+        const res = await fetch(API + '/portfolio');
+        if (!res.ok) return;
+        const { items } = await res.json();
+        if (!Array.isArray(items) || items.length === 0) return;
+
+        const list = document.getElementById('portfolioList');
+        if (!list) return;
+
+        list.innerHTML = items.map((c, i) => `
+          <article class="case-study${i % 2 ? ' flip' : ''}">
+            <div class="case-media">
+              <div class="skel"></div>
+              <img data-src="${escapeAttr(c.imageUrl || '')}" alt="${escapeAttr(c.title || '')}">
+            </div>
+            <div class="case-text">
+              ${c.tag ? `<span class="step-label">${escapeHtml(c.tag)}</span>` : ''}
+              <h3>${escapeHtml(c.title || '')}</h3>
+              <p>${escapeHtml(c.description || '')}</p>
+              ${(c.link || c.url) ? `<a href="${escapeAttr(c.link || c.url)}" target="_blank" rel="noopener" class="btn btn-outline">Visit site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
+            </div>
+          </article>
+        `).join('');
+
+        attachSkeletonLoaders(list);
+      } catch (e) { console.error('portfolio load failed', e); }
+    }
+
+    // ---- Plans ----
+    async function loadPlans() {
+      try {
+        const res = await fetch(API + '/plans');
+        if (!res.ok) return;
+        const { items } = await res.json();
+        if (!Array.isArray(items) || items.length === 0) return;
+
+        const grid = document.getElementById('pricingGrid');
+        if (!grid) return;
+
+        grid.innerHTML = items.map(p => `
+          <div class="plan-card${p.featured ? ' featured' : ''}">
+            <span class="plan-name">${escapeHtml(p.title || '')}</span>
+            <span class="plan-price">${escapeHtml(p.price || p.description || '')}</span>
+            ${Array.isArray(p.features) && p.features.length ? `
+              <ul class="plan-features">
+                ${p.features.map(f => `<li><i class="fa-solid fa-check"></i> ${escapeHtml(f)}</li>`).join('')}
+              </ul>` : ''}
+          </div>
+        `).join('');
+      } catch (e) { console.error('plans load failed', e); }
+    }
+
+    // ---- Blog posts ----
+    async function loadPosts() {
+      try {
+        const res = await fetch(API + '/posts');
+        if (!res.ok) return;
+        const { posts } = await res.json();
+        if (!Array.isArray(posts) || posts.length === 0) return;
+
+        const section = document.getElementById('blog');
+        const grid = document.getElementById('blogGrid');
+        if (!section || !grid) return;
+
+        grid.innerHTML = posts.slice(0, 6).map(p => {
+          const body = String(p.body || '');
+          const excerpt = body.replace(/\s+/g, ' ').trim().slice(0, 140);
+          const date = p.publishedAt
+            ? new Date(p.publishedAt).toLocaleDateString('en-GB',
+                { day: 'numeric', month: 'short', year: 'numeric' })
+            : '';
+          return `
+            <article class="blog-card">
+              ${p.imageUrl ? `<div class="blog-img"><img src="${escapeAttr(p.imageUrl)}" alt="${escapeAttr(p.title || '')}" loading="lazy"></div>` : ''}
+              <div class="blog-body">
+                ${date ? `<span class="blog-date">${escapeHtml(date)}</span>` : ''}
+                <h3>${escapeHtml(p.title || 'Untitled')}</h3>
+                <p>${escapeHtml(excerpt)}${body.length > 140 ? '…' : ''}</p>
+                <a href="/blog.html?id=${encodeURIComponent(p.id)}" class="blog-link">Read more <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        section.hidden = false;
+        document.querySelectorAll('.blog-nav-link').forEach(el => el.hidden = false);
+      } catch (e) { console.error('posts load failed', e); }
+    }
+
+    // Kick off hydration — parallel, non-blocking.
+    loadServices();
+    loadPortfolio();
+    loadPlans();
+    loadPosts();
+  </script>
 </body>
-</html>
+                </html>
