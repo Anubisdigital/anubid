@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Privacy Policy — Anubid Agency</title>
+<meta name="description" content="Terms of Service and Privacy Policy for Anubid Agency. Learn how we collect and protect your information.">
+<link rel="icon" type="image/png" href="fa-bid.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  @font-face {
+    font-family: 'Anbid';
+    src: url('anbid.ttf') format('truetype');
+    font-weight: 400 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Fixed: proper box-sizing reset (was broken across two lines) */
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #111;
+    line-height: 1.7;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Anbid', 'Space Grotesk', sans-serif;
+    line-height: 1.2;
+  }
+
+  /* New: .container was referenced in the HTML but never defined.
+     Without it the header had no horizontal padding and content ran
+     edge-to-edge. */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header {
+    background: #111;
+    color: white;
+    padding: 20px 0;
+    border-bottom: 3px solid #ed1717;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .logo img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+
+  .back-home {
+    color: white;
+    text-decoration: none;
+    background: #ed1717;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+    font-family: 'Anbid', sans-serif;
+  }
+
+  .back-home:hover { background: #c00f0f; }
+
+  /* ---------- LEGAL CONTENT ---------- */
+  .legal-content {
+    background: #ffffff;
+    padding: 50px 40px;
+    margin: 40px auto;
+    max-width: 900px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(26px, 4.5vw, 36px);
+    margin-bottom: 20px;
+    color: #111;
+    border-bottom: 2px solid #ed1717;
+    padding-bottom: 15px;
+    word-wrap: break-word;
+  }
+
+  h2 {
+    font-size: clamp(20px, 3vw, 26px);
+    margin: 34px 0 15px;
+    color: #ed1717;
+  }
+
+  h3 {
+    font-size: clamp(17px, 2.2vw, 20px);
+    margin: 22px 0 10px;
+    color: #333;
+  }
+
+  p {
+    margin-bottom: 15px;
+    color: #444;
+    font-size: 15px;
+  }
+
+  ul {
+    margin: 10px 0 20px 20px;
+  }
+
+  li {
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 15px;
+  }
+
+  strong { color: #111; }
+
+  a {
+    color: #ed1717;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .highlight-box {
+    background: #f8f8f8;
+    border-left: 4px solid #ed1717;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table thead,
+  table tbody,
+  table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  th {
+    background: #111;
+    color: white;
+    font-size: 14px;
+    font-family: 'Anbid', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-box {
+    background: #f8f8f8;
+    padding: 25px;
+    margin-top: 30px;
+    border-left: 4px solid #ed1717;
+  }
+
+  .contact-box p { margin-bottom: 10px; }
+
+  .contact-box a {
+    color: #ed1717;
+    text-decoration: underline;
+  }
+
+  .last-updated {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+  }
+  .last-updated p { font-size: 13px; color: #888; margin-bottom: 6px; }
+
+  .effective-date {
+    background: #111;
+    color: white;
+    display: inline-block;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: 'Anbid', sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  footer {
+    background: #111;
+    color: #999;
+    text-align: center;
+    padding: 24px;
+    margin-top: 40px;
+  }
+
+  footer p {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #999;
+  }
+
+  footer a { color: #cfcfcf; }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 16px; }
+
+    .legal-content {
+      padding: 30px 20px;
+      margin: 20px auto;
+    }
+
+    table { font-size: 13px; }
+    th, td { padding: 8px; font-size: 13px; }
+
+    .header-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 4px 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <a href="index.html" class="logo">
+      <img src="anubid.png" alt="Anubid Agency">
+    </a>
+    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Website</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="legal-content">
+
+    <div class="effective-date">Effective Date: January 1, 2025 · Updated: December 2025</div>
+
+    <h1><i class="fas fa-gavel"></i> Terms of Service &amp; Privacy Policy</h1>
+
+    <p>Welcome to Anubid Agency. This document outlines the terms, conditions, and privacy practices for using our website and services. By accessing or using our website, you agree to the terms described below.</p>
+
+    <div class="highlight-box">
+      <strong>Quick summary.</strong> We collect your name and email when you send us a message, sign in to an account, or submit a project brief. We use that information only to reply, deliver the services you asked for, and occasionally email you about new blog posts. We never sell your data. You can ask us to delete your account and data at any time by emailing <a href="mailto:support@anubid.site">support@anubid.site</a>.
+    </div>
+
+    <!-- ==================== PRIVACY ==================== -->
+    <h2><i class="fas fa-shield-alt"></i> Privacy Policy</h2>
+
+    <p>Anubid Agency ("we", "our", "us") is committed to protecting your privacy. This policy explains what information we collect, how we use it, and your rights regarding your personal data.</p>
+
+    <h3>1. Information We Collect</h3>
+
+    <p><strong>We collect the following types of information:</strong></p>
+
+    <h3>a) When you send a quick message (contact form)</h3>
+    <ul>
+      <li><strong>Name</strong></li>
+      <li><strong>Email address</strong></li>
+      <li><strong>Message content</strong></li>
+      <li><strong>Timestamp</strong> of submission</li>
+    </ul>
+    <p>This information is stored in our secure database and emailed to our support inbox so we can reply to you.</p>
+
+    <h3>b) When you create or sign in to an account</h3>
+    <p>We use Google and Apple sign-in for authentication. When you sign in, we receive from those providers:</p>
+    <ul>
+      <li><strong>Your name</strong> (as set on your Google/Apple account)</li>
+      <li><strong>Email address</strong></li>
+      <li><strong>Profile picture URL</strong> (if provided)</li>
+      <li><strong>A unique account identifier</strong> issued by Firebase</li>
+    </ul>
+    <p>We do <strong>not</strong> receive or store your Google or Apple password. Authentication is handled entirely by the provider.</p>
+
+    <h3>c) When you submit a project request</h3>
+    <p>Signed-in users can submit a project brief. We collect:</p>
+    <ul>
+      <li><strong>Business type</strong> (e.g. "Restaurant", "Retail")</li>
+      <li><strong>Project description</strong> written by you</li>
+      <li><strong>One PDF file</strong> (up to 2 MB) — typically your brief or requirements document</li>
+      <li><strong>Up to five image files</strong> — references, logos, or inspiration</li>
+      <li><strong>Approximate location</strong> — latitude and longitude, either detected from your browser (with your permission) or entered manually</li>
+      <li><strong>Submission timestamp</strong> and the account it was submitted from</li>
+    </ul>
+    <p>Uploaded files are stored securely on Cloudinary (a file-hosting service) and are <strong>automatically scanned for malware</strong> by Cloudmersive before being accepted. Submissions that fail the scan are rejected and are not stored.</p>
+
+    <h3>d) Automatically collected information</h3>
+    <ul>
+      <li><strong>Cookie preferences</strong> — your accept/reject choice stored locally in your browser</li>
+      <li><strong>Basic session data</strong> — held in your browser's session storage while you are signed in</li>
+    </ul>
+    <p>We do not run third-party advertising trackers or analytics scripts on this website at this time.</p>
+
+    <h3>e) Email we send you</h3>
+    <p>If you create an account, we will send you:</p>
+    <ul>
+      <li>A one-time <strong>welcome email</strong> confirming your account was created</li>
+      <li>Occasional <strong>blog digest emails</strong> (up to three times per week) listing new articles published on our blog</li>
+      <li>Direct replies to messages or project requests you send us</li>
+    </ul>
+    <p>You can ask to be removed from the blog digest at any time by replying to any email or contacting <a href="mailto:support@anubid.site">support@anubid.site</a>.</p>
+
+    <h3>2. How We Use Your Information</h3>
+    <ul>
+      <li>Provide and improve our website design services</li>
+      <li>Reply to your inquiries and project requests</li>
+      <li>Prepare quotes and process project orders</li>
+      <li>Send account-related emails (welcome, blog digests, replies)</li>
+      <li>Screen uploaded files for security threats</li>
+      <li>Improve website functionality and user experience</li>
+      <li>Ensure compliance with legal obligations</li>
+    </ul>
+
+    <h3>3. Third-Party Services We Use</h3>
+    <p>To run the site, we rely on the following processors. Each handles a specific piece of data on our behalf:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>What it handles</th>
+          <th>Provider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Firebase Authentication</td>
+          <td>Sign-in with Google / Apple, account identifiers</td>
+          <td>Google</td>
+        </tr>
+        <tr>
+          <td>Firestore</td>
+          <td>Stores messages, accounts, and project submissions</td>
+          <td>Google</td>
+        </tr>
+        <tr>
+          <td>Cloudinary</td>
+          <td>Hosts uploaded PDFs and images</td>
+          <td>Cloudinary Inc.</td>
+        </tr>
+        <tr>
+          <td>Cloudmersive</td>
+          <td>Scans every upload for malware before acceptance</td>
+          <td>Cloudmersive</td>
+        </tr>
+        <tr>
+          <td>Resend</td>
+          <td>Sends transactional email (welcome, replies, blog digests)</td>
+          <td>Resend</td>
+        </tr>
+        <tr>
+          <td>Cloudflare</td>
+          <td>Hosting, DNS, and security for the website and APIs</td>
+          <td>Cloudflare</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We do not sell, trade, or rent your personal information to anyone. We share it only with the processors above, and only to the extent needed to deliver our services.</p>
+
+    <h3>4. Legal Basis for Processing</h3>
+    <ul>
+      <li><strong>Consent:</strong> You provide explicit consent when you submit a form, sign in, or accept cookies</li>
+      <li><strong>Contract:</strong> Processing is necessary to provide the services you've requested</li>
+      <li><strong>Legitimate Interests:</strong> Improving our services and website security</li>
+      <li><strong>Legal Obligations:</strong> Compliance with applicable laws and regulations</li>
+    </ul>
+
+    <h3>5. Data Security</h3>
+    <ul>
+      <li>SSL/HTTPS encryption for all data transmission</li>
+      <li>Secure server hosting with regular backups</li>
+      <li>Two-factor access controls on internal admin tools</li>
+      <li>Automatic malware scanning of all uploaded files</li>
+      <li>Firebase Authentication for sign-in (we never see your Google/Apple password)</li>
+    </ul>
+
+    <h3>6. Data Retention</h3>
+    <ul>
+      <li><strong>Contact messages:</strong> 2 years after last interaction</li>
+      <li><strong>Account data:</strong> Until you request deletion</li>
+      <li><strong>Project submissions:</strong> Until you request deletion, or 5 years for legal record-keeping</li>
+      <li><strong>Cookie preference:</strong> Stored in your browser until you clear it</li>
+    </ul>
+
+    <h3>7. Your Rights</h3>
+    <p>You have the following rights regarding your personal data:</p>
+    <ul>
+      <li><strong>Right of Access:</strong> Request a copy of your data</li>
+      <li><strong>Right to Rectification:</strong> Correct inaccurate data</li>
+      <li><strong>Right to Erasure:</strong> Request deletion of your account and submissions</li>
+      <li><strong>Right to Restrict Processing:</strong> Limit how we use your data</li>
+      <li><strong>Right to Data Portability:</strong> Receive your data in a machine-readable format</li>
+      <li><strong>Right to Object:</strong> Object to certain data processing</li>
+      <li><strong>Right to Withdraw Consent:</strong> Withdraw consent at any time</li>
+    </ul>
+    <p>To exercise any of these rights, email <a href="mailto:support@anubid.site">support@anubid.site</a>.</p>
+
+    <h3>8. Cookies and Tracking Technologies</h3>
+    <p>We use a small number of cookies and local browser storage for essential functionality:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Purpose</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Essential (localStorage)</td>
+          <td>Remember your cookie consent choice between visits</td>
+          <td>Until cleared</td>
+        </tr>
+        <tr>
+          <td>Session (sessionStorage)</td>
+          <td>Keep you signed in to your account for the current tab session</td>
+          <td>Session</td>
+        </tr>
+        <tr>
+          <td>Authentication (Firebase)</td>
+          <td>Maintain your signed-in state using Google / Apple sign-in</td>
+          <td>Up to 1 year</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Cookie Consent:</strong> When you first visit our website, you will see a cookie banner. You can accept or reject non-essential preferences. Essential cookies and browser storage required for sign-in and form submission are set regardless of your choice.</p>
+
+    <h3>9. Children's Privacy</h3>
+    <p>Our services are not directed to children under 16. We do not knowingly collect personal information from children. If you believe a child has provided us with their data, please contact us for immediate removal.</p>
+
+    <h3>10. Third-Party Links</h3>
+    <p>Our website may contain links to third-party websites (for example, client websites in our portfolio). We are not responsible for the privacy practices of those sites. Please review their privacy policies before providing any personal information.</p>
+
+    <h3>11. International Data Transfers</h3>
+    <p>Some of our service providers (Google/Firebase, Cloudflare, Cloudinary, Resend) may store or process data on servers outside Uganda, including in the United States and the European Union. By using our services, you consent to these transfers, which are covered by each provider's standard data protection agreements.</p>
+
+    <!-- ==================== TERMS ==================== -->
+    <h2><i class="fas fa-file-contract"></i> Terms of Service</h2>
+
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing and using the Anubid Agency website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please refrain from using our services.</p>
+
+    <h3>2. Description of Services</h3>
+    <ul>
+      <li>Custom website design and development</li>
+      <li>SEO optimization services</li>
+      <li>Website hosting and maintenance</li>
+      <li>Website redesign and enhancement</li>
+      <li>Domain registration and management</li>
+      <li>SSL certificate installation</li>
+      <li>Email setup and management</li>
+    </ul>
+
+    <h3>3. Account Terms</h3>
+    <ul>
+      <li>You may create an account using Google or Apple sign-in</li>
+      <li>You are responsible for the security of your Google or Apple account</li>
+      <li>You must be at least 16 years old to create an account</li>
+      <li>One person may not maintain multiple accounts to abuse our submission system</li>
+      <li>We may suspend or delete accounts that violate these terms</li>
+    </ul>
+
+    <h3>4. Project Submissions</h3>
+    <ul>
+      <li>Project requests must be submitted by a signed-in account holder</li>
+      <li>Uploaded files are limited to one PDF (max 2 MB) and up to five images per submission</li>
+      <li>All uploads are scanned for malware; flagged files cause the submission to be rejected</li>
+      <li>You confirm you have the right to share any files you upload</li>
+      <li>Submissions do not create a contract until we issue a written quote and you accept it</li>
+    </ul>
+
+    <h3>5. Payment Terms</h3>
+    <ul>
+      <li><strong>Starter Plan:</strong> 200,000 UGX — 50% upfront, 50% on completion</li>
+      <li><strong>Business Plan:</strong> 350,000 UGX — 50% upfront, 50% on completion</li>
+      <li><strong>Premium Plan:</strong> 500,000 UGX — 50% upfront, 50% on completion</li>
+      <li><strong>Enterprise Plan:</strong> 700,000+ UGX — negotiable</li>
+      <li><strong>Flexible Payment:</strong> 24% upfront + 5% monthly for qualified clients</li>
+      <li>All payments are non-refundable once work has commenced</li>
+      <li>Late payments may incur additional fees</li>
+    </ul>
+
+    <h3>6. Project Timeline and Deliverables</h3>
+    <ul>
+      <li>Delivering projects within agreed timelines</li>
+      <li>Providing clear milestones and deliverables</li>
+      <li>Conducting revisions as outlined in project scope</li>
+      <li>Maintaining clear communication throughout the project</li>
+      <li>Providing documentation and training upon completion</li>
+    </ul>
+
+    <h3>7. Intellectual Property</h3>
+    <p>Upon full payment:</p>
+    <ul>
+      <li>You own the final website design and code</li>
+      <li>We retain rights to our development framework and tools</li>
+      <li>We may showcase your project in our portfolio (with permission)</li>
+      <li>Any provided logos, images, and content remain your property</li>
+    </ul>
+
+    <h3>8. User Responsibilities</h3>
+    <ul>
+      <li>Provide accurate and complete information</li>
+      <li>Maintain the security of your account credentials</li>
+      <li>Use our services for lawful purposes only</li>
+      <li>Not upload malicious files or attempt to breach website security</li>
+      <li>Not infringe on intellectual property rights</li>
+      <li>Comply with all applicable laws and regulations</li>
+    </ul>
+
+    <h3>9. Limitation of Liability</h3>
+    <p>Anubid Agency is not liable for:</p>
+    <ul>
+      <li>Indirect, incidental, or consequential damages</li>
+      <li>Loss of data, profits, or business opportunities</li>
+      <li>Website downtime caused by hosting or third-party provider issues</li>
+      <li>Third-party content or services</li>
+      <li>Technical failures beyond our control</li>
+    </ul>
+
+    <h3>10. Modifications to Terms</h3>
+    <p>We reserve the right to modify these terms at any time. Changes will be:</p>
+    <ul>
+      <li>Posted on this page with an updated effective date</li>
+      <li>Communicated by email to registered users for material changes</li>
+      <li>Effective immediately upon posting</li>
+      <li>Your continued use constitutes acceptance of modified terms</li>
+    </ul>
+
+    <h3>11. Termination</h3>
+    <p>We may terminate or suspend access to our services for:</p>
+    <ul>
+      <li>Violation of these terms</li>
+      <li>Fraudulent or unlawful activity</li>
+      <li>Non-payment for services rendered</li>
+      <li>Abusive behavior toward our team</li>
+    </ul>
+
+    <h3>12. Governing Law</h3>
+    <p>These terms are governed by the laws of Uganda. Any disputes shall be resolved in the courts of Kampala, Uganda.</p>
+
+    <h3>13. Contact Information</h3>
+
+    <div class="contact-box">
+      <p><strong>If you have any questions about these terms or our privacy practices, please contact us:</strong></p>
+      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@anubid.site">support@anubid.site</a></p>
+      <p><i class="fas fa-envelope"></i> Quotes: <a href="mailto:quote@anubid.site">quote@anubid.site</a></p>
+      <p><i class="fas fa-phone"></i> Phone: <a href="tel:+256741172176">+256 741 172 176</a></p>
+      <p><i class="fas fa-map-marker-alt"></i> Location: Kampala, Uganda</p>
+      <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/256741172176">Chat with us</a></p>
+    </div>
+
+    <div class="last-updated">
+      <p><strong>Last Updated:</strong> December 2025</p>
+      <p><strong>Version:</strong> 3.0</p>
+      <p><strong>Effective Date:</strong> January 1, 2025</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Anubid Agency. All rights reserved.</p>
+  <p>Kampala, Uganda</p>
+</footer>
+
+</body>
+</html>
