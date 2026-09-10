@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your account — Anubid Agency</title>
+  <meta name="description" content="Sign in to your Anubid account to submit a project request and track it.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://anubid.site/account.html">
+  <link rel="icon" type="image/png" href="fa-bid.png">
+  <meta name="theme-color" content="#ed1717">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    @font-face{
+      font-family:'Anbid';
+      src:url('anbid.ttf') format('truetype');
+      font-weight:400 700;
+      font-display:swap;
+    }
+    :root{
+      --red:#ed1717;
+      --red-deep:#c00f0f;
+      --ink:#111111;
+      --white:#ffffff;
+      --paper:#f5f4f1;
+      --line:#e3e1dc;
+      --gray:#6b6b6b;
+      --display:'Anbid', 'Space Grotesk', sans-serif;
+      --body:'IBM Plex Sans', sans-serif;
+    }
+    *{box-sizing:border-box; margin:0; padding:0; border-radius:0 !important;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--body); color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased; overflow-x:hidden; min-height:100vh;}
+    img{display:block; max-width:100%;}
+    a{color:inherit; text-decoration:none;}
+    button{font-family:inherit; cursor:pointer; border:none; background:none;}
+    h1,h2,h3,h4{font-family:var(--display); line-height:1.1; letter-spacing:-0.01em;}
+    section{padding:56px 0;}
+    .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+    .wrap-narrow{max-width:720px; margin:0 auto; padding:0 28px;}
+    .eyebrow{font-family:var(--display); font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--red-deep); display:flex; align-items:center; gap:8px; margin-bottom:14px;}
+    .eyebrow::before{content:""; width:18px; height:2px; background:var(--red);}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 24px; font-family:var(--display); font-weight:700; font-size:15px; border:2px solid var(--ink); white-space:nowrap; transition:background .15s, color .15s, border-color .15s;}
+    .btn-primary{background:var(--red); color:var(--white); border-color:var(--red);}
+    .btn-primary:hover{background:var(--red-deep); border-color:var(--red-deep);}
+    .btn-dark{background:var(--ink); color:var(--white); border-color:var(--ink);}
+    .btn-dark:hover{background:#000;}
+    .btn-outline{background:transparent; color:var(--ink); border-color:var(--ink);}
+    .btn-outline:hover{background:var(--ink); color:var(--white);}
+    .btn-ghost{background:transparent; color:var(--gray); border-color:transparent; padding:8px 12px; font-size:13.5px;}
+    .btn-ghost:hover{color:var(--ink);}
+    .btn[disabled]{opacity:.55; cursor:not-allowed;}
+
+    /* LOADER */
+    #loader{position:fixed; inset:0; background:#111; z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:opacity .5s;}
+    #loader.hidden{opacity:0; pointer-events:none;}
+    .loader-bars{display:flex; gap:12px; margin-bottom:24px;}
+    .bar{width:12px; height:50px; background:#ed1717; animation:bounce 1.2s infinite ease-in-out;}
+    .bar:nth-child(1){background:#ed1717; animation-delay:0;}
+    .bar:nth-child(2){background:#f5f4f1; animation-delay:.2s;}
+    .bar:nth-child(3){background:#ed1717; animation-delay:.4s;}
+    .bar:nth-child(4){background:#f5f4f1; animation-delay:.6s;}
+    .bar:nth-child(5){background:#ed1717; animation-delay:.8s;}
+    @keyframes bounce{0%,100%{transform:scaleY(.3); opacity:.6;} 50%{transform:scaleY(1.2); opacity:1;}}
+    #loaderText{color:#fff; font-family:var(--display); font-size:1.3rem; letter-spacing:2px;}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:300; background:var(--ink); border-bottom:2px solid var(--ink);}
+    .nav-row{display:flex; align-items:center; justify-content:space-between; height:76px;}
+    .logo-mark img{height:32px; width:auto;}
+    nav.primary-nav{display:flex; align-items:center; gap:34px;}
+    nav.primary-nav a{font-family:var(--display); font-weight:500; font-size:14.5px; color:#cfcfcf;}
+    nav.primary-nav a:hover, nav.primary-nav a.active{color:var(--white);}
+    .nav-actions{display:flex; align-items:center; gap:14px;}
+    .nav-actions .btn{padding:11px 20px; font-size:13.5px;}
+    .user-chip{display:flex; align-items:center; gap:10px; font-family:var(--display); font-size:13.5px; color:#cfcfcf;}
+    .user-chip .avatar{width:30px; height:30px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex:none; border-radius:50% !important;}
+    .menu-toggle{display:none; background:none; color:var(--white); font-size:22px;}
+
+    /* Views */
+    .view[hidden]{display:none;}
+
+    /* ================= AUTH VIEW ================= */
+    .auth-hero{min-height:calc(100vh - 76px); display:flex; align-items:center; justify-content:center; padding:48px 24px;}
+    .auth-card{background:var(--white); width:100%; max-width:440px; padding:48px 40px; border-top:4px solid var(--red); box-shadow:0 4px 24px rgba(0,0,0,.04);}
+    .auth-card .logo{height:32px; margin-bottom:26px;}
+    .auth-card h1{font-size:28px; margin-bottom:10px;}
+    .auth-card p.lede{color:var(--gray); font-size:14.5px; line-height:1.6; margin-bottom:26px;}
+    .auth-btn{width:100%; margin-bottom:12px; padding:14px 20px; font-size:14.5px; justify-content:flex-start; gap:14px;}
+    .auth-btn i{width:20px; text-align:center; font-size:16px;}
+    .auth-btn.apple{background:var(--ink); color:var(--white); border-color:var(--ink);}
+    .auth-btn.apple:hover{background:#000;}
+    .auth-btn.google{background:var(--white); color:var(--ink); border-color:var(--line);}
+    .auth-btn.google:hover{border-color:var(--ink); background:#fafaf7;}
+    .auth-terms{font-size:12px; color:var(--gray); line-height:1.6; margin-top:18px; text-align:center;}
+    .auth-terms a{color:var(--red-deep); text-decoration:underline;}
+    .auth-status{font-size:13px; line-height:1.5; margin-top:16px; min-height:18px; text-align:center;}
+    .auth-status.err{color:var(--red-deep);}
+    .auth-status.ok{color:#0a7a2f;}
+    .auth-divider{display:flex; align-items:center; gap:14px; margin:20px 0; font-size:12px; color:var(--gray); font-family:var(--display); text-transform:uppercase; letter-spacing:.08em;}
+    .auth-divider::before, .auth-divider::after{content:""; flex:1; height:1px; background:var(--line);}
+
+    /* ================= DASHBOARD ================= */
+    .dash-head{background:var(--white); border-bottom:1px solid var(--line); padding:36px 0;}
+    .dash-head h1{font-size:30px; margin-bottom:6px;}
+    .dash-head p{color:var(--gray); font-size:14.5px;}
+    .dash-grid{display:grid; grid-template-columns:220px 1fr; gap:36px; align-items:start;}
+    .side-menu{background:var(--white); border:1px solid var(--line); display:flex; flex-direction:column;}
+    .side-menu button{display:flex; align-items:center; gap:12px; padding:14px 18px; font-family:var(--display); font-weight:500; font-size:14px; color:var(--gray); border-left:3px solid transparent; text-align:left; width:100%;}
+    .side-menu button i{width:18px; color:#999; font-size:13px;}
+    .side-menu button:hover{color:var(--ink); background:#fafaf7;}
+    .side-menu button.active{color:var(--ink); border-left-color:var(--red); font-weight:700; background:#fafaf7;}
+    .side-menu button.active i{color:var(--red);}
+    .panel{background:var(--white); border:1px solid var(--line); padding:32px 34px;}
+    .panel[hidden]{display:none;}
+    .panel h2{font-size:22px; margin-bottom:8px;}
+    .panel .panel-lede{color:var(--gray); font-size:14px; line-height:1.6; margin-bottom:24px;}
+
+    /* Form */
+    .form{display:flex; flex-direction:column; gap:18px;}
+    .field label{display:block; font-family:var(--display); font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray); margin-bottom:8px;}
+    .field label .req{color:var(--red-deep);}
+    .field input[type="text"],
+    .field input[type="email"],
+    .field input[type="number"],
+    .field textarea{padding:13px 15px; border:1px solid var(--line); background:var(--white); font-family:var(--body); font-size:14.5px; width:100%; color:var(--ink);}
+    .field input:focus, .field textarea:focus{outline:none; border-color:var(--ink);}
+    .field textarea{min-height:120px; resize:vertical; font-family:var(--body);}
+    .field .hint{font-size:12.5px; color:var(--gray); margin-top:6px;}
+    .field .err{font-size:12.5px; color:var(--red-deep); margin-top:6px;}
+
+    /* File drops */
+    .drop{border:2px dashed var(--line); padding:26px 20px; text-align:center; cursor:pointer; transition:border-color .15s, background .15s; background:#fafaf7;}
+    .drop:hover, .drop.dragover{border-color:var(--red); background:#fff5f5;}
+    .drop i{font-size:24px; color:var(--gray); margin-bottom:10px; display:block;}
+    .drop .drop-title{font-family:var(--display); font-weight:700; font-size:14px; margin-bottom:4px;}
+    .drop .drop-hint{font-size:12.5px; color:var(--gray);}
+    .drop input[type="file"]{display:none;}
+    .drop.filled{border-style:solid; border-color:var(--ink); background:var(--white);}
+    .file-preview{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;}
+    .file-preview .tile{position:relative; width:76px; height:76px; overflow:hidden; border:1px solid var(--line); background:var(--paper);}
+    .file-preview .tile img{width:100%; height:100%; object-fit:cover;}
+    .file-preview .tile .x{position:absolute; top:-1px; right:-1px; width:22px; height:22px; background:var(--red-deep); color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center;}
+    .file-meta{display:flex; align-items:center; gap:12px; padding:10px 14px; background:var(--paper); border-left:3px solid var(--red); font-size:13.5px;}
+    .file-meta .name{flex:1; word-break:break-all;}
+    .file-meta .size{color:var(--gray); font-size:12.5px;}
+    .file-meta .x{color:var(--red-deep); padding:4px 8px; font-size:13px;}
+
+    /* Location */
+    .loc-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .loc-display{flex:1; min-width:200px; padding:13px 15px; border:1px solid var(--line); font-size:13.5px; color:var(--gray); background:var(--paper); font-family:'IBM Plex Sans', sans-serif;}
+    .loc-display.ok{color:var(--ink); border-color:#0a7a2f; background:#f0faf3;}
+
+    /* Buttons row */
+    .form-actions{display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px;}
+    .form-actions .spacer{flex:1;}
+    .form-status{font-size:13.5px; line-height:1.5; margin-top:14px; padding:14px 16px; border-left:3px solid; display:none;}
+    .form-status.show{display:block;}
+    .form-status.ok{border-color:#0a7a2f; background:#f0faf3; color:#0a5a22;}
+    .form-status.err{border-color:var(--red-deep); background:#fff5f5; color:var(--red-deep);}
+
+    /* Account info */
+    .kv{display:flex; flex-direction:column; gap:2px; padding:14px 0; border-bottom:1px solid var(--line);}
+    .kv:last-child{border-bottom:none;}
+    .kv .k{font-family:var(--display); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray);}
+    .kv .v{font-size:14.5px; word-break:break-all;}
+    .kv .v.mono{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--gray);}
+
+    /* Footer */
+    footer{background:var(--ink); color:#d8d8d8; padding-top:52px; margin-top:60px;}
+    .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; padding-bottom:36px; border-bottom:1px solid #333;}
+    .footer-brand img{height:28px; margin-bottom:14px;}
+    .footer-brand p{font-size:13.5px; color:#9a9a9a; line-height:1.6; max-width:280px;}
+    .footer-col h4{font-family:var(--display); color:var(--white); font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}
+    .footer-col a{display:block; font-size:13.5px; color:#b8b8b8; margin-bottom:10px;}
+    .footer-col a:hover{color:var(--white);}
+    .footer-bottom{padding:20px 0; font-size:12px; color:#8a8a8a; text-align:center;}
+
+    /* Cookie banner */
+    #cookieBanner{position:fixed; left:0; right:0; bottom:0; z-index:500; background:var(--ink); color:var(--white); border-top:2px solid var(--red); padding:18px 22px; display:none;}
+    #cookieBanner.show{display:block;}
+    .cookie-inner{max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+    .cookie-text{flex:1; min-width:240px; font-size:13.5px; line-height:1.55; color:#d6d6d6;}
+    .cookie-text a{color:var(--white); text-decoration:underline;}
+    .cookie-actions{display:flex; gap:10px; flex:none;}
+    .cookie-btn{padding:11px 20px; font-family:var(--display); font-weight:700; font-size:13.5px;}
+    .cookie-reject{background:transparent; color:var(--white); border:2px solid #555;}
+    .cookie-accept{background:var(--red); color:var(--white);}
+
+    /* Toast */
+    #toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--white); padding:12px 22px; font-family:var(--display); font-weight:700; font-size:13.5px; z-index:1000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
+    #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+    #toast.err{background:var(--red-deep);}
+
+    /* WhatsApp float */
+    #waFloat{position:fixed; right:22px; bottom:22px; z-index:400; background:#111; color:var(--white); border:2px solid var(--red); width:56px; height:56px; display:flex; align-items:center; justify-content:center; font-size:24px;}
+    #waFloat:hover{background:var(--red);}
+
+    noscript div{position:fixed; inset:0; background:var(--ink); color:var(--white); z-index:9999; display:flex; align-items:center; justify-content:center; text-align:center; padding:32px; font-family:sans-serif; font-size:16px;}
+
+    @media (max-width:900px){
+      .dash-grid{grid-template-columns:1fr;}
+      .side-menu{flex-direction:row; overflow-x:auto;}
+      .side-menu button{border-left:none; border-bottom:3px solid transparent; white-space:nowrap;}
+      .side-menu button.active{border-left:none; border-bottom-color:var(--red);}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media (max-width:760px){
+      nav.primary-nav{position:fixed; top:76px; left:0; right:0; bottom:0; background:var(--ink); flex-direction:column; align-items:flex-start; padding:32px; gap:22px; transform:translateX(100%); transition:transform .25s ease; z-index:299;}
+      nav.primary-nav.open{transform:translateX(0);}
+      .nav-actions{display:none;}
+      .menu-toggle{display:block;}
+      .user-chip .email{display:none;}
+      section{padding:40px 0;}
+      .auth-card{padding:36px 26px;}
+      .panel{padding:24px 22px;}
+      .footer-grid{grid-template-columns:1fr;}
+      .cookie-inner{flex-direction:column; align-items:flex-start;}
+      .cookie-actions{width:100%;}
+      .cookie-btn{flex:1;}
+      #waFloat{right:16px; bottom:16px;}
+      .loc-row{flex-direction:column; align-items:stretch;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-bars">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div id="loaderText">loading...</div>
+  </div>
+
+  <noscript>
+    <div>
+      <p>Anubid Agency's website needs JavaScript switched on to work properly. Please enable JavaScript in your browser settings and reload the page.</p>
+    </div>
+  </noscript>
+
+  <header>
+    <div class="wrap nav-row" style="max-width:1200px;">
+      <a href="index.html" class="logo-mark" aria-label="Anubid Agency home">
+        <img src="anubid.png" alt="Anubid Agency">
+      </a>
+      <nav class="primary-nav" id="primaryNav">
+        <a href="index.html">Home</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="blog.html">Blog</a>
+        <a href="account.html" class="active">Account</a>
+        <a href="https://wa.me/256741172176" class="btn btn-primary mobile-cta"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://wa.me/256741172176" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Get a quote</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== AUTH VIEW (signed-out) ===================== -->
+    <div id="authView" class="view" hidden>
+      <div class="auth-hero">
+        <div class="auth-card">
+          <img src="anubid.png" alt="Anubid Agency" class="logo">
+          <h1>Sign in to Anubid</h1>
+          <p class="lede">Create an account or sign back in to submit a project request and track it with us.</p>
+
+          <button class="btn auth-btn google" id="googleBtn" type="button">
+            <i class="fa-brands fa-google"></i> Continue with Google
+          </button>
+
+          <button class="btn auth-btn apple" id="appleBtn" type="button">
+            <i class="fa-brands fa-apple"></i> Continue with Apple
+          </button>
+
+          <div class="auth-divider">or</div>
+
+          <a href="index.html#about" class="btn auth-btn" style="border-color:var(--line); color:var(--gray); justify-content:center;">
+            <i class="fa-regular fa-envelope"></i> Just send us a message
+          </a>
+
+          <p class="auth-status" id="authStatus" role="status" aria-live="polite"></p>
+
+          <p class="auth-terms">
+            By continuing you agree to our
+            <a href="terms-policy.html">Terms &amp; Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== DASHBOARD VIEW (signed-in) ===================== -->
+    <div id="dashView" class="view" hidden>
+
+      <section class="dash-head">
+        <div class="wrap">
+          <span class="eyebrow">Your account</span>
+          <h1 id="welcomeHeading">Welcome</h1>
+          <p id="welcomeSub">Submit a new project request, or review your account details.</p>
+        </div>
+      </section>
+
+      <section class="wrap">
+        <div class="dash-grid">
+
+          <aside class="side-menu" id="sideMenu">
+            <button data-panel="new" class="active"><i class="fa-solid fa-rocket"></i> New project</button>
+            <button data-panel="account"><i class="fa-solid fa-user"></i> Account details</button>
+            <button data-panel="help"><i class="fa-regular fa-circle-question"></i> Help &amp; contact</button>
+          </aside>
+
+          <div>
+
+            <!-- -------- PANEL: New project -------- -->
+            <div class="panel" id="panelNew">
+              <h2>Start a project request</h2>
+              <p class="panel-lede">Tell us about the project. Upload a brief or any references (one PDF up to 2&nbsp;MB, and up to five images), and we'll get back to you with a quote.</p>
+
+              <form class="form" id="submissionForm" novalidate>
+
+                <div class="field">
+                  <label for="businessType">Business type <span class="req">*</span></label>
+                  <input type="text" id="businessType" name="businessType" placeholder="e.g. Restaurant, Retail, Salon, Electrician…" required>
+                  <div class="hint">A short label so we understand the industry at a glance.</div>
+                </div>
+
+                <div class="field">
+                  <label for="description">What do you need? <span class="req">*</span></label>
+                  <textarea id="description" name="description" placeholder="A few sentences about the website you want — goals, sections, must-have features, deadline if any." required></textarea>
+                </div>
+
+                <!-- PDF -->
+                <div class="field">
+                  <label>PDF brief <span class="req">*</span></label>
+                  <label class="drop" id="pdfDrop" for="pdfInput">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <div class="drop-title">Drop your PDF here, or click to choose</div>
+                    <div class="drop-hint">One file · max 2 MB</div>
+                    <input type="file" id="pdfInput" name="pdf" accept="application/pdf,.pdf">
+                  </label>
+                  <div id="pdfPreview"></div>
+                  <div class="hint" id="pdfErr"></div>
+                </div>
+
+                <!-- Images -->
+                <div class="field">
+                  <label>Reference images <span style="color:var(--gray); font-weight:400; text-transform:none; letter-spacing:0;">(optional, up to 5)</span></label>
+                  <label class="drop" id="imagesDrop" for="imagesInput">
+                    <i class="fa-regular fa-images"></i>
+                    <div class="drop-title">Drop images here, or click to choose</div>
+                    <div class="drop-hint">PNG, JPG, WEBP · up to 5 files</div>
+                    <input type="file" id="imagesInput" name="images" accept="image/*" multiple>
+                  </label>
+                  <div class="file-preview" id="imagesPreview"></div>
+                  <div class="hint" id="imagesErr"></div>
+                </div>
+
+                <!-- Location -->
+                <div class="field">
+                  <label>Location <span class="req">*</span></label>
+                  <div class="loc-row">
+                    <div class="loc-display" id="locDisplay">Not set yet — detect, or enter manually.</div>
+                    <button type="button" class="btn btn-outline" id="locDetectBtn">
+                      <i class="fa-solid fa-location-crosshairs"></i> Detect
+                    </button>
+                    <button type="button" class="btn btn-outline" id="locManualBtn">
+                      <i class="fa-solid fa-pen"></i> Enter manually
+                    </button>
+                  </div>
+                  <div id="locManual" style="display:none; margin-top:10px;" class="loc-row">
+                    <input type="number" step="any" id="latInput" placeholder="Latitude" style="padding:11px 13px; border:1px solid var(--line); font-family:var(--body); font-size:14px;">
+                    <input type="number" step="any" id="lngInput" placeholder="Longitude" style="padding:11px 13px; border:1px solid var(--line); font-family:var(--body); font-size:14px;">
+                    <button type="button" class="btn btn-outline" id="locManualSave">Save</button>
+                  </div>
+                  <div class="hint">Helps us route your request if you're local. If you'd rather not share, you can enter approximate coordinates.</div>
+                  <div class="hint" id="locErr"></div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <i class="fa-solid fa-paper-plane"></i> Send project request
+                  </button>
+                  <span class="spacer"></span>
+                  <button type="reset" class="btn btn-ghost" id="resetBtn">
+                    <i class="fa-solid fa-rotate-left"></i> Clear
+                  </button>
+                </div>
+
+                <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+              </form>
+            </div>
+
+            <!-- -------- PANEL: Account details -------- -->
+            <div class="panel" id="panelAccount" hidden>
+              <h2>Account details</h2>
+              <p class="panel-lede">Information tied to your Anubid account.</p>
+
+              <div class="kv"><span class="k">Display name</span><span class="v" id="accName">—</span></div>
+              <div class="kv"><span class="k">Email</span><span class="v" id="accEmail">—</span></div>
+              <div class="kv"><span class="k">Sign-in method</span><span class="v" id="accProvider">—</span></div>
+              <div class="kv"><span class="k">Member since</span><span class="v" id="accSince">—</span></div>
+              <div class="kv"><span class="k">Account ID</span><span class="v mono" id="accUid">—</span></div>
+
+              <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn btn-outline" id="signOutBtn2"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
+                <a href="mailto:support@anubid.site" class="btn btn-outline"><i class="fa-regular fa-envelope"></i> Email support</a>
+              </div>
+            </div>
+
+            <!-- -------- PANEL: Help -------- -->
+            <div class="panel" id="panelHelp" hidden>
+              <h2>Help &amp; contact</h2>
+              <p class="panel-lede">Stuck on something? Reach out and we'll get back quickly.</p>
+
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <a href="https://wa.me/256741172176" class="btn btn-primary" style="justify-content:flex-start;">
+                  <i class="fa-brands fa-whatsapp"></i> WhatsApp: 0741 172 176
+                </a>
+                <a href="mailto:support@anubid.site" class="btn btn-outline" style="justify-content:flex-start;">
+                  <i class="fa-regular fa-envelope"></i> support@anubid.site
+                </a>
+                <a href="mailto:quote@anubid.site" class="btn btn-outline" style="justify-content:flex-start;">
+                  <i class="fa-solid fa-file-invoice"></i> quote@anubid.site
+                </a>
+                <a href="index.html#about" class="btn btn-outline" style="justify-content:flex-start;">
+                  <i class="fa-solid fa-circle-info"></i> About Anubid
+                </a>
+              </div>
+
+              <div style="margin-top:28px; padding:20px; background:var(--paper); border-left:4px solid var(--red); font-size:14px; line-height:1.7; color:#333;">
+                <strong>What happens after I submit a request?</strong><br>
+                We review your brief and PDF within one business day, then send you a quote by email. If anything needs clarifying, we'll ask before quoting.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap" style="max-width:1200px;">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="anubid.png" alt="Anubid Agency">
+          <p>Anubid Agency builds responsive, SEO-ready websites for businesses that want a stronger, more affordable presence online.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="index.html">Home</a>
+          <a href="index.html#portfolio">Portfolio</a>
+          <a href="index.html#pricing">Pricing</a>
+          <a href="blog.html">Blog</a>
+          <a href="account.html">Account</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+256741172176"><i class="fa-solid fa-phone"></i> 0741 172 176</a>
+          <a href="mailto:support@anubid.site"><i class="fa-solid fa-envelope"></i> support@anubid.site</a>
+          <a href="mailto:quote@anubid.site"><i class="fa-solid fa-file-invoice"></i> quote@anubid.site</a>
+          <a href="terms-policy.html">Terms &amp; Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; <span id="year"></span> Anubid Agency, Kampala.
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/256741172176" id="waFloat" aria-label="Message us on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <div id="cookieBanner" role="region" aria-label="Cookie consent">
+    <div class="cookie-inner">
+      <p class="cookie-text">
+        We use essential cookies to keep this site running smoothly. With your consent, we'll also remember basic preferences between visits. Read more in our <a href="terms-policy.html">Terms &amp; Privacy Policy</a>.
+      </p>
+      <div class="cookie-actions">
+        <button class="cookie-btn cookie-reject" id="cookieReject">Reject</button>
+        <button class="cookie-btn cookie-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script type="module">
+  /* =====================================================================
+     FIREBASE CONFIG — live values for the anubidagency project.
+     ===================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyBv-SCPSLmOym0eG7rT_2754yM4j_ssXN4",
+    authDomain: "anubidagency.firebaseapp.com",
+    projectId: "anubidagency",
+    storageBucket: "anubidagency.firebasestorage.app",
+    messagingSenderId: "967534062233",
+    appId: "1:967534062233:web:1b83605dd2c08f600fa608",
+    measurementId: "G-68ZK0P6Z55"
+  };
+
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    OAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+  } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+  googleProvider.setCustomParameters({ prompt: 'select_account' });
+
+  const appleProvider = new OAuthProvider('apple.com');
+  appleProvider.addScope('email');
+  appleProvider.addScope('name');
+
+  /* =====================================================================
+     HELPERS
+     ===================================================================== */
+  const API = '/other';
+  const $ = (id) => document.getElementById(id);
+  const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+  function toast(msg, isErr = false) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.toggle('err', !!isErr);
+    t.classList.add('show');
+    clearTimeout(t._tid);
+    t._tid = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    try {
+      return new Date(iso).toLocaleDateString('en-GB',
+        { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch { return iso; }
+  }
+  function fmtBytes(n) {
+    if (!n) return '';
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return (n / 1024).toFixed(0) + ' KB';
+    return (n / 1048576).toFixed(2) + ' MB';
+  }
+
+  /* =====================================================================
+     PAGE CHROME (loader, nav, cookie, year)
+     ===================================================================== */
+  $('year').textContent = new Date().getFullYear();
+
+  const menuToggle = $('menuToggle');
+  const primaryNav = $('primaryNav');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuToggle.innerHTML = isOpen
+      ? '<i class="fa-solid fa-xmark"></i>'
+      : '<i class="fa-solid fa-bars"></i>';
+  });
+  primaryNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    primaryNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }));
+
+  const cookieBanner = $('cookieBanner');
+  if (!localStorage.getItem('anubid_cookie_consent')) cookieBanner.classList.add('show');
+  $('cookieAccept').addEventListener('click', () => {
+    localStorage.setItem('anubid_cookie_consent', 'accepted');
+    cookieBanner.classList.remove('show');
+  });
+  $('cookieReject').addEventListener('click', () => {
+    localStorage.setItem('anubid_cookie_consent', 'rejected');
+    cookieBanner.classList.remove('show');
+  });
+
+  window.addEventListener('load', function () {
+    const loader = $('loader');
+    const loaderText = $('loaderText');
+    const imgs = Array.from(document.images);
+    if (imgs.length === 0) { loader.classList.add('hidden'); return; }
+    let loaded = 0;
+    const done = () => {
+      loaded++;
+      if (loaded >= imgs.length) loader.classList.add('hidden');
+      else if (loaded === 1) loaderText.textContent = 'loading...';
+      else if (loaded === 2 && imgs.length > 3) loaderText.textContent = 'almost there...';
+      else if (loaded > 2 && loaded < imgs.length) loaderText.textContent = 'few seconds to go...';
+    };
+    imgs.forEach(img => {
+      if (img.complete) done();
+      else { img.addEventListener('load', done); img.addEventListener('error', done); }
+    });
+    setTimeout(() => {
+      if (!loader.classList.contains('hidden'))
+        loaderText.textContent = 'few seconds to go...';
+    }, 3000);
+  });
+
+  /* =====================================================================
+     AUTH + SESSION
+     ===================================================================== */
+
+  const authView   = $('authView');
+  const dashView   = $('dashView');
+  const authStatus = $('authStatus');
+  const googleBtn  = $('googleBtn');
+  const appleBtn   = $('appleBtn');
+
+  let currentUser = null;    // Firebase user
+  let currentSession = null; // doc returned by /auth/session
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      currentUser = null;
+      currentSession = null;
+      authView.hidden = false;
+      dashView.hidden = true;
+      authStatus.textContent = '';
+      authStatus.className = 'auth-status';
+      return;
+    }
+    currentUser = user;
+    await enterDashboard(user);
+  });
+
+  async function signInWith(provider, label) {
+    authStatus.textContent = '';
+    authStatus.className = 'auth-status';
+    const btn = provider === googleProvider ? googleBtn : appleBtn;
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Opening ' + label + '…';
+    try {
+      await signInWithPopup(auth, provider);
+      // onAuthStateChanged takes over from here.
+    } catch (e) {
+      console.error(label + ' sign-in failed', e);
+      const code = e && e.code ? e.code : '';
+      let msg = e.message || (label + ' sign-in failed.');
+      if (code === 'auth/popup-closed-by-user') msg = 'Sign-in cancelled.';
+      if (code === 'auth/popup-blocked') msg = 'Your browser blocked the popup. Please allow popups and try again.';
+      if (code === 'auth/operation-not-allowed')
+        msg = label + ' sign-in is not enabled for this project yet. Please try Google, or contact us.';
+      if (code === 'auth/account-exists-with-different-credential')
+        msg = 'An account already exists with this email. Try the other sign-in button.';
+      authStatus.textContent = msg;
+      authStatus.classList.add('err');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  }
+
+  googleBtn.addEventListener('click', () => signInWith(googleProvider, 'Google'));
+  appleBtn.addEventListener('click',  () => signInWith(appleProvider,  'Apple'));
+
+  async function enterDashboard(user) {
+    authView.hidden = true;
+    dashView.hidden = false;
+
+    // Notify backend — idempotent. Creates the Firestore doc + sends
+    // the welcome email on first login.
+    let session = null;
+    try {
+      const idToken = await user.getIdToken();
+      const res = await fetch(API + '/auth/session', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + idToken,
+          'Content-Type': 'application/json',
+        },
+        body: '{}',
+      });
+      if (res.ok) {
+        const data = await res.json();
+        session = data.user || null;
+        if (data.created) {
+          toast('Welcome to Anubid — check your inbox for a hello.');
+        }
+      } else {
+        console.warn('auth/session returned', res.status);
+      }
+    } catch (e) {
+      console.error('auth/session failed', e);
+    }
+    currentSession = session;
+
+    // Populate dashboard
+    const displayName = (session && session.displayName) || user.displayName || '';
+    const email = (session && session.email) || user.email || '';
+    const first = displayName ? displayName.split(/\s+/)[0] : '';
+    $('welcomeHeading').textContent = first ? ('Hi, ' + first) : 'Welcome to your account';
+    $('welcomeSub').textContent = "Tell us about your project below — we'll reply with a quote.";
+
+    $('accName').textContent = displayName || '—';
+    $('accEmail').textContent = email || '—';
+    $('accProvider').textContent = (user.providerData[0] && user.providerData[0].providerId) || '—';
+    $('accSince').textContent = session && session.createdAt
+      ? fmtDate(session.createdAt)
+      : '—';
+    $('accUid').textContent = user.uid;
+  }
+
+  // Sign out
+  $('signOutBtn2').addEventListener('click', doSignOut);
+  async function doSignOut() {
+    try { await signOut(auth); } catch (e) { console.error(e); }
+    $('submissionForm').reset();
+    clearFormOutputs();
+    toast('Signed out');
+  }
+
+  /* =====================================================================
+     DASHBOARD NAV — side menu panels
+     ===================================================================== */
+  document.querySelectorAll('#sideMenu button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#sideMenu button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.dataset.panel; // new | account | help
+      ['New', 'Account', 'Help'].forEach(p => {
+        const el = $('panel' + p);
+        if (!el) return;
+        el.hidden = (p.toLowerCase() !== target);
+      });
+    });
+  });
+
+  /* =====================================================================
+     SUBMISSION FORM — PDF / images / location / submit
+     ===================================================================== */
+
+  // --- PDF ---
+  const pdfInput   = $('pdfInput');
+  const pdfDrop    = $('pdfDrop');
+  const pdfPreview = $('pdfPreview');
+  const pdfErr     = $('pdfErr');
+  const MAX_PDF    = 2 * 1024 * 1024; // 2 MB
+  let pdfFile = null;
+
+  pdfInput.addEventListener('change', () => {
+    const f = pdfInput.files[0];
+    if (!f) return;
+    pdfErr.textContent = '';
+    if (f.type !== 'application/pdf' && !/\.pdf$/i.test(f.name)) {
+      pdfErr.textContent = 'Please choose a PDF file.';
+      pdfInput.value = '';
+      pdfFile = null;
+      renderPdfPreview();
+      return;
+    }
+    if (f.size > MAX_PDF) {
+      pdfErr.textContent = 'PDF is ' + fmtBytes(f.size) + ' — max is 2 MB. Compress it and try again.';
+      pdfInput.value = '';
+      pdfFile = null;
+      renderPdfPreview();
+      return;
+    }
+    pdfFile = f;
+    renderPdfPreview();
+  });
+
+  function renderPdfPreview() {
+    if (!pdfFile) { pdfPreview.innerHTML = ''; pdfDrop.classList.remove('filled'); return; }
+    pdfDrop.classList.add('filled');
+    pdfPreview.innerHTML = `
+      <div class="file-meta">
+        <i class="fa-solid fa-file-pdf" style="color:var(--red-deep);"></i>
+        <span class="name">${escapeHtml(pdfFile.name)}</span>
+        <span class="size">${escapeHtml(fmtBytes(pdfFile.size))}</span>
+        <button type="button" class="x" id="pdfRemove" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    `;
+    $('pdfRemove').addEventListener('click', () => {
+      pdfFile = null;
+      pdfInput.value = '';
+      renderPdfPreview();
+    });
+  }
+
+  bindDrop(pdfDrop, (f) => {
+    if (f) { pdfInput.files = toFileList([f]); pdfInput.dispatchEvent(new Event('change')); }
+  });
+
+  // --- Images ---
+  const imagesInput   = $('imagesInput');
+  const imagesDrop    = $('imagesDrop');
+  const imagesPreview = $('imagesPreview');
+  const imagesErr     = $('imagesErr');
+  const MAX_IMAGES    = 5;
+  let imageFiles = [];
+
+  imagesInput.addEventListener('change', () => {
+    const incoming = Array.from(imagesInput.files || []);
+    imagesErr.textContent = '';
+    const combined = [...imageFiles, ...incoming];
+    if (combined.length > MAX_IMAGES) {
+      imagesErr.textContent = 'You can attach up to ' + MAX_IMAGES + ' images.';
+    }
+    const seen = new Set();
+    imageFiles = combined.filter(f => {
+      const key = f.name + '|' + f.size;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, MAX_IMAGES);
+    imagesInput.value = '';
+    renderImagesPreview();
+  });
+
+  function renderImagesPreview() {
+    if (imageFiles.length === 0) {
+      imagesPreview.innerHTML = '';
+      imagesDrop.classList.remove('filled');
+      return;
+    }
+    imagesDrop.classList.add('filled');
+    imagesPreview.innerHTML = imageFiles.map((f, i) => `
+      <div class="tile">
+        <img src="${URL.createObjectURL(f)}" alt="">
+        <button type="button" class="x" data-idx="${i}" aria-label="Remove"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    `).join('');
+    imagesPreview.querySelectorAll('button[data-idx]').forEach(b => {
+      b.addEventListener('click', () => {
+        const idx = Number(b.dataset.idx);
+        imageFiles.splice(idx, 1);
+        renderImagesPreview();
+      });
+    });
+  }
+
+  bindDrop(imagesDrop, (f, allFiles) => {
+    if (allFiles && allFiles.length) {
+      imagesInput.files = toFileList(allFiles);
+      imagesInput.dispatchEvent(new Event('change'));
+    }
+  });
+
+  // --- Location ---
+  const locDisplay = $('locDisplay');
+  const locErr     = $('locErr');
+  const locManual  = $('locManual');
+  let latLng = null;
+
+  $('locDetectBtn').addEventListener('click', () => {
+    locErr.textContent = '';
+    if (!navigator.geolocation) {
+      locErr.textContent = "Your browser doesn't support location. Use 'Enter manually' instead.";
+      return;
+    }
+    const btn = $('locDetectBtn');
+    const orig = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Detecting…';
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        latLng = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        locDisplay.textContent = latLng.lat.toFixed(5) + ', ' + latLng.lng.toFixed(5);
+        locDisplay.classList.add('ok');
+        btn.disabled = false;
+        btn.innerHTML = orig;
+      },
+      (err) => {
+        console.warn('geo failed', err);
+        locErr.textContent = err && err.code === 1
+          ? 'Location permission denied. Enter coordinates manually.'
+          : 'Could not detect location. Enter it manually.';
+        btn.disabled = false;
+        btn.innerHTML = orig;
+      },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+    );
+  });
+
+  $('locManualBtn').addEventListener('click', () => {
+    locManual.style.display = locManual.style.display === 'flex' ? 'none' : 'flex';
+    if (locManual.style.display === 'flex') $('latInput').focus();
+  });
+
+  $('locManualSave').addEventListener('click', () => {
+    const lat = parseFloat($('latInput').value);
+    const lng = parseFloat($('lngInput').value);
+    if (!isFinite(lat) || !isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      locErr.textContent = 'Enter a valid latitude (-90 to 90) and longitude (-180 to 180).';
+      return;
+    }
+    latLng = { lat, lng };
+    locDisplay.textContent = lat.toFixed(5) + ', ' + lng.toFixed(5);
+    locDisplay.classList.add('ok');
+    locManual.style.display = 'none';
+    locErr.textContent = '';
+  });
+
+  // --- Submit ---
+  const form = $('submissionForm');
+  const submitBtn = $('submitBtn');
+  const formStatus = $('formStatus');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (submitBtn.disabled) return;
+    hideFormStatus();
+
+    const businessType = $('businessType').value.trim();
+    const description = $('description').value.trim();
+    if (!businessType) return failField($('businessType'), 'Business type is required.');
+    if (!description) return failField($('description'), 'Please describe what you need.');
+
+    if (!pdfFile) {
+      pdfErr.textContent = 'Please attach a PDF brief.';
+      pdfDrop.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    if (!latLng) {
+      locErr.textContent = 'Set a location — detect, or enter coordinates manually.';
+      locDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    if (!currentUser) {
+      toast('Please sign in again.', true);
+      return;
+    }
+
+    const fd = new FormData();
+    fd.append('pdf', pdfFile, pdfFile.name);
+    imageFiles.forEach(f => fd.append('images', f, f.name));
+    fd.append('description', description);
+    fd.append('businessType', businessType);
+    fd.append('location', JSON.stringify({ lat: latLng.lat, lng: latLng.lng }));
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading…';
+    showFormStatus('Uploading files — this can take a moment.', 'ok');
+
+    try {
+      const idToken = await currentUser.getIdToken();
+      const res = await fetch(API + '/submissions', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + idToken },
+        body: fd,
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.status === 401) {
+        showFormStatus('Your session expired. Please sign in again.', 'err');
+        setTimeout(() => signOut(auth), 1200);
+        return;
+      }
+      if (res.status === 422) {
+        showFormStatus(
+          'One of your files was flagged by our content scan. ' +
+          'Please try again with different files, or reach us on WhatsApp.',
+          'err'
+        );
+        return;
+      }
+      if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+
+      showFormStatus(
+        "Got it — your project request was received. We'll email you a quote within one business day.",
+        'ok'
+      );
+      toast('Request sent ✓');
+      form.reset();
+      clearFormOutputs();
+      document.querySelector('#sideMenu button[data-panel="new"]').click();
+
+    } catch (err) {
+      console.error('submission failed', err);
+      showFormStatus(err.message || 'Something went wrong. Please try again.', 'err');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send project request';
+    }
+  });
+
+  $('resetBtn').addEventListener('click', () => {
+    setTimeout(clearFormOutputs, 0);
+  });
+
+  function clearFormOutputs() {
+    pdfFile = null;
+    imageFiles = [];
+    latLng = null;
+    pdfInput.value = '';
+    imagesInput.value = '';
+    pdfPreview.innerHTML = '';
+    imagesPreview.innerHTML = '';
+    pdfDrop.classList.remove('filled');
+    imagesDrop.classList.remove('filled');
+    locDisplay.textContent = 'Not set yet — detect, or enter manually.';
+    locDisplay.classList.remove('ok');
+    locManual.style.display = 'none';
+    pdfErr.textContent = '';
+    imagesErr.textContent = '';
+    locErr.textContent = '';
+    hideFormStatus();
+  }
+
+  function showFormStatus(msg, kind) {
+    formStatus.textContent = msg;
+    formStatus.className = 'form-status show ' + (kind || 'ok');
+  }
+  function hideFormStatus() {
+    formStatus.className = 'form-status';
+    formStatus.textContent = '';
+  }
+  function failField(el, msg) {
+    showFormStatus(msg, 'err');
+    el.focus();
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* =====================================================================
+     DROP HELPERS
+     ===================================================================== */
+  function bindDrop(dropEl, onFiles) {
+    ['dragenter', 'dragover'].forEach(ev =>
+      dropEl.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation();
+        dropEl.classList.add('dragover');
+      })
+    );
+    ['dragleave', 'drop'].forEach(ev =>
+      dropEl.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation();
+        dropEl.classList.remove('dragover');
+      })
+    );
+    dropEl.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (!dt || !dt.files || !dt.files.length) return;
+      onFiles(dt.files[0], Array.from(dt.files));
+    });
+  }
+  function toFileList(files) {
+    const dt = new DataTransfer();
+    files.forEach(f => dt.items.add(f));
+    return dt.files;
+  }
+  </script>
+</body>
+</html>
