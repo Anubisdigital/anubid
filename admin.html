@@ -66,9 +66,6 @@
     .login-status.err{color:var(--red-deep);}
     .login-status.ok{color:#0a7a2f;}
     .login-step[hidden]{display:none;}
-    .boot-spinner{width:38px; height:38px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:20px auto 4px;}
-    @keyframes spin{to{transform:rotate(360deg);}}
-    .boot-note{font-size:12.5px; color:var(--gray); text-align:center; margin-top:8px;}
 
     /* ---------- APP SHELL ---------- */
     #appView{display:none; min-height:100vh;}
@@ -186,6 +183,7 @@
     .empty h3{font-size:17px; color:var(--ink); margin-bottom:6px;}
     .empty p{font-size:14px; margin-bottom:18px;}
     .spinner{width:26px; height:26px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:0 auto 14px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
 
     #modalBackdrop{position:fixed; inset:0; background:rgba(17,17,17,.55); z-index:900; display:none; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto;}
     #modalBackdrop.show{display:flex;}
@@ -227,15 +225,7 @@
   <div class="login-card">
     <img src="anubid.png" alt="Anubid Agency" class="logo">
 
-    <!-- Boot / signing-in state (shown while we figure out whether a redirect is pending) -->
-    <div id="loginBoot" class="login-step" hidden>
-      <h1>Signing you in…</h1>
-      <p class="sub">Just a moment while we check your session.</p>
-      <div class="boot-spinner"></div>
-      <p class="boot-note">This can take a few seconds on mobile.</p>
-    </div>
-
-    <div id="loginStep1" class="login-step" hidden>
+    <div id="loginStep1" class="login-step">
       <h1>Admin sign-in</h1>
       <p class="sub">Two factors required: a Google account matching <strong>ADMIN_EMAIL</strong>, plus the admin secret.</p>
       <label>Admin secret</label>
@@ -343,13 +333,7 @@ const firebaseConfig = {
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithRedirect,
-  getRedirectResult,
-  signOut,
-  onAuthStateChanged
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 
 const app = initializeApp(firebaseConfig);
@@ -369,11 +353,6 @@ const state = {
   cache: {},
   submitting: false,
 };
-
-/* Debug snapshot at script start — check the browser console for these. */
-console.log('[boot] script loaded');
-console.log('[boot] sessionStorage secret present?', !!state.adminSecret);
-console.log('[boot] location:', location.href);
 
 const $ = (id) => document.getElementById(id);
 const escapeHtml = (s) =>
@@ -400,11 +379,8 @@ function fmtDate(iso) {
 
 class AuthError extends Error {}
 
-const isMobile = /Android|iPhone|iPad|iPod|Mobile|Opera Mini/i.test(navigator.userAgent)
-  || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches && window.innerWidth < 900);
-
 /* =====================================================================
-   API WRAPPER
+   API WRAPPER — attaches both factors on every call
    ===================================================================== */
 
 async function adminFetch(path, options = {}) {
@@ -452,7 +428,7 @@ async function apiDelete(path) {
 }
 
 /* =====================================================================
-   LOGIN FLOW  —  guarded against the redirect/onAuthStateChanged race
+   LOGIN FLOW — popup only (no redirect, no cross-site storage dependency)
    ===================================================================== */
 
 const loginView = $('loginView');
@@ -462,27 +438,19 @@ const loginStatus1 = $('loginStatus1');
 const loginStatus2 = $('loginStatus2');
 const googleBtn = $('googleBtn');
 const verifyBtn = $('verifyBtn');
-const loginBoot = $('loginBoot');
 const loginStep1 = $('loginStep1');
 const loginStep2 = $('loginStep2');
 
 secretInput.value = state.adminSecret;
 
-/** Show exactly one of the three login sub-panels. */
+/** Show exactly one of the two login sub-panels. */
 function showLoginStep(step) {
-  loginBoot.hidden  = step !== 'boot';
   loginStep1.hidden = step !== '1';
   loginStep2.hidden = step !== '2';
 }
 
-/** Control: true once getRedirectResult has settled (or boot has timed out). */
-let authReady = false;
-
 /** Single point that decides what to show, given a user (or null). */
 function applyAuthState(user) {
-  console.log('[auth] applyAuthState', user ? user.email : null,
-              '| secret?', !!state.adminSecret, '| ready?', authReady);
-
   if (user && state.adminSecret) {
     // Have both factors → step 2.
     $('loginEmail').textContent = user.email || '(no email)';
@@ -510,70 +478,9 @@ function applyAuthState(user) {
   showLoginStep('1');
 }
 
-/* onAuthStateChanged fires as early as the first tick after page load,
-   and can fire again once getRedirectResult has resolved. We do NOT want
-   the null-on-first-tick to flip us back to step 1 while a redirect result
-   is still pending — hence the `authReady` guard. */
 onAuthStateChanged(auth, (user) => {
-  console.log('[auth] onAuthStateChanged', user ? user.email : null, 'authReady=', authReady);
-
-  if (user) {
-    // We have a user — no need to wait for getRedirectResult any more.
-    authReady = true;
-    applyAuthState(user);
-    return;
-  }
-
-  if (!authReady) {
-    // Still waiting for the redirect to be processed. Show boot.
-    showLoginStep('boot');
-    return;
-  }
-
-  applyAuthState(null);
+  applyAuthState(user);
 });
-
-/* Called on EVERY page load — even non-redirect loads. Resolves to null
-   quickly when no redirect is pending. */
-getRedirectResult(auth)
-  .then((result) => {
-    if (result && result.user) {
-      console.log('[auth] getRedirectResult → user:', result.user.email);
-    } else {
-      console.log('[auth] getRedirectResult → no pending redirect');
-    }
-  })
-  .catch((err) => {
-    console.error('[auth] getRedirectResult error:', err);
-    const code = err && err.code ? err.code : '';
-    let msg = err && err.message ? err.message : 'Sign-in failed.';
-    if (code === 'auth/unauthorized-domain') {
-      msg = 'This domain is not authorized in Firebase. Add anubid.site under Firebase Console → Authentication → Settings → Authorized domains.';
-    } else if (code === 'auth/redirect-cancelled-by-user') {
-      msg = 'Sign-in was cancelled.';
-    } else if (code === 'auth/operation-not-allowed') {
-      msg = 'Google sign-in is not enabled for this Firebase project.';
-    } else if (code === 'auth/network-request-failed') {
-      msg = 'Network error during sign-in. Check your connection and try again.';
-    }
-    loginStatus1.textContent = msg;
-    loginStatus1.className = 'login-status err';
-  })
-  .finally(() => {
-    console.log('[auth] getRedirectResult settled; flipping authReady=true');
-    authReady = true;
-    applyAuthState(auth.currentUser);
-  });
-
-/* Safety net — if boot hangs (e.g. slow network on the redirect parse),
-   fall back to the form after 8 seconds. */
-setTimeout(() => {
-  if (!authReady) {
-    console.warn('[auth] boot timeout — falling back to login form');
-    authReady = true;
-    applyAuthState(auth.currentUser);
-  }
-}, 8000);
 
 googleBtn.addEventListener('click', async () => {
   const secret = secretInput.value.trim();
@@ -586,44 +493,25 @@ googleBtn.addEventListener('click', async () => {
     return;
   }
 
-  // Persist BEFORE any navigation so it survives the redirect hop.
   state.adminSecret = secret;
   sessionStorage.setItem('anubid_admin_secret', secret);
-  console.log('[auth] secret saved to sessionStorage, starting sign-in');
 
   googleBtn.disabled = true;
   googleBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Opening Google…';
-
   try {
-    if (isMobile) {
-      await signInWithRedirect(auth, provider);
-      return; // page navigates
-    }
-
-    try {
-      await signInWithPopup(auth, provider);
-      // onAuthStateChanged handles the transition.
-    } catch (e) {
-      const code = e && e.code ? e.code : '';
-      const fallbackCodes = [
-        'auth/popup-closed-by-user',
-        'auth/popup-blocked',
-        'auth/cancelled-popup-request',
-        'auth/operation-not-supported-in-this-environment',
-      ];
-      if (fallbackCodes.includes(code)) {
-        console.warn('[auth] popup failed (' + code + '), falling back to redirect');
-        await signInWithRedirect(auth, provider);
-        return;
-      }
-      throw e;
-    }
+    await signInWithPopup(auth, provider);
+    // onAuthStateChanged handles the transition to step 2.
   } catch (e) {
     console.error('[auth] sign-in error', e);
     state.adminSecret = '';
     sessionStorage.removeItem('anubid_admin_secret');
-    loginStatus1.textContent = e.message || 'Sign-in failed.';
+    const code = e && e.code ? e.code : '';
+    let msg = e.message || 'Sign-in failed.';
+    if (code === 'auth/popup-closed-by-user') msg = 'Sign-in cancelled.';
+    if (code === 'auth/popup-blocked') msg = 'Your browser blocked the popup. Please allow popups for this site and try again.';
+    loginStatus1.textContent = msg;
     loginStatus1.classList.add('err');
+  } finally {
     googleBtn.disabled = false;
     googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
   }
@@ -911,7 +799,7 @@ async function patchSubmission(id, reviewStatus) {
 }
 
 /* =====================================================================
-   CONTENT CRUD
+   CONTENT CRUD — services / portfolio / plans / posts
    ===================================================================== */
 
 const CONTENT_CFG = {
@@ -1242,4 +1130,4 @@ function handleAuthKick() {
 }
 </script>
 </body>
-</html>
+  </html>
