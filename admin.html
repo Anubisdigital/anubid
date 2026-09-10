@@ -66,12 +66,14 @@
     .login-status.err{color:var(--red-deep);}
     .login-status.ok{color:#0a7a2f;}
     .login-step[hidden]{display:none;}
+    .boot-spinner{width:38px; height:38px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:20px auto 4px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .boot-note{font-size:12.5px; color:var(--gray); text-align:center; margin-top:8px;}
 
     /* ---------- APP SHELL ---------- */
     #appView{display:none; min-height:100vh;}
     #appView.show{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
 
-    /* Sidebar — 100% viewport height, dropdown at top-left */
     .sidebar{
       background:var(--ink);
       color:var(--white);
@@ -124,21 +126,18 @@
     .sidebar-bottom .btn{width:100%; justify-content:center; padding:9px 14px; font-size:12.5px; background:transparent; color:#aaa; border-color:#333;}
     .sidebar-bottom .btn:hover{color:var(--white); border-color:#555;}
 
-    /* Main */
     .main{padding:32px 40px 80px; min-width:0;}
     .main-head{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:26px;}
     .main-head h2{font-size:26px;}
     .main-head p{font-size:13.5px; color:var(--gray); margin-top:4px;}
     .main-head .actions{display:flex; gap:10px; align-items:center;}
 
-    /* Toolbar / filters */
     .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:20px;}
     .toolbar select{width:auto; min-width:160px; padding:9px 30px 9px 12px;}
     .toolbar .refresh{color:var(--gray);}
     .toolbar .refresh:hover{color:var(--ink);}
     .toolbar .spacer{flex:1;}
 
-    /* Lists */
     .list{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;}
     .card{background:var(--white); border:1px solid var(--line); display:flex; flex-direction:column;}
     .card .thumb{aspect-ratio:16/10; background:var(--paper); overflow:hidden;}
@@ -158,7 +157,6 @@
     .badge.draft{color:#b26a00; border-color:#b26a00; background:#fff8ec;}
     .badge.published{color:#0a7a2f; border-color:#0a7a2f; background:#f0faf3;}
 
-    /* Table (messages) */
     .msg-list{display:flex; flex-direction:column; border:1px solid var(--line); background:var(--white);}
     .msg-row{display:grid; grid-template-columns:1.2fr 1.5fr 3fr 100px 100px 140px; gap:14px; padding:14px 18px; border-bottom:1px solid var(--line); align-items:center; font-size:13.5px; cursor:pointer; transition:background .12s ease;}
     .msg-row:last-child{border-bottom:none;}
@@ -171,7 +169,6 @@
     .msg-row.unread .snippet{color:var(--ink); font-weight:500;}
     .msg-empty{padding:40px 24px; text-align:center; color:var(--gray); font-size:14px;}
 
-    /* Submission rows */
     .sub-list{display:flex; flex-direction:column; gap:16px;}
     .sub-card{background:var(--white); border:1px solid var(--line); padding:22px;}
     .sub-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px; flex-wrap:wrap;}
@@ -184,15 +181,12 @@
     .sub-foot{margin-top:16px; padding-top:14px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
     .sub-foot .spacer{flex:1;}
 
-    /* Empty / loading */
     .empty{padding:60px 24px; text-align:center; color:var(--gray);}
     .empty i{font-size:34px; margin-bottom:14px; color:#ccc;}
     .empty h3{font-size:17px; color:var(--ink); margin-bottom:6px;}
     .empty p{font-size:14px; margin-bottom:18px;}
     .spinner{width:26px; height:26px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:0 auto 14px;}
-    @keyframes spin{to{transform:rotate(360deg);}}
 
-    /* Modal */
     #modalBackdrop{position:fixed; inset:0; background:rgba(17,17,17,.55); z-index:900; display:none; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto;}
     #modalBackdrop.show{display:flex;}
     .modal{background:var(--white); width:100%; max-width:620px; border-top:4px solid var(--red); box-shadow:0 20px 60px rgba(0,0,0,.3);}
@@ -210,7 +204,6 @@
     .modal-foot{padding:18px 26px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end;}
     .form-err{background:#fff5f5; border-left:3px solid var(--red-deep); padding:12px 14px; font-size:13.5px; color:var(--red-deep);}
 
-    /* Toast */
     #toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--white); padding:12px 22px; font-family:var(--display); font-weight:700; font-size:13.5px; z-index:1000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
     #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
     #toast.err{background:var(--red-deep);}
@@ -234,7 +227,15 @@
   <div class="login-card">
     <img src="anubid.png" alt="Anubid Agency" class="logo">
 
-    <div id="loginStep1" class="login-step">
+    <!-- Boot / signing-in state (shown while we figure out whether a redirect is pending) -->
+    <div id="loginBoot" class="login-step" hidden>
+      <h1>Signing you in…</h1>
+      <p class="sub">Just a moment while we check your session.</p>
+      <div class="boot-spinner"></div>
+      <p class="boot-note">This can take a few seconds on mobile.</p>
+    </div>
+
+    <div id="loginStep1" class="login-step" hidden>
       <h1>Admin sign-in</h1>
       <p class="sub">Two factors required: a Google account matching <strong>ADMIN_EMAIL</strong>, plus the admin secret.</p>
       <label>Admin secret</label>
@@ -328,7 +329,7 @@
 
 <script type="module">
 /* =====================================================================
-   FIREBASE CONFIG — live values for the anubidagency project.
+   FIREBASE CONFIG
    ===================================================================== */
 const firebaseConfig = {
   apiKey: "AIzaSyBv-SCPSLmOym0eG7rT_2754yM4j_ssXN4",
@@ -360,7 +361,7 @@ provider.setCustomParameters({ prompt: 'select_account' });
    STATE + HELPERS
    ===================================================================== */
 
-const API = '/admin'; // worker route prefix
+const API = '/admin';
 
 const state = {
   adminSecret: sessionStorage.getItem('anubid_admin_secret') || '',
@@ -368,6 +369,11 @@ const state = {
   cache: {},
   submitting: false,
 };
+
+/* Debug snapshot at script start — check the browser console for these. */
+console.log('[boot] script loaded');
+console.log('[boot] sessionStorage secret present?', !!state.adminSecret);
+console.log('[boot] location:', location.href);
 
 const $ = (id) => document.getElementById(id);
 const escapeHtml = (s) =>
@@ -394,12 +400,11 @@ function fmtDate(iso) {
 
 class AuthError extends Error {}
 
-/* Detect mobile: popup flow is unreliable on phones. */
 const isMobile = /Android|iPhone|iPad|iPod|Mobile|Opera Mini/i.test(navigator.userAgent)
   || (window.matchMedia && window.matchMedia('(pointer: coarse)').matches && window.innerWidth < 900);
 
 /* =====================================================================
-   API WRAPPER — attaches both factors on every call
+   API WRAPPER
    ===================================================================== */
 
 async function adminFetch(path, options = {}) {
@@ -447,7 +452,7 @@ async function apiDelete(path) {
 }
 
 /* =====================================================================
-   LOGIN FLOW
+   LOGIN FLOW  —  guarded against the redirect/onAuthStateChanged race
    ===================================================================== */
 
 const loginView = $('loginView');
@@ -457,10 +462,118 @@ const loginStatus1 = $('loginStatus1');
 const loginStatus2 = $('loginStatus2');
 const googleBtn = $('googleBtn');
 const verifyBtn = $('verifyBtn');
+const loginBoot = $('loginBoot');
 const loginStep1 = $('loginStep1');
 const loginStep2 = $('loginStep2');
 
 secretInput.value = state.adminSecret;
+
+/** Show exactly one of the three login sub-panels. */
+function showLoginStep(step) {
+  loginBoot.hidden  = step !== 'boot';
+  loginStep1.hidden = step !== '1';
+  loginStep2.hidden = step !== '2';
+}
+
+/** Control: true once getRedirectResult has settled (or boot has timed out). */
+let authReady = false;
+
+/** Single point that decides what to show, given a user (or null). */
+function applyAuthState(user) {
+  console.log('[auth] applyAuthState', user ? user.email : null,
+              '| secret?', !!state.adminSecret, '| ready?', authReady);
+
+  if (user && state.adminSecret) {
+    // Have both factors → step 2.
+    $('loginEmail').textContent = user.email || '(no email)';
+    $('avatarLetter').textContent = (user.email || '?')[0].toUpperCase();
+    $('adminEmail').textContent = user.email || '';
+    googleBtn.disabled = false;
+    googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
+    showLoginStep('2');
+    return;
+  }
+
+  if (user && !state.adminSecret) {
+    // Signed in but no secret — send them back to step 1 with a hint.
+    loginStatus1.textContent = 'Signed in, but the admin secret is missing. Enter it below and continue.';
+    loginStatus1.className = 'login-status err';
+    googleBtn.disabled = false;
+    googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
+    showLoginStep('1');
+    return;
+  }
+
+  // No user.
+  googleBtn.disabled = false;
+  googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
+  showLoginStep('1');
+}
+
+/* onAuthStateChanged fires as early as the first tick after page load,
+   and can fire again once getRedirectResult has resolved. We do NOT want
+   the null-on-first-tick to flip us back to step 1 while a redirect result
+   is still pending — hence the `authReady` guard. */
+onAuthStateChanged(auth, (user) => {
+  console.log('[auth] onAuthStateChanged', user ? user.email : null, 'authReady=', authReady);
+
+  if (user) {
+    // We have a user — no need to wait for getRedirectResult any more.
+    authReady = true;
+    applyAuthState(user);
+    return;
+  }
+
+  if (!authReady) {
+    // Still waiting for the redirect to be processed. Show boot.
+    showLoginStep('boot');
+    return;
+  }
+
+  applyAuthState(null);
+});
+
+/* Called on EVERY page load — even non-redirect loads. Resolves to null
+   quickly when no redirect is pending. */
+getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log('[auth] getRedirectResult → user:', result.user.email);
+    } else {
+      console.log('[auth] getRedirectResult → no pending redirect');
+    }
+  })
+  .catch((err) => {
+    console.error('[auth] getRedirectResult error:', err);
+    const code = err && err.code ? err.code : '';
+    let msg = err && err.message ? err.message : 'Sign-in failed.';
+    if (code === 'auth/unauthorized-domain') {
+      msg = 'This domain is not authorized in Firebase. Add anubid.site under Firebase Console → Authentication → Settings → Authorized domains.';
+    } else if (code === 'auth/redirect-cancelled-by-user') {
+      msg = 'Sign-in was cancelled.';
+    } else if (code === 'auth/operation-not-allowed') {
+      msg = 'Google sign-in is not enabled for this Firebase project.';
+    } else if (code === 'auth/network-request-failed') {
+      msg = 'Network error during sign-in. Check your connection and try again.';
+    }
+    loginStatus1.textContent = msg;
+    loginStatus1.className = 'login-status err';
+  })
+  .finally(() => {
+    console.log('[auth] getRedirectResult settled; flipping authReady=true');
+    authReady = true;
+    applyAuthState(auth.currentUser);
+  });
+
+/* Safety net — if boot hangs (e.g. slow network on the redirect parse),
+   fall back to the form after 8 seconds. */
+setTimeout(() => {
+  if (!authReady) {
+    console.warn('[auth] boot timeout — falling back to login form');
+    authReady = true;
+    applyAuthState(auth.currentUser);
+  }
+}, 8000);
 
 googleBtn.addEventListener('click', async () => {
   const secret = secretInput.value.trim();
@@ -473,24 +586,20 @@ googleBtn.addEventListener('click', async () => {
     return;
   }
 
-  // Persist the secret to sessionStorage BEFORE any navigation. This is
-  // essential for the redirect flow — the page navigates away and comes
-  // back, and we need the secret to still be there.
+  // Persist BEFORE any navigation so it survives the redirect hop.
   state.adminSecret = secret;
   sessionStorage.setItem('anubid_admin_secret', secret);
+  console.log('[auth] secret saved to sessionStorage, starting sign-in');
 
   googleBtn.disabled = true;
   googleBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Opening Google…';
 
   try {
     if (isMobile) {
-      // Mobile: popup is unreliable. Go straight to redirect.
       await signInWithRedirect(auth, provider);
-      // Page navigates away; onAuthStateChanged fires on return.
-      return;
+      return; // page navigates
     }
 
-    // Desktop: try popup, fall back to redirect on popup failures.
     try {
       await signInWithPopup(auth, provider);
       // onAuthStateChanged handles the transition.
@@ -503,14 +612,14 @@ googleBtn.addEventListener('click', async () => {
         'auth/operation-not-supported-in-this-environment',
       ];
       if (fallbackCodes.includes(code)) {
-        console.warn('Popup failed (' + code + '), falling back to redirect…');
+        console.warn('[auth] popup failed (' + code + '), falling back to redirect');
         await signInWithRedirect(auth, provider);
         return;
       }
       throw e;
     }
   } catch (e) {
-    console.error('signIn error', e);
+    console.error('[auth] sign-in error', e);
     state.adminSecret = '';
     sessionStorage.removeItem('anubid_admin_secret');
     loginStatus1.textContent = e.message || 'Sign-in failed.';
@@ -518,21 +627,6 @@ googleBtn.addEventListener('click', async () => {
     googleBtn.disabled = false;
     googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
   }
-});
-
-/* Handle the redirect return. If Google returned an error (wrong account,
-   etc.), surface it. If success, onAuthStateChanged below fires with the
-   user and the secret is already in sessionStorage. */
-getRedirectResult(auth).then((result) => {
-  if (result && result.user) {
-    console.log('Returned from redirect sign-in as', result.user.email);
-  }
-}).catch((e) => {
-  console.error('redirect result error', e);
-  loginStatus1.textContent = e.message || 'Sign-in failed.';
-  loginStatus1.classList.add('err');
-  googleBtn.disabled = false;
-  googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
 });
 
 verifyBtn.addEventListener('click', async () => {
@@ -565,29 +659,6 @@ $('logoutBtn').addEventListener('click', async () => {
   state.adminSecret = '';
   state.cache = {};
   await signOut(auth);
-});
-
-onAuthStateChanged(auth, (user) => {
-  if (user && state.adminSecret) {
-    $('loginEmail').textContent = user.email || '(no email)';
-    loginStep1.hidden = true;
-    loginStep2.hidden = false;
-    $('avatarLetter').textContent = (user.email || '?')[0].toUpperCase();
-    $('adminEmail').textContent = user.email || '';
-    // Reset the button in case we're returning from a redirect.
-    googleBtn.disabled = false;
-    googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
-  } else if (user && !state.adminSecret) {
-    loginStep1.hidden = false;
-    loginStep2.hidden = true;
-  } else {
-    loginStep1.hidden = false;
-    loginStep2.hidden = true;
-    appView.classList.remove('show');
-    loginView.style.display = '';
-    googleBtn.disabled = false;
-    googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
-  }
 });
 
 function enterApp() {
@@ -840,7 +911,7 @@ async function patchSubmission(id, reviewStatus) {
 }
 
 /* =====================================================================
-   CONTENT CRUD — services / portfolio / plans / posts
+   CONTENT CRUD
    ===================================================================== */
 
 const CONTENT_CFG = {
