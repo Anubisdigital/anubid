@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Anubid Agency</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" href="fa-bid.png">
+  <meta name="theme-color" content="#111111">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    @font-face{
+      font-family:'Anbid';
+      src:url('anbid.ttf') format('truetype');
+      font-weight:400 700;
+      font-display:swap;
+    }
+    :root{
+      --red:#ed1717;
+      --red-deep:#c00f0f;
+      --ink:#111111;
+      --white:#ffffff;
+      --paper:#f5f4f1;
+      --line:#e3e1dc;
+      --gray:#6b6b6b;
+      --display:'Anbid', 'Space Grotesk', sans-serif;
+      --body:'IBM Plex Sans', sans-serif;
+    }
+    *{box-sizing:border-box; margin:0; padding:0; border-radius:0 !important;}
+    body{font-family:var(--body); color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased; min-height:100vh;}
+    img{display:block; max-width:100%;}
+    a{color:inherit; text-decoration:none;}
+    button{font-family:inherit; cursor:pointer; border:none; background:none;}
+    h1,h2,h3,h4{font-family:var(--display); line-height:1.15; letter-spacing:-0.01em;}
+    input, textarea, select{font-family:var(--body); font-size:14px; padding:11px 13px; border:1px solid var(--line); background:var(--white); color:var(--ink); width:100%;}
+    input:focus, textarea:focus, select:focus{outline:none; border-color:var(--ink);}
+    textarea{resize:vertical; min-height:90px; font-family:var(--body);}
+
+    /* ---------- LOGIN ---------- */
+    #loginView{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background:var(--ink);}
+    .login-card{background:var(--white); width:100%; max-width:420px; padding:44px 36px; border-top:4px solid var(--red);}
+    .login-card .logo{height:34px; margin-bottom:24px;}
+    .login-card h1{font-size:26px; margin-bottom:8px;}
+    .login-card p.sub{color:var(--gray); font-size:14px; line-height:1.6; margin-bottom:26px;}
+    .login-card label{display:block; font-family:var(--display); font-size:12.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray); margin-bottom:8px; margin-top:18px;}
+    .login-card .btn{width:100%; justify-content:center;}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:13px 22px; font-family:var(--display); font-weight:700; font-size:14.5px; border:2px solid var(--ink); white-space:nowrap; transition:background .15s ease, color .15s ease;}
+    .btn-primary{background:var(--red); color:var(--white); border-color:var(--red);}
+    .btn-primary:hover{background:var(--red-deep); border-color:var(--red-deep);}
+    .btn-dark{background:var(--ink); color:var(--white); border-color:var(--ink);}
+    .btn-dark:hover{background:#000;}
+    .btn-outline{background:transparent; color:var(--ink); border-color:var(--ink);}
+    .btn-outline:hover{background:var(--ink); color:var(--white);}
+    .btn-ghost{background:transparent; color:var(--gray); border-color:transparent; padding:8px 12px; font-size:13px;}
+    .btn-ghost:hover{color:var(--ink);}
+    .btn-sm{padding:8px 14px; font-size:13px;}
+    .btn-danger{background:transparent; color:var(--red-deep); border-color:var(--red-deep);}
+    .btn-danger:hover{background:var(--red-deep); color:var(--white);}
+    .btn[disabled]{opacity:.55; cursor:not-allowed;}
+    .login-status{font-size:13px; line-height:1.5; margin-top:14px; min-height:18px;}
+    .login-status.err{color:var(--red-deep);}
+    .login-status.ok{color:#0a7a2f;}
+    .login-step[hidden]{display:none;}
+
+    /* ---------- APP SHELL ---------- */
+    #appView{display:none; min-height:100vh;}
+    #appView.show{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
+
+    /* Sidebar — 100% viewport height, dropdown at top-left */
+    .sidebar{
+      background:var(--ink);
+      color:var(--white);
+      height:100vh;
+      position:sticky;
+      top:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+    }
+    .sidebar-top{padding:20px 18px; display:flex; flex-direction:column; gap:18px;}
+    .sidebar-logo{display:flex; align-items:center; justify-content:space-between;}
+    .sidebar-logo img{height:26px;}
+    .sidebar-logo .back{font-size:12px; color:#999;}
+    .sidebar-logo .back:hover{color:var(--white);}
+    .section-label{font-family:var(--display); font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#888;}
+    .section-select{
+      background:#1c1c1c;
+      color:var(--white);
+      border:1px solid #2c2c2c;
+      font-family:var(--display);
+      font-weight:700;
+      font-size:14.5px;
+      padding:12px 14px;
+      appearance:none;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
+      background-repeat:no-repeat;
+      background-position:right 12px center;
+      background-size:16px;
+      padding-right:36px;
+    }
+    .section-select option{background:#1c1c1c; color:var(--white);}
+    .sidebar-nav{display:flex; flex-direction:column; gap:2px; margin-top:4px;}
+    .sidebar-nav button{
+      display:flex; align-items:center; gap:12px;
+      padding:10px 12px; color:#b8b8b8; font-size:14px;
+      font-family:var(--display); font-weight:500;
+      text-align:left; width:100%;
+    }
+    .sidebar-nav button i{font-size:14px; width:18px; text-align:center; color:#777;}
+    .sidebar-nav button:hover{color:var(--white); background:#1a1a1a;}
+    .sidebar-nav button.active{color:var(--white); background:#1c1c1c;}
+    .sidebar-nav button.active i{color:var(--red);}
+    .sidebar-nav .count{font-size:11px; background:var(--red); color:#fff; padding:1px 7px; margin-left:auto; font-family:var(--body); font-weight:600;}
+
+    .sidebar-bottom{padding:16px 18px; border-top:1px solid #2a2a2a;}
+    .admin-chip{display:flex; align-items:center; gap:10px; font-size:13px; color:#ccc; margin-bottom:12px; word-break:break-all;}
+    .admin-chip .avatar{width:30px; height:30px; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-weight:700; font-size:13px; flex:none;}
+    .sidebar-bottom .btn{width:100%; justify-content:center; padding:9px 14px; font-size:12.5px; background:transparent; color:#aaa; border-color:#333;}
+    .sidebar-bottom .btn:hover{color:var(--white); border-color:#555;}
+
+    /* Main */
+    .main{padding:32px 40px 80px; min-width:0;}
+    .main-head{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:26px;}
+    .main-head h2{font-size:26px;}
+    .main-head p{font-size:13.5px; color:var(--gray); margin-top:4px;}
+    .main-head .actions{display:flex; gap:10px; align-items:center;}
+
+    /* Toolbar / filters */
+    .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:20px;}
+    .toolbar select{width:auto; min-width:160px; padding:9px 30px 9px 12px;}
+    .toolbar .refresh{color:var(--gray);}
+    .toolbar .refresh:hover{color:var(--ink);}
+    .toolbar .spacer{flex:1;}
+
+    /* Lists */
+    .list{display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;}
+    .card{background:var(--white); border:1px solid var(--line); display:flex; flex-direction:column;}
+    .card .thumb{aspect-ratio:16/10; background:var(--paper); overflow:hidden;}
+    .card .thumb img{width:100%; height:100%; object-fit:cover;}
+    .card .body{padding:16px 16px 14px; flex:1; display:flex; flex-direction:column; gap:8px;}
+    .card .meta{font-family:var(--display); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--red-deep);}
+    .card h3{font-size:16px;}
+    .card p{font-size:13.5px; color:var(--gray); line-height:1.5;}
+    .card .foot{display:flex; gap:6px; padding:12px 16px; border-top:1px solid var(--line); align-items:center;}
+    .card .foot .spacer{flex:1;}
+    .badge{font-family:var(--display); font-size:11px; text-transform:uppercase; letter-spacing:.06em; padding:3px 9px; border:1px solid; }
+    .badge.new{color:var(--red-deep); border-color:var(--red-deep); background:#fff5f5;}
+    .badge.read{color:var(--gray); border-color:var(--line);}
+    .badge.archived{color:#999; border-color:#e8e8e8; background:#fafafa;}
+    .badge.clean{color:#0a7a2f; border-color:#0a7a2f; background:#f0faf3;}
+    .badge.flagged{color:var(--red-deep); border-color:var(--red-deep); background:#fff5f5;}
+    .badge.draft{color:#b26a00; border-color:#b26a00; background:#fff8ec;}
+    .badge.published{color:#0a7a2f; border-color:#0a7a2f; background:#f0faf3;}
+
+    /* Table (messages) */
+    .msg-list{display:flex; flex-direction:column; border:1px solid var(--line); background:var(--white);}
+    .msg-row{display:grid; grid-template-columns:1.2fr 1.5fr 3fr 100px 100px 140px; gap:14px; padding:14px 18px; border-bottom:1px solid var(--line); align-items:center; font-size:13.5px; cursor:pointer; transition:background .12s ease;}
+    .msg-row:last-child{border-bottom:none;}
+    .msg-row:hover{background:#fafaf7;}
+    .msg-row .name{font-family:var(--display); font-weight:700;}
+    .msg-row .snippet{color:var(--gray); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .msg-row .date{color:var(--gray); font-size:12.5px;}
+    .msg-row .row-actions{display:flex; gap:6px; justify-content:flex-end;}
+    .msg-row.unread .name{color:var(--red-deep);}
+    .msg-row.unread .snippet{color:var(--ink); font-weight:500;}
+    .msg-empty{padding:40px 24px; text-align:center; color:var(--gray); font-size:14px;}
+
+    /* Submission rows */
+    .sub-list{display:flex; flex-direction:column; gap:16px;}
+    .sub-card{background:var(--white); border:1px solid var(--line); padding:22px;}
+    .sub-head{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px; flex-wrap:wrap;}
+    .sub-head h3{font-size:18px;}
+    .sub-head .sub-meta{font-size:12.5px; color:var(--gray); margin-top:4px;}
+    .sub-body{display:grid; grid-template-columns:1fr 220px; gap:22px; align-items:start;}
+    .sub-body .desc{font-size:14px; line-height:1.6; color:#333; white-space:pre-wrap;}
+    .sub-body .assets{display:flex; flex-wrap:wrap; gap:8px;}
+    .sub-body .assets a, .sub-body .assets img{width:64px; height:64px; object-fit:cover; border:1px solid var(--line); background:var(--paper); display:flex; align-items:center; justify-content:center; color:var(--gray); font-size:18px;}
+    .sub-foot{margin-top:16px; padding-top:14px; border-top:1px solid var(--line); display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+    .sub-foot .spacer{flex:1;}
+
+    /* Empty / loading */
+    .empty{padding:60px 24px; text-align:center; color:var(--gray);}
+    .empty i{font-size:34px; margin-bottom:14px; color:#ccc;}
+    .empty h3{font-size:17px; color:var(--ink); margin-bottom:6px;}
+    .empty p{font-size:14px; margin-bottom:18px;}
+    .spinner{width:26px; height:26px; border:3px solid var(--line); border-top-color:var(--red); animation:spin .8s linear infinite; margin:0 auto 14px;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* Modal */
+    #modalBackdrop{position:fixed; inset:0; background:rgba(17,17,17,.55); z-index:900; display:none; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto;}
+    #modalBackdrop.show{display:flex;}
+    .modal{background:var(--white); width:100%; max-width:620px; border-top:4px solid var(--red); box-shadow:0 20px 60px rgba(0,0,0,.3);}
+    .modal-head{padding:22px 26px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:14px;}
+    .modal-head h3{font-size:19px;}
+    .modal-head .close{color:var(--gray); font-size:18px; padding:6px;}
+    .modal-head .close:hover{color:var(--ink);}
+    .modal-body{padding:24px 26px; display:flex; flex-direction:column; gap:16px;}
+    .field label{display:block; font-family:var(--display); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray); margin-bottom:7px;}
+    .field .hint{font-size:12px; color:var(--gray); margin-top:5px;}
+    .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+    .field-check{display:flex; align-items:center; gap:9px; font-size:14px;}
+    .field-check input{width:auto;}
+    .img-preview{margin-top:8px; max-width:200px; border:1px solid var(--line);}
+    .modal-foot{padding:18px 26px; border-top:1px solid var(--line); display:flex; gap:10px; justify-content:flex-end;}
+    .form-err{background:#fff5f5; border-left:3px solid var(--red-deep); padding:12px 14px; font-size:13.5px; color:var(--red-deep);}
+
+    /* Toast */
+    #toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:var(--white); padding:12px 22px; font-family:var(--display); font-weight:700; font-size:13.5px; z-index:1000; opacity:0; transition:opacity .25s, transform .25s; pointer-events:none;}
+    #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+    #toast.err{background:var(--red-deep);}
+
+    @media (max-width:800px){
+      #appView.show{grid-template-columns:1fr;}
+      .sidebar{height:auto; position:relative; flex-direction:column;}
+      .sidebar-bottom{border-top:1px solid #2a2a2a;}
+      .main{padding:24px 18px 60px;}
+      .msg-row{grid-template-columns:1fr; gap:6px; padding:14px;}
+      .msg-row .row-actions{justify-content:flex-start; margin-top:6px;}
+      .sub-body{grid-template-columns:1fr;}
+      .field-row{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="loginView">
+  <div class="login-card">
+    <img src="anubid.png" alt="Anubid Agency" class="logo">
+
+    <div id="loginStep1" class="login-step">
+      <h1>Admin sign-in</h1>
+      <p class="sub">Two factors required: a Google account matching <strong>ADMIN_EMAIL</strong>, plus the admin secret.</p>
+      <label>Admin secret</label>
+      <input type="password" id="secretInput" placeholder="Enter X-Admin-Secret value" autocomplete="off">
+      <label>Google account</label>
+      <button id="googleBtn" class="btn btn-dark" style="margin-top:4px;">
+        <i class="fa-brands fa-google"></i> Continue with Google
+      </button>
+      <p class="login-status" id="loginStatus1" role="status" aria-live="polite"></p>
+    </div>
+
+    <div id="loginStep2" class="login-step" hidden>
+      <h1>Confirm sign-in</h1>
+      <p class="sub">Signed in as <strong id="loginEmail"></strong>. Verifying with the server…</p>
+      <button id="verifyBtn" class="btn btn-primary"><i class="fa-solid fa-shield-halved"></i> Enter admin</button>
+      <p class="login-status" id="loginStatus2" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="appView">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">
+        <img src="anubid.png" alt="Anubid">
+        <a href="index.html" class="back" target="_blank" rel="noopener">view site <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:8px;">Manage</div>
+        <select id="sectionSelect" class="section-select" aria-label="Select a section">
+          <option value="messages">Messages</option>
+          <option value="submissions">Submissions</option>
+          <option value="services">Services</option>
+          <option value="portfolio">Portfolio</option>
+          <option value="plans">Plans</option>
+          <option value="posts">Blog posts</option>
+        </select>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <button data-section="messages"><i class="fa-solid fa-inbox"></i> Messages <span class="count" id="countMessages" hidden>0</span></button>
+        <button data-section="submissions"><i class="fa-solid fa-file-invoice"></i> Submissions <span class="count" id="countSubmissions" hidden>0</span></button>
+        <button data-section="services"><i class="fa-solid fa-briefcase"></i> Services</button>
+        <button data-section="portfolio"><i class="fa-solid fa-images"></i> Portfolio</button>
+        <button data-section="plans"><i class="fa-solid fa-tags"></i> Plans</button>
+        <button data-section="posts"><i class="fa-solid fa-pen-nib"></i> Blog posts</button>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="admin-chip">
+        <span class="avatar" id="avatarLetter">?</span>
+        <span id="adminEmail">—</span>
+      </div>
+      <button id="logoutBtn" class="btn"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="main-head">
+      <div>
+        <h2 id="sectionTitle">Messages</h2>
+        <p id="sectionSub">—</p>
+      </div>
+      <div class="actions" id="sectionActions"></div>
+    </div>
+    <div id="mainContent"></div>
+  </main>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 id="modalTitle">Edit</h3>
+      <button class="close" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="modalForm">
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" id="modalCancel">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="modalSubmit"><i class="fa-solid fa-check"></i> Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script type="module">
+/* =====================================================================
+   CONFIG — FILL THESE IN
+   =====================================================================
+   1) Firebase web app config. Get it from:
+      Firebase console → Project settings → Your apps → Web app.
+      It is public info; safe to hardcode in a static page.
+   2) Nothing else — the admin secret is entered at the login screen.
+*/
+const firebaseConfig = {
+  apiKey:            "REPLACE_WITH_API_KEY",
+  authDomain:        "REPLACE_WITH_PROJECT_ID.firebaseapp.com",
+  projectId:         "REPLACE_WITH_PROJECT_ID",
+  storageBucket:     "REPLACE_WITH_PROJECT_ID.appspot.com",
+  messagingSenderId: "REPLACE_WITH_SENDER_ID",
+  appId:             "REPLACE_WITH_APP_ID"
+};
+
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import {
+  getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
+
+/* =====================================================================
+   STATE + HELPERS
+   ===================================================================== */
+
+const API = '/admin'; // worker route prefix
+
+const state = {
+  adminSecret: sessionStorage.getItem('anubid_admin_secret') || '',
+  section: 'messages',
+  cache: {},
+  submitting: false,
+};
+
+const $ = (id) => document.getElementById(id);
+const escapeHtml = (s) =>
+  String(s ?? '').replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+
+function toast(msg, isErr = false) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.toggle('err', !!isErr);
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) +
+      ' · ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+  } catch { return iso; }
+}
+
+class AuthError extends Error {}
+
+/* =====================================================================
+   API WRAPPER — attaches both factors on every call
+   ===================================================================== */
+
+async function adminFetch(path, options = {}) {
+  const user = auth.currentUser;
+  if (!user) throw new AuthError('Not signed in');
+
+  const idToken = await user.getIdToken();
+  const headers = new Headers(options.headers || {});
+  headers.set('Authorization', 'Bearer ' + idToken);
+  headers.set('X-Admin-Secret', state.adminSecret);
+
+  // Set JSON content-type unless body is FormData.
+  if (options.body && !(options.body instanceof FormData) && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  const res = await fetch(API + path, { ...options, headers });
+  if (res.status === 401) throw new AuthError('Unauthorized');
+  return res;
+}
+
+async function apiGet(path) {
+  const res = await adminFetch(path);
+  if (!res.ok) throw new Error('GET ' + path + ' → ' + res.status);
+  return res.json();
+}
+async function apiJson(method, path, body) {
+  const res = await adminFetch(path, { method, body: JSON.stringify(body) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+  return data;
+}
+async function apiForm(method, path, formData) {
+  const res = await adminFetch(path, { method, body: formData });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+  return data;
+}
+async function apiDelete(path) {
+  const res = await adminFetch(path, { method: 'DELETE' });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || ('HTTP ' + res.status));
+  }
+  return res.json().catch(() => ({}));
+}
+
+/* =====================================================================
+   LOGIN FLOW
+   ===================================================================== */
+
+const loginView = $('loginView');
+const appView   = $('appView');
+const secretInput = $('secretInput');
+const loginStatus1 = $('loginStatus1');
+const loginStatus2 = $('loginStatus2');
+const googleBtn = $('googleBtn');
+const verifyBtn = $('verifyBtn');
+const loginStep1 = $('loginStep1');
+const loginStep2 = $('loginStep2');
+
+secretInput.value = state.adminSecret;
+
+googleBtn.addEventListener('click', async () => {
+  const secret = secretInput.value.trim();
+  loginStatus1.textContent = '';
+  loginStatus1.className = 'login-status';
+
+  if (!secret) {
+    loginStatus1.textContent = 'Enter the admin secret first.';
+    loginStatus1.classList.add('err');
+    return;
+  }
+
+  // Set the secret BEFORE signInWithPopup. onAuthStateChanged can fire as soon
+  // as Firebase updates auth.currentUser — which may happen before the await
+  // resolves. If the secret isn't set yet, the listener takes the
+  // "signed in but no secret" branch and drops back to step 1.
+  state.adminSecret = secret;
+
+  googleBtn.disabled = true;
+  googleBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Opening Google…';
+  try {
+    await signInWithPopup(auth, provider);
+    // onAuthStateChanged below handles the transition to step 2 / app.
+  } catch (e) {
+    console.error('signIn error', e);
+    state.adminSecret = '';  // don't leave a stale secret if sign-in failed
+    loginStatus1.textContent = e.message || 'Sign-in failed.';
+    loginStatus1.classList.add('err');
+  } finally {
+    googleBtn.disabled = false;
+    googleBtn.innerHTML = '<i class="fa-brands fa-google"></i> Continue with Google';
+  }
+});
+
+verifyBtn.addEventListener('click', async () => {
+  loginStatus2.textContent = '';
+  loginStatus2.className = 'login-status';
+  verifyBtn.disabled = true;
+  verifyBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying…';
+  try {
+    // Ping a cheap admin endpoint — verifies both factors server-side.
+    const res = await adminFetch('/messages?status=new');
+    if (!res.ok) throw new Error('Server rejected: ' + res.status);
+    sessionStorage.setItem('anubid_admin_secret', state.adminSecret);
+    enterApp();
+  } catch (e) {
+    console.error('verify failed', e);
+    if (e instanceof AuthError) {
+      loginStatus2.textContent = 'Server said no. Check that this Google account matches ADMIN_EMAIL and the secret is correct.';
+    } else {
+      loginStatus2.textContent = e.message || 'Could not verify.';
+    }
+    loginStatus2.classList.add('err');
+    await signOut(auth);
+  } finally {
+    verifyBtn.disabled = false;
+    verifyBtn.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Enter admin';
+  }
+});
+
+$('logoutBtn').addEventListener('click', async () => {
+  sessionStorage.removeItem('anubid_admin_secret');
+  state.adminSecret = '';
+  state.cache = {};
+  await signOut(auth);
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user && state.adminSecret) {
+    $('loginEmail').textContent = user.email || '(no email)';
+    loginStep1.hidden = true;
+    loginStep2.hidden = false;
+    $('avatarLetter').textContent = (user.email || '?')[0].toUpperCase();
+    $('adminEmail').textContent = user.email || '';
+  } else if (user && !state.adminSecret) {
+    // Signed into Google but no secret saved — go back to step 1.
+    loginStep1.hidden = false;
+    loginStep2.hidden = true;
+  } else {
+    loginStep1.hidden = false;
+    loginStep2.hidden = true;
+    appView.classList.remove('show');
+    loginView.style.display = '';
+  }
+});
+
+function enterApp() {
+  loginView.style.display = 'none';
+  appView.classList.add('show');
+  const user = auth.currentUser;
+  if (user) {
+    $('avatarLetter').textContent = (user.email || '?')[0].toUpperCase();
+    $('adminEmail').textContent = user.email || '';
+  }
+  navigate(state.section);
+}
+
+/* =====================================================================
+   NAV
+   ===================================================================== */
+
+const sectionMeta = {
+  messages:    { title: 'Messages',    sub: 'Quick contact form submissions from the public site.' },
+  submissions: { title: 'Submissions', sub: 'Project requests from signed-in users.' },
+  services:    { title: 'Services',    sub: 'Shown on the homepage services grid.' },
+  portfolio:   { title: 'Portfolio',   sub: 'Case studies shown on the homepage.' },
+  plans:       { title: 'Plans',       sub: 'Pricing cards on the homepage.' },
+  posts:       { title: 'Blog posts',  sub: 'Articles on the public blog.' },
+};
+
+function navigate(section) {
+  state.section = section;
+  $('sectionSelect').value = section;
+  document.querySelectorAll('#sidebarNav button').forEach(b =>
+    b.classList.toggle('active', b.dataset.section === section));
+  const meta = sectionMeta[section];
+  $('sectionTitle').textContent = meta.title;
+  $('sectionSub').textContent = meta.sub;
+  render(section);
+}
+
+$('sectionSelect').addEventListener('change', (e) => navigate(e.target.value));
+document.querySelectorAll('#sidebarNav button').forEach(b =>
+  b.addEventListener('click', () => navigate(b.dataset.section)));
+
+function render(section) {
+  if (section === 'messages')    return renderMessages();
+  if (section === 'submissions') return renderSubmissions();
+  if (section === 'services')    return renderContent('services');
+  if (section === 'portfolio')   return renderContent('portfolio');
+  if (section === 'plans')       return renderContent('plans');
+  if (section === 'posts')       return renderContent('posts');
+}
+
+function setActions(html) { $('sectionActions').innerHTML = html; }
+function setContent(html) { $('mainContent').innerHTML = html; }
+function showLoading(msg = 'Loading…') {
+  setContent(`<div class="empty"><div class="spinner"></div><p>${escapeHtml(msg)}</p></div>`);
+}
+
+/* =====================================================================
+   MESSAGES
+   ===================================================================== */
+
+async function renderMessages() {
+  setActions(`
+    <select id="msgFilter" aria-label="Filter by status">
+      <option value="">All statuses</option>
+      <option value="new">New</option>
+      <option value="read">Read</option>
+      <option value="archived">Archived</option>
+    </select>
+    <button class="btn btn-outline btn-sm refresh" id="msgRefresh"><i class="fa-solid fa-rotate"></i> Refresh</button>
+  `);
+  $('msgFilter').addEventListener('change', renderMessages);
+  $('msgRefresh').addEventListener('click', renderMessages);
+
+  showLoading('Loading messages…');
+  const filter = $('msgFilter') ? $('msgFilter').value : '';
+  const qs = filter ? '?status=' + encodeURIComponent(filter) : '';
+
+  let items;
+  try {
+    const data = await apiGet('/messages' + qs);
+    items = data.items || [];
+  } catch (e) {
+    if (e instanceof AuthError) return handleAuthKick();
+    setContent(`<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Couldn't load messages</h3><p>${escapeHtml(e.message)}</p></div>`);
+    return;
+  }
+
+  updateCount('messages', filter ? null : items.filter(m => m.status === 'new').length);
+
+  if (items.length === 0) {
+    setContent(`<div class="empty"><i class="fa-regular fa-envelope-open"></i><h3>No messages</h3><p>Nothing in this view yet.</p></div>`);
+    return;
+  }
+
+  const rows = items.map(m => `
+    <div class="msg-row ${m.status === 'new' ? 'unread' : ''}" data-id="${escapeHtml(m.id)}">
+      <div class="name">${escapeHtml(m.name || '—')}</div>
+      <div>${escapeHtml(m.email || '—')}</div>
+      <div class="snippet">${escapeHtml((m.message || '').slice(0, 120))}</div>
+      <div><span class="badge ${escapeHtml(m.status || 'new')}">${escapeHtml(m.status || 'new')}</span></div>
+      <div class="date">${escapeHtml(fmtDate(m.createdAt))}</div>
+      <div class="row-actions">
+        <button class="btn btn-ghost" data-act="open" title="Open"><i class="fa-solid fa-eye"></i></button>
+        <button class="btn btn-ghost" data-act="archive" title="Archive"><i class="fa-solid fa-box-archive"></i></button>
+      </div>
+    </div>
+  `).join('');
+
+  setContent(`<div class="msg-list">${rows}</div>`);
+
+  document.querySelectorAll('.msg-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      const id = row.dataset.id;
+      const act = e.target.closest('[data-act]')?.dataset.act;
+      const item = items.find(x => x.id === id);
+      if (!item) return;
+      if (act === 'archive') return patchMessage(id, 'archived');
+      openMessageModal(item);
+    });
+  });
+}
+
+function openMessageModal(m) {
+  const body = `
+    <div><strong>From:</strong> ${escapeHtml(m.name || '—')} &lt;${escapeHtml(m.email || '—')}&gt;</div>
+    <div><strong>Received:</strong> ${escapeHtml(fmtDate(m.createdAt))}</div>
+    <div style="margin-top:12px; padding:16px; background:var(--paper); border-left:3px solid var(--red); white-space:pre-wrap; font-size:14px; line-height:1.6;">${escapeHtml(m.message || '')}</div>
+  `;
+  openModal({
+    title: 'Message',
+    bodyHtml: body,
+    submitLabel: 'Mark as read',
+    onSubmit: async () => {
+      if (m.status !== 'read') await patchMessage(m.id, 'read');
+      closeModal();
+    },
+    extraFoot: `<a class="btn btn-outline" href="mailto:${escapeHtml(m.email)}?subject=Re:%20your%20Anubid%20message" target="_blank" rel="noopener"><i class="fa-solid fa-reply"></i> Reply</a>`
+  });
+}
+
+async function patchMessage(id, status) {
+  try {
+    await apiJson('PATCH', '/messages/' + encodeURIComponent(id), { status });
+    toast('Marked as ' + status);
+    renderMessages();
+  } catch (e) {
+    if (e instanceof AuthError) return handleAuthKick();
+    toast(e.message || 'Update failed', true);
+  }
+}
+
+/* =====================================================================
+   SUBMISSIONS
+   ===================================================================== */
+
+async function renderSubmissions() {
+  setActions(`
+    <select id="subFilter" aria-label="Filter by review status">
+      <option value="">All</option>
+      <option value="new">New</option>
+      <option value="reviewed">Reviewed</option>
+      <option value="archived">Archived</option>
+    </select>
+    <button class="btn btn-outline btn-sm refresh" id="subRefresh"><i class="fa-solid fa-rotate"></i> Refresh</button>
+  `);
+  $('subFilter').addEventListener('change', renderSubmissions);
+  $('subRefresh').addEventListener('click', renderSubmissions);
+
+  showLoading('Loading submissions…');
+  const filter = $('subFilter') ? $('subFilter').value : '';
+  const qs = filter ? '?reviewStatus=' + encodeURIComponent(filter) : '';
+
+  let items;
+  try {
+    const data = await apiGet('/submissions' + qs);
+    items = data.items || [];
+  } catch (e) {
+    if (e instanceof AuthError) return handleAuthKick();
+    setContent(`<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Couldn't load submissions</h3><p>${escapeHtml(e.message)}</p></div>`);
+    return;
+  }
+
+  if (!filter) {
+    updateCount('submissions', items.filter(s => !s.reviewStatus || s.reviewStatus === 'new').length);
+  }
+
+  if (items.length === 0) {
+    setContent(`<div class="empty"><i class="fa-regular fa-folder-open"></i><h3>No submissions</h3><p>Nothing in this view yet.</p></div>`);
+    return;
+  }
+
+  const cards = items.map(s => {
+    const images = Array.isArray(s.imageUrls) ? s.imageUrls : [];
+    return `
+      <div class="sub-card">
+        <div class="sub-head">
+          <div>
+            <h3>${escapeHtml(s.businessType || 'Untitled project')}</h3>
+            <div class="sub-meta">
+              ${escapeHtml(fmtDate(s.createdAt))} · UID ${escapeHtml((s.uid || '').slice(0, 8))}…
+              ${s.location ? ' · ' + Number(s.location.lat).toFixed(4) + ', ' + Number(s.location.lng).toFixed(4) : ''}
+            </div>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <span class="badge ${escapeHtml(s.status || 'clean')}">${escapeHtml(s.status || 'clean')}</span>
+            <span class="badge ${escapeHtml(s.reviewStatus || 'new')}">${escapeHtml(s.reviewStatus || 'new')}</span>
+          </div>
+        </div>
+        <div class="sub-body">
+          <div>
+            <div class="desc">${escapeHtml(s.description || '')}</div>
+          </div>
+          <div>
+            <div class="assets">
+              ${s.pdfUrl ? `<a href="${escapeHtml(s.pdfUrl)}" target="_blank" rel="noopener" title="Open PDF"><i class="fa-solid fa-file-pdf"></i></a>` : ''}
+              ${images.map(u => `<a href="${escapeHtml(u)}" target="_blank" rel="noopener"><img src="${escapeHtml(u)}" alt="" loading="lazy"></a>`).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="sub-foot">
+          <button class="btn btn-outline btn-sm" data-act="reviewed"><i class="fa-solid fa-check"></i> Mark reviewed</button>
+          <button class="btn btn-outline btn-sm" data-act="archived"><i class="fa-solid fa-box-archive"></i> Archive</button>
+          ${s.pdfUrl ? `<a class="btn btn-outline btn-sm" href="${escapeHtml(s.pdfUrl)}" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a>` : ''}
+          <span class="spacer"></span>
+          ${s.location ? `<a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="https://maps.google.com/?q=${Number(s.location.lat)},${Number(s.location.lng)}"><i class="fa-solid fa-map-location-dot"></i> Map</a>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  setContent(`<div class="sub-list">${cards}</div>`);
+
+  document.querySelectorAll('.sub-card').forEach((card, i) => {
+    const s = items[i];
+    card.querySelectorAll('[data-act]').forEach(btn => {
+      btn.addEventListener('click', () => patchSubmission(s.id, btn.dataset.act));
+    });
+  });
+}
+
+async function patchSubmission(id, reviewStatus) {
+  try {
+    await apiJson('PATCH', '/submissions/' + encodeURIComponent(id), { reviewStatus });
+    toast('Marked as ' + reviewStatus);
+    renderSubmissions();
+  } catch (e) {
+    if (e instanceof AuthError) return handleAuthKick();
+    toast(e.message || 'Update failed', true);
+  }
+}
+
+/* =====================================================================
+   CONTENT CRUD — services / portfolio / plans / posts
+   ===================================================================== */
+
+const CONTENT_CFG = {
+  services: {
+    singular: 'service',
+    hasOrder: true,
+    imageRequired: true,
+    fields: [
+      { key: 'title',       label: 'Title',       type: 'text',     required: true },
+      { key: 'tag',         label: 'Small tag',   type: 'text',     hint: 'Red label above the title, e.g. "Built from scratch".' },
+      { key: 'description', label: 'Description', type: 'textarea', required: true },
+      { key: 'order',       label: 'Order',       type: 'number',   hint: 'Lower numbers appear first.' },
+    ],
+  },
+  portfolio: {
+    singular: 'case study',
+    hasOrder: true,
+    imageRequired: true,
+    fields: [
+      { key: 'title',       label: 'Project name', type: 'text',     required: true },
+      { key: 'tag',         label: 'Small tag',    type: 'text',     hint: 'e.g. "Electrical, solar & security".' },
+      { key: 'description', label: 'Description',  type: 'textarea', required: true },
+      { key: 'link',        label: 'External link',type: 'url',      hint: 'Where the "Visit site" button points.' },
+      { key: 'order',       label: 'Order',        type: 'number' },
+    ],
+  },
+  plans: {
+    singular: 'plan',
+    hasOrder: true,
+    imageRequired: true,
+    fields: [
+      { key: 'title',       label: 'Plan name',   type: 'text',     required: true, hint: 'e.g. "Starter", "Business".' },
+      { key: 'price',       label: 'Price',       type: 'text',     hint: 'Shown on the card, e.g. "200,000 UGX".' },
+      { key: 'description', label: 'Description', type: 'textarea', hint: 'Fallback text if no price is set.' },
+      { key: 'features',    label: 'Features',    type: 'list',     hint: 'One feature per line.' },
+      { key: 'featured',    label: 'Highlight this plan', type: 'checkbox' },
+      { key: 'order',       label: 'Order',       type: 'number' },
+    ],
+  },
+  posts: {
+    singular: 'post',
+    imageRequired: true,
+    fields: [
+      { key: 'title',       label: 'Title',       type: 'text',     required: true },
+      { key: 'body',        label: 'Body',        type: 'textarea', required: true, tall: true, hint: 'Plain text. Blank lines become paragraph breaks on the blog.' },
+      { key: 'publishedAt', label: 'Publish',     type: 'select',   options: [
+        { value: '',      label: 'Draft (not published)' },
+        { value: 'now',   label: 'Publish now' },
+      ]},
+    ],
+  },
+};
+
+async function renderContent(collection) {
+  const cfg = CONTENT_CFG[collection];
+  setActions(`
+    <button class="btn btn-primary btn-sm" id="newBtn"><i class="fa-solid fa-plus"></i> New ${escapeHtml(cfg.singular)}</button>
+    <button class="btn btn-outline btn-sm refresh" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+  `);
+  $('newBtn').addEventListener('click', () => openEditor(collection, null));
+  $('refreshBtn').addEventListener('click', () => renderContent(collection));
+
+  showLoading(`Loading ${collection}…`);
+
+  let items;
+  try {
+    const data = await apiGet('/' + collection);
+    items = data.items || [];
+  } catch (e) {
+    if (e instanceof AuthError) return handleAuthKick();
+    setContent(`<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h3>Couldn't load ${escapeHtml(collection)}</h3><p>${escapeHtml(e.message)}</p></div>`);
+    return;
+  }
+  state.cache[collection] = items;
+
+  if (items.length === 0) {
+    setContent(`<div class="empty"><i class="fa-regular fa-square-plus"></i><h3>No ${escapeHtml(collection)} yet</h3><p>Create your first one to see it on the public site.</p><button class="btn btn-primary" id="emptyNewBtn"><i class="fa-solid fa-plus"></i> New ${escapeHtml(cfg.singular)}</button></div>`);
+    $('emptyNewBtn').addEventListener('click', () => openEditor(collection, null));
+    return;
+  }
+
+  const cards = items.map(it => {
+    const draft = collection === 'posts' && (!it.publishedAt || new Date(it.publishedAt) > new Date());
+    return `
+      <div class="card" data-id="${escapeHtml(it.id)}">
+        <div class="thumb">
+          ${it.imageUrl ? `<img src="${escapeHtml(it.imageUrl)}" alt="" loading="lazy">` : ''}
+        </div>
+        <div class="body">
+          <span class="meta">${cfg.hasOrder ? 'Order ' + (it.order ?? '—') : (collection === 'posts' ? (draft ? 'Draft' : 'Published') : '')}</span>
+          <h3>${escapeHtml(it.title || '(untitled)')}</h3>
+          <p>${escapeHtml((it.description || it.body || '').slice(0, 140))}</p>
+        </div>
+        <div class="foot">
+          <button class="btn btn-ghost" data-act="edit"><i class="fa-solid fa-pen"></i> Edit</button>
+          <span class="spacer"></span>
+          <button class="btn btn-ghost" data-act="delete" title="Delete"><i class="fa-solid fa-trash" style="color:var(--red-deep)"></i></button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  setContent(`<div class="list">${cards}</div>`);
+
+  document.querySelectorAll('.card').forEach((card, i) => {
+    const it = items[i];
+    card.querySelector('[data-act="edit"]').addEventListener('click', () => openEditor(collection, it));
+    card.querySelector('[data-act="delete"]').addEventListener('click', async () => {
+      if (!confirm('Delete "' + (it.title || 'this item') + '"? This cannot be undone.')) return;
+      try {
+        await apiDelete('/' + collection + '/' + encodeURIComponent(it.id));
+        toast('Deleted');
+        renderContent(collection);
+      } catch (e) {
+        if (e instanceof AuthError) return handleAuthKick();
+        toast(e.message || 'Delete failed', true);
+      }
+    });
+  });
+}
+
+function fieldHtml(f, value) {
+  const v = value ?? '';
+  if (f.type === 'textarea') {
+    return `<div class="field"><label>${escapeHtml(f.label)}${f.required ? ' *' : ''}</label>
+      <textarea name="${f.key}" ${f.required ? 'required' : ''} style="${f.tall ? 'min-height:220px;' : ''}">${escapeHtml(v)}</textarea>
+      ${f.hint ? `<div class="hint">${escapeHtml(f.hint)}</div>` : ''}</div>`;
+  }
+  if (f.type === 'checkbox') {
+    return `<div class="field"><label class="field-check"><input type="checkbox" name="${f.key}" ${v ? 'checked' : ''}> ${escapeHtml(f.label)}</label>
+      ${f.hint ? `<div class="hint">${escapeHtml(f.hint)}</div>` : ''}</div>`;
+  }
+  if (f.type === 'select') {
+    const opts = f.options.map(o => `<option value="${escapeHtml(o.value)}" ${v === o.value ? 'selected' : ''}>${escapeHtml(o.label)}</option>`).join('');
+    return `<div class="field"><label>${escapeHtml(f.label)}</label><select name="${f.key}">${opts}</select>
+      ${f.hint ? `<div class="hint">${escapeHtml(f.hint)}</div>` : ''}</div>`;
+  }
+  if (f.type === 'list') {
+    // Array of strings, one per line
+    const arr = Array.isArray(v) ? v : [];
+    return `<div class="field"><label>${escapeHtml(f.label)}</label>
+      <textarea name="${f.key}" placeholder="One per line">${escapeHtml(arr.join('\n'))}</textarea>
+      ${f.hint ? `<div class="hint">${escapeHtml(f.hint)}</div>` : ''}</div>`;
+  }
+  const typeMap = { text: 'text', url: 'url', number: 'number' };
+  return `<div class="field"><label>${escapeHtml(f.label)}${f.required ? ' *' : ''}</label>
+    <input type="${typeMap[f.type] || 'text'}" name="${f.key}" value="${escapeHtml(v)}" ${f.required ? 'required' : ''}>
+    ${f.hint ? `<div class="hint">${escapeHtml(f.hint)}</div>` : ''}</div>`;
+}
+
+function openEditor(collection, item) {
+  const cfg = CONTENT_CFG[collection];
+  const isEdit = !!item;
+  const v = item || {};
+
+  // Build field rows — pair numeric fields where possible
+  const normalFields = cfg.fields.filter(f => f.type !== 'number' && f.type !== 'checkbox');
+  const tailFields   = cfg.fields.filter(f => f.type === 'number' || f.type === 'checkbox');
+
+  const bodyHtml = `
+    ${normalFields.map(f => {
+      if (f.key === 'publishedAt' && isEdit) {
+        // Show current publish state
+        const current = v.publishedAt
+          ? 'Currently published: ' + fmtDate(v.publishedAt)
+          : 'Currently a draft.';
+        return fieldHtml(f, '').replace(
+          '<div class="field">',
+          `<div class="field"><div class="hint" style="margin-bottom:8px;">${escapeHtml(current)}</div>`
+        );
+      }
+      return fieldHtml(f, v[f.key]);
+    }).join('')}
+
+    <div class="field-row">
+      ${tailFields.map(f => fieldHtml(f, v[f.key])).join('')}
+    </div>
+
+    <div class="field">
+      <label>Image ${cfg.imageRequired && !isEdit ? '*' : ''}</label>
+      <input type="file" name="image" accept="image/*">
+      ${v.imageUrl ? `<img class="img-preview" src="${escapeHtml(v.imageUrl)}" alt="Current image">` : ''}
+      <div class="hint">${isEdit ? 'Leave empty to keep the current image.' : 'Required.'}</div>
+    </div>
+
+    <div class="form-err" id="formErr" hidden></div>
+  `;
+
+  openModal({
+    title: (isEdit ? 'Edit ' : 'New ') + cfg.singular,
+    bodyHtml,
+    submitLabel: isEdit ? 'Save changes' : 'Create',
+    onSubmit: async (form) => {
+      const errEl = $('formErr');
+      errEl.hidden = true;
+
+      const fd = new FormData();
+
+      for (const f of cfg.fields) {
+        if (f.type === 'checkbox') {
+          fd.append(f.key, form[f.key].checked ? 'true' : 'false');
+          continue;
+        }
+        if (f.key === 'publishedAt') {
+          const raw = form[f.key].value;
+          if (raw === 'now') fd.append('publishedAt', new Date().toISOString());
+          else if (!isEdit) fd.append('publishedAt', ''); // null on create
+          // On edit with raw === '', omit so the field is untouched per the worker spec
+          continue;
+        }
+        if (f.type === 'list') {
+          const arr = form[f.key].value.split('\n').map(s => s.trim()).filter(Boolean);
+          fd.append(f.key, JSON.stringify(arr));
+          continue;
+        }
+        const val = form[f.key].value;
+        if (val !== '' || f.required) fd.append(f.key, val);
+      }
+
+      const imageInput = form.image;
+      if (imageInput && imageInput.files && imageInput.files[0]) {
+        fd.append('image', imageInput.files[0]);
+      }
+
+      try {
+        if (isEdit) {
+          await apiForm('PATCH', '/' + collection + '/' + encodeURIComponent(item.id), fd);
+          toast('Saved');
+        } else {
+          await apiForm('POST', '/' + collection, fd);
+          toast('Created');
+        }
+        closeModal();
+        renderContent(collection);
+      } catch (e) {
+        if (e instanceof AuthError) return handleAuthKick();
+        errEl.textContent = e.message || 'Save failed.';
+        errEl.hidden = false;
+      }
+    },
+  });
+}
+
+/* =====================================================================
+   MODAL + TOAST
+   ===================================================================== */
+
+const modalBackdrop = $('modalBackdrop');
+const modalTitle = $('modalTitle');
+const modalBody = $('modalBody');
+const modalForm = $('modalForm');
+const modalSubmit = $('modalSubmit');
+let modalOnSubmit = null;
+
+function openModal({ title, bodyHtml, submitLabel, onSubmit, extraFoot }) {
+  modalTitle.textContent = title;
+  modalBody.innerHTML = bodyHtml;
+  modalOnSubmit = onSubmit;
+  modalSubmit.innerHTML = `<i class="fa-solid fa-check"></i> ${escapeHtml(submitLabel || 'Save')}`;
+  const foot = modalForm.querySelector('.modal-foot');
+
+  // Remove any previous extra buttons. The `.extra` class must be on the
+  // element we actually insert (not on a throwaway wrapper), otherwise the
+  // query below finds nothing and old buttons stack up.
+  foot.querySelectorAll('.extra').forEach(n => n.remove());
+
+  if (extraFoot) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = extraFoot;
+    const node = wrapper.firstElementChild;
+    if (node) {
+      node.classList.add('extra');
+      foot.insertBefore(node, foot.firstElementChild);
+    }
+  }
+
+  modalBackdrop.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    const first = modalBody.querySelector('input, textarea, select');
+    if (first) first.focus();
+  }, 40);
+}
+
+function closeModal() {
+  modalBackdrop.classList.remove('show');
+  modalBody.innerHTML = '';
+  modalOnSubmit = null;
+  document.body.style.overflow = '';
+}
+
+$('modalClose').addEventListener('click', closeModal);
+$('modalCancel').addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', (e) => {
+  if (e.target === modalBackdrop) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modalBackdrop.classList.contains('show')) closeModal();
+});
+
+modalForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (state.submitting) return;
+  if (!modalOnSubmit) return;
+  state.submitting = true;
+  modalSubmit.disabled = true;
+  const original = modalSubmit.innerHTML;
+  modalSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving…';
+  try {
+    await modalOnSubmit(e.target.elements);
+  } finally {
+    state.submitting = false;
+    modalSubmit.disabled = false;
+    modalSubmit.innerHTML = original;
+  }
+});
+
+/* =====================================================================
+   UTILITIES
+   ===================================================================== */
+
+function updateCount(section, n) {
+  const el = $('count' + section.charAt(0).toUpperCase() + section.slice(1));
+  if (!el) return;
+  if (n == null || n === 0) { el.hidden = true; return; }
+  el.hidden = false;
+  el.textContent = n;
+}
+
+function handleAuthKick() {
+  toast('Session expired — please sign in again.', true);
+  sessionStorage.removeItem('anubid_admin_secret');
+  state.adminSecret = '';
+  setTimeout(() => signOut(auth), 800);
+}
+</script>
+</body>
+</html>
