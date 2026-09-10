@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -104,49 +104,6 @@
     h2 { font-size: 2.2rem; }
     h3 { font-size: 1.7rem; }
     h4 { font-size: 1.3rem; }
-    
-    /* LOADING SCREEN (cool animation) */
-    #loader {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: #111;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.5s;
-    }
-    #loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .loader-bars {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .bar {
-      width: 12px;
-      height: 50px;
-      background: #ed1717;
-      animation: bounce 1.2s infinite ease-in-out;
-    }
-    .bar:nth-child(1) { background:#ed1717; animation-delay: 0; }
-    .bar:nth-child(2) { background:#f5f4f1; animation-delay: 0.2s; }
-    .bar:nth-child(3) { background:#ed1717; animation-delay: 0.4s; }
-    .bar:nth-child(4) { background:#f5f4f1; animation-delay: 0.6s; }
-    .bar:nth-child(5) { background:#ed1717; animation-delay: 0.8s; }
-    @keyframes bounce {
-      0%, 100% { transform: scaleY(0.3); opacity: 0.6; }
-      50% { transform: scaleY(1.2); opacity: 1; }
-    }
-    #loaderText {
-      color: white;
-      font-family: var(--display);
-      font-size: 1.3rem;
-      letter-spacing: 2px;
-    }
 
     /* Header */
     header{position:sticky; top:0; z-index:300; background:var(--ink); border-bottom:2px solid var(--ink);}
@@ -334,14 +291,6 @@
 </head>
 <body>
 
-  <!-- LOADING SCREEN -->
-  <div id="loader">
-    <div class="loader-bars">
-      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-    </div>
-    <div id="loaderText">loading...</div>
-  </div>
-
   <noscript>
     <div>
       <p>Anubid Agency's website needs JavaScript switched on to work properly. Please enable JavaScript in your browser settings and reload the page.</p>
@@ -395,7 +344,7 @@
       <div class="sticky-wrapper">
         <div class="image-track" id="imageTrack">
           <div class="image-card">
-            <img src="mar.jpg" alt="Anubid Agency work showcase">
+            <img src="mar.jpg" alt="Anubid Agency work showcase" loading="lazy">
             <div class="slide-caption">
               <span class="step-label">Client work</span>
               <h3>Every build starts with the brand</h3>
@@ -403,7 +352,7 @@
             </div>
           </div>
           <div class="image-card">
-            <img src="mar1.jpg" alt="Anubid Agency work showcase">
+            <img src="mar1.jpg" alt="Anubid Agency work showcase" loading="lazy">
             <div class="slide-caption">
               <span class="step-label">Responsive by default</span>
               <h3>Built to work on any screen</h3>
@@ -411,7 +360,7 @@
             </div>
           </div>
           <div class="image-card">
-            <img src="mar2.jpg" alt="Anubid Agency work showcase">
+            <img src="mar2.jpg" alt="Anubid Agency work showcase" loading="lazy">
             <div class="slide-caption">
               <span class="step-label">Fast by default</span>
               <h3>Hosting and speed handled for you</h3>
@@ -419,7 +368,7 @@
             </div>
           </div>
           <div class="image-card">
-            <img src="mar3.jpg" alt="Anubid Agency work showcase">
+            <img src="mar3.jpg" alt="Anubid Agency work showcase" loading="lazy">
             <div class="slide-caption blur-bg">
               <span class="step-label">Ongoing support</span>
               <h3>We stay on after launch</h3>
@@ -439,19 +388,19 @@
       </div>
       <div class="services-grid" id="servicesGrid">
         <div class="service-card">
-          <img src="website.svg" alt="Website development illustration">
+          <img src="website.svg" alt="Website development illustration" loading="lazy">
           <span class="service-tag">Built from scratch, not a template</span>
           <h3>Website Development</h3>
           <p>A responsive site built from scratch, customized to your brand, and ready to work on any device.</p>
         </div>
         <div class="service-card">
-          <img src="SEO.svg" alt="SEO illustration">
+          <img src="SEO.svg" alt="SEO illustration" loading="lazy">
           <span class="service-tag">Built to be found</span>
           <h3>SEO That Gets You Found</h3>
           <p>On-page optimization, clean structure, and keyword targeting so the right people find you first.</p>
         </div>
         <div class="service-card">
-          <img src="hosting.svg" alt="Hosting illustration">
+          <img src="hosting.svg" alt="Hosting illustration" loading="lazy">
           <span class="service-tag">Fast, secure, always on</span>
           <h3>Hosting &amp; Speed</h3>
           <p>Fast, secure hosting with HTTPS and a CDN by default — your site loads smoothly wherever visitors are.</p>
@@ -575,14 +524,14 @@
           <p>The tools and platforms we build on every day to keep your website fast, secure, and reliable.</p>
         </div>
         <div class="logo-grid">
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
-          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
+          <div class="logo-card"><img class="logo-img" src="" alt="Platform Logo" loading="lazy"></div>
         </div>
       </div>
     </section>
@@ -609,12 +558,12 @@
           <p>We're building this agency's reputation on quality, affordable work — and every certificate below backs that up.</p>
           <div class="cert-strip">
             <div class="cert-card">
-              <img src="cer1.jpg" alt="IBM Introduction to HTML, CSS and JavaScript certificate">
+              <img src="cer1.jpg" alt="IBM Introduction to HTML, CSS and JavaScript certificate" loading="lazy">
               <span class="cert-name">IBM — Introduction to HTML, CSS &amp; JavaScript</span>
               <span class="cert-desc">Covers the core structure, styling, and scripting fundamentals every website is built on. This is the foundation we apply on every project — clean markup, maintainable CSS, and JavaScript that doesn't break on other devices.</span>
             </div>
             <div class="cert-card">
-              <img src="cer2.jpg" alt="Boost Your Brand's SEO Visibility certificate">
+              <img src="cer2.jpg" alt="Boost Your Brand's SEO Visibility certificate" loading="lazy">
               <span class="cert-name">Boost Your Brand's SEO Visibility</span>
               <span class="cert-desc">Focused on on-page optimization, keyword structure, and getting a business found in search results. We apply this directly to the SEO setup included in every plan, from Starter through Enterprise.</span>
             </div>
@@ -642,7 +591,7 @@
         <p>Get a free quote today — no pressure, just a straight answer on what your business needs.</p>
         <div class="cta-actions">
           <a href="https://wa.me/256741172176" class="btn btn-dark"><i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp</a>
-          <a href="mailto:quote@anubid.site" class="btn btn-outline-white"><i class="fa-solid fa-envelope"></i> Email us</a>
+          <a href="/cdn-cgi/l/email-protection#5f2e2a302b3a1f3e312a3d363b712c362b3a" class="btn btn-outline-white"><i class="fa-solid fa-envelope"></i> Email us</a>
         </div>
       </div>
     </section>
@@ -653,7 +602,7 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="anubid.png" alt="Anubid Agency">
+          <img src="anubid.png" alt="Anubid Agency" loading="lazy">
           <p>Anubid Agency builds responsive, SEO-ready websites for businesses that want a stronger, more affordable presence online.</p>
         </div>
         <div class="footer-col">
@@ -672,8 +621,8 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <a href="tel:+256741172176"><i class="fa-solid fa-phone"></i> 0741 172 176</a>
-          <a href="mailto:support@anubid.site"><i class="fa-solid fa-envelope"></i> support@anubid.site</a>
-          <a href="mailto:quote@anubid.site"><i class="fa-solid fa-file-invoice"></i> quote@anubid.site</a>
+          <a href="/cdn-cgi/l/email-protection#3e4d4b4e4e514c4a7e5f504b5c575a104d574a5b"><i class="fa-solid fa-envelope"></i> <span class="__cf_email__" data-cfemail="6e1d1b1e1e011c1a2e0f001b0c070a401d071a0b">[email&#160;protected]</span></a>
+          <a href="/cdn-cgi/l/email-protection#deafabb1aabb9ebfb0abbcb7baf0adb7aabb"><i class="fa-solid fa-file-invoice"></i> <span class="__cf_email__" data-cfemail="6e1f1b011a0b2e0f001b0c070a401d071a0b">[email&#160;protected]</span></a>
           <a href="terms-policy.html">Terms &amp; Privacy Policy</a>
         </div>
       </div>
@@ -694,7 +643,7 @@
   <!-- COOKIE CONSENT -->
   <div id="cookieBanner" role="region" aria-label="Cookie consent">
     <div class="cookie-inner">
-      <img src="cookie.jpg" alt="cookie icon" id="cookieImg">
+      <img src="cookie.jpg" alt="cookie icon" id="cookieImg" loading="lazy">
       <p class="cookie-text">
         We use essential cookies to keep this site running smoothly. With your consent, we'll also remember basic preferences between visits. Read more in our <a href="terms-policy.html">Terms &amp; Privacy Policy</a>.
       </p>
@@ -705,7 +654,7 @@
     </div>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // Mobile nav toggle
@@ -767,40 +716,6 @@
     document.getElementById('cookieReject').addEventListener('click', () => {
       localStorage.setItem('anubid_cookie_consent', 'rejected');
       cookieBanner.classList.remove('show');
-    });
-
-    // LOADER: hide after all critical images loaded
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('loader');
-      const loaderText = document.getElementById('loaderText');
-      let imgCount = document.images.length;
-      let loadedCount = 0;
-      if (imgCount === 0) {
-        loader.classList.add('hidden');
-        return;
-      }
-      function checkFinish() {
-        loadedCount++;
-        if (loadedCount >= imgCount) {
-          loader.classList.add('hidden');
-        } else {
-          if (loadedCount === 1) loaderText.textContent = 'loading...';
-          else if (loadedCount === 2 && imgCount > 3) loaderText.textContent = 'almost there...';
-          else if (loadedCount > 2 && loadedCount < imgCount) loaderText.textContent = 'few seconds to go...';
-        }
-      }
-      Array.from(document.images).forEach(img => {
-        if (img.complete) checkFinish();
-        else {
-          img.addEventListener('load', checkFinish);
-          img.addEventListener('error', checkFinish);
-        }
-      });
-      setTimeout(() => {
-        if (!loader.classList.contains('hidden')) {
-          loaderText.textContent = 'few seconds to go...';
-        }
-      }, 3000);
     });
 
     /* ===== ROTATING "TRUSTED PLATFORMS" LOGOS ===== */
